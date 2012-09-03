@@ -1,0 +1,3 @@
+## DigitaleLagekarte
+
+Ein Plugin für Stud.IP, um pro Veranstaltung bzw. Übung/Einsatz eine Lagekarte zu führen. Das Projekt wird von Rasmus Fuhse entwickelt für das Technische Hilfswerk Fachgruppe Führung und Kommunikation. Ziel ist es, einen transportablen Server mit Stud.IP im Einsatz zu haben, auf dem eine digitale Lagekarte des Schadensgebietes mithilfe eines offline OpenStreetMap-Mirrors geführt werden kann.

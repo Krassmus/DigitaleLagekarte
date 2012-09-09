@@ -2,4 +2,24 @@
 
 class Lagekarte extends SimpleORMap {
     protected $db_table = "katip_lagekarte";
+    
+    static public function getCurrent($seminar_id) {
+        $db = DBManager::get();
+        $map_id = $db->query(
+            "SELECT map_id " .
+            "FROM `katip_lagekarte` " .
+            "WHERE seminar_id = ".$db->quote($seminar_id)." " .
+            "ORDER BY mkdate DESC " .
+        "")->fetch(PDO::FETCH_COLUMN, 0);
+        return new Lagekarte($map_id ? $map_id : null);
+    }
+    
+    static public function copyFrom($old_map) {
+        $map = new Lagekarte();
+        $map['longitude'] = $old_map['longitude'];
+        $map['latitude'] = $old_map['latitude'];
+        $map['zoom'] = $old_map['zoom'];
+        $map['seminar_id'] = $old_map['seminar_id'];
+        return $map;
+    }
 }

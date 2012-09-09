@@ -1,5 +1,7 @@
 <?php
 
+require_once(dirname(__file__)."/lib/Lagekarte.class.php");
+
 class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
     
     protected function getDisplayName() {
@@ -25,8 +27,57 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
     
     public function show_action() {
         PageLayout::addHeadElement("script", array('src' => $this->getPluginURL()."/assets/OpenLayers/OpenLayers.js"), "");
-        $template = $this->getTemplate("lagekarte.php");
+        PageLayout::addHeadElement("script", array('src' => $this->getPluginURL()."/assets/application.js"), "");
+        
+        $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        if ($map->isNew()) {
+            $map['seminar_id'] = $_SESSION['SessionSeminar'];
+            $map['latitude'] = 53.152692;
+            $map['longitude'] = 8.187937;
+            $map['zoom'] = 17;
+            $map['user_id'] = "";
+            $map->store();
+        }
+        
+        $template = $this->getTemplate("lagekarte.php", "with_infobox");
+        $template->set_attribute("map", $map);
+        $template->set_attribute("plugin", $this);
         echo $template->render();
+    }
+    
+    public function edit_map_action() {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
+            throw new AccessDeniedException("Kein Zugriff");
+        }
+        Navigation::activateItem("/course/lagekarte");
+        PageLayout::addHeadElement("script", array('src' => $this->getPluginURL()."/assets/OpenLayers/OpenLayers.js"), "");
+        PageLayout::addHeadElement("script", array('src' => $this->getPluginURL()."/assets/application.js"), "");
+        
+        $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        if ($map->isNew()) {
+            $map['seminar_id'] = $_SESSION['SessionSeminar'];
+            $map['latitude'] = 53.152692;
+            $map['longitude'] = 8.187937;
+            $map['zoom'] = 17;
+            $map->store();
+        }
+        
+        $template = $this->getTemplate("lagekarte_edit.php", "with_infobox");
+        $template->set_attribute("map", $map);
+        $template->set_attribute("plugin", $this);
+        echo $template->render();
+    }
+    
+    public function save_map_action() {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
+            throw new AccessDeniedException("Kein Zugriff");
+        }
+        $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        $new_map = Lagekarte::copyFrom($map);
+        $new_map['longitude'] = Request::float("longitude");
+        $new_map['latitude'] = Request::float("latitude");
+        $new_map['zoom'] = Request::int("zoom");
+        $new_map->store();
     }
     
     protected function getTemplate($template_file_name, $layout = "without_infobox") {

@@ -55,6 +55,7 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
         Navigation::activateItem("/course/lagekarte");
         PageLayout::addHeadElement("script", array('src' => $this->getPluginURL()."/assets/OpenLayers/OpenLayers.js"), "");
         PageLayout::addHeadElement("script", array('src' => $this->getPluginURL()."/assets/application.js"), "");
+        Navigation::getItem("/course/lagekarte")->setImage($this->getPluginURL()."/assets/world.png");
         
         $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
         if ($map->isNew()) {
@@ -76,9 +77,11 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
         }
         $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
         $new_map = Lagekarte::copyFrom($map);
+        $new_map['seminar_id'] = $_SESSION['SessionSeminar'];
         $new_map['longitude'] = Request::float("longitude");
         $new_map['latitude'] = Request::float("latitude");
         $new_map['zoom'] = Request::int("zoom");
+        $new_map['user_id'] = $GLOBALS['user']->id;
         $new_map->store();
     }
     

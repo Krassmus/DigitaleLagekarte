@@ -14,6 +14,7 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
     
     public function getTabNavigation($course_id) {
         $nav = new AutoNavigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "show"));
+        $nav->setImage($this->getPluginURL()."/assets/world_white.png");
         return array('lagekarte' => $nav);
     }
     
@@ -22,12 +23,15 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
     }
     
     public function getIconNavigation($course_id, $last_visit, $user_id) {
-        return null;
+        $nav = new AutoNavigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "show"));
+        $nav->setImage($this->getPluginURL()."/assets/world_grey.png", array('title' => _("Lagekarte")));
+        return $nav;
     }
     
     public function show_action() {
         PageLayout::addHeadElement("script", array('src' => $this->getPluginURL()."/assets/OpenLayers/OpenLayers.js"), "");
         PageLayout::addHeadElement("script", array('src' => $this->getPluginURL()."/assets/application.js"), "");
+        Navigation::getItem("/course/lagekarte")->setImage($this->getPluginURL()."/assets/world.png");
         
         $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
         if ($map->isNew()) {
@@ -36,7 +40,6 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
             $map['longitude'] = 8.187937;
             $map['zoom'] = 17;
             $map['user_id'] = "";
-            $map->store();
         }
         
         $template = $this->getTemplate("lagekarte.php", "with_infobox");
@@ -59,7 +62,6 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
             $map['latitude'] = 53.152692;
             $map['longitude'] = 8.187937;
             $map['zoom'] = 17;
-            $map->store();
         }
         
         $template = $this->getTemplate("lagekarte_edit.php", "with_infobox");

@@ -25,6 +25,17 @@ $infobox = array(
             "eintrag"   =>
             array(
                 array(
+                    "icon" => "icons/16/black/plus",
+                    "text" => '<input type="radio" name="action" value="point">'._("Punkt einzeichnen").' <br>'
+                             .'<input type="radio" name="action" value="line">'._("Pfad einzeichnen").' <br>'
+                             .'<input type="radio" name="action" value="point">'._("Fläche einzeichnen").''
+                ),array(
+                    "icon" => "icons/16/black/tools",
+                    "text" => '<input type="radio" name="action" value="point">'._("Punkt verschieben").' <br>'
+                             .'<input type="radio" name="action" value="line">'._("Pfad einzeichnen").' <br>'
+                             .'<input type="radio" name="action" value="point">'._("Fläche einzeichnen").''
+                ),
+                array(
                     "icon" => "icons/16/black/edit",
                     "text" => '<a href="#" onClick="STUDIP.Lagekarte.save_map(); return false;">'._("Lagekarte speichern.").'</a>'
                 )

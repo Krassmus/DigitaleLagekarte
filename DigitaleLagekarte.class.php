@@ -73,7 +73,11 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
         PageLayout::addHeadElement("link", array('href' => $this->getPluginURL()."/assets/Leaflet/leaflet.css", 'rel' => "stylesheet"));
         PageLayout::addHeadElement("link", array('href' => $this->getPluginURL()."/assets/Leaflet/leaflet.draw.css", 'rel' => "stylesheet"));
         PageLayout::addHeadElement("script", array('src' => $this->getPluginURL()."/assets/application.js"), "");
-        Navigation::getItem("/course/lagekarte")->setImage($this->getPluginURL()."/assets/world.png");
+        if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
+            Navigation::getItem("/course/lagekarte")->setImage($this->getPluginURL()."/assets/32_black_world.png");
+        } else {
+            Navigation::getItem("/course/lagekarte")->setImage($this->getPluginURL()."/assets/16_black_world.png");
+        }
         
         $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
         if ($map->isNew()) {

@@ -1,9 +1,13 @@
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="<?= $this->plugin->getPluginURL() ?>/assets/Leaflet/leaflet.ie.css" />
+<![endif]-->
+
 <div id="map" style="width: 600px; height: 500px;"></div>
 
 
 <script>
 jQuery(function () {
-    STUDIP.Lagekarte.draw_map(<?= (double) $map['longitude'] ?>, <?= (double) $map['latitude'] ?>, <?= (int) $map['zoom'] ?>);
+    STUDIP.Lagekarte.draw_map_leaflet(<?= (double) $map['longitude'] ?>, <?= (double) $map['latitude'] ?>, <?= (int) $map['zoom'] ?>);
 });
 </script>
 

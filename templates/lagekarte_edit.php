@@ -4,8 +4,8 @@
 
 <script>
 jQuery(function () {
-    STUDIP.Lagekarte.draw_map(<?= (double) $map['longitude'] ?>, <?= (double) $map['latitude'] ?>, <?= (int) $map['zoom'] ?>);
-    STUDIP.Lagekarte.edit_map();
+    STUDIP.Lagekarte.draw_map_leaflet(<?= (double) $map['longitude'] ?>, <?= (double) $map['latitude'] ?>, <?= (int) $map['zoom'] ?>);
+    STUDIP.Lagekarte.edit_map_leaflet();
 });
 </script>
 
@@ -37,7 +37,7 @@ $infobox = array(
                 ),
                 array(
                     "icon" => "icons/16/black/edit",
-                    "text" => '<a href="#" onClick="STUDIP.Lagekarte.save_map(); return false;">'._("Lagekarte speichern.").'</a>'
+                    "text" => '<a href="#" onClick="STUDIP.Lagekarte.save_map_leaflet(); return false;">'._("Lagekarte speichern.").'</a>'
                 )
             )
         )

@@ -14,7 +14,12 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
     
     public function getTabNavigation($course_id) {
         $nav = new AutoNavigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "show"));
-        $nav->setImage($this->getPluginURL()."/assets/world_white.png");
+        if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
+            $nav->setImage($this->getPluginURL()."/assets/32_white_world.png");
+        } else {
+            $nav->setImage($this->getPluginURL()."/assets/16_white_world.png");
+        }
+        
         return array('lagekarte' => $nav);
     }
     
@@ -24,15 +29,22 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
     
     public function getIconNavigation($course_id, $last_visit, $user_id) {
         $nav = new AutoNavigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "show"));
-        $nav->setImage($this->getPluginURL()."/assets/world_grey.png", array('title' => _("Lagekarte")));
+        if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
+            $nav->setImage($this->getPluginURL()."/assets/32_grey_world.png", array('title' => _("Lagekarte"), 'width' => "16px"));
+        } else {
+            $nav->setImage($this->getPluginURL()."/assets/16_grey_world.png", array('title' => _("Lagekarte")));
+        }
         return $nav;
     }
     
     public function show_action() {
         PageLayout::addHeadElement("script", array('src' => $this->getPluginURL()."/assets/OpenLayers/OpenLayers.js"), "");
         PageLayout::addHeadElement("script", array('src' => $this->getPluginURL()."/assets/application.js"), "");
-        Navigation::getItem("/course/lagekarte")->setImage($this->getPluginURL()."/assets/world.png");
-        
+        if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
+            Navigation::getItem("/course/lagekarte")->setImage($this->getPluginURL()."/assets/32_black_world.png");
+        } else {
+            Navigation::getItem("/course/lagekarte")->setImage($this->getPluginURL()."/assets/16_black_world.png");
+        }
         $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
         if ($map->isNew()) {
             $map['seminar_id'] = $_SESSION['SessionSeminar'];

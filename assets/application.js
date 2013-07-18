@@ -18,6 +18,18 @@ STUDIP.Lagekarte = {
             }
         });
         STUDIP.Lagekarte.map.addControl(drawControl);
+
+        STUDIP.Lagekarte.map.on('draw:created', function (e) {
+            var type = e.layerType,
+                layer = e.layer;
+
+            if (type === 'marker') {
+                // Do marker specific actions
+            }
+
+            // Do whatever else you need to. (save to db, add to map etc)
+            STUDIP.Lagekarte.map.addLayer(layer);
+        });
     },
     save_map: function () {
         var zoom = STUDIP.Lagekarte.map.getZoom();

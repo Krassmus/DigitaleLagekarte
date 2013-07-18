@@ -25,7 +25,7 @@ $infobox = array(
             "eintrag"   =>
             array(
                 array(
-                    "icon" => "icons/16/black/plus",
+                    "icon" => "icons/16/black/add",
                     "text" => '<input type="radio" name="action" value="point">'._("Punkt einzeichnen").' <br>'
                              .'<input type="radio" name="action" value="line">'._("Pfad einzeichnen").' <br>'
                              .'<input type="radio" name="action" value="point">'._("Fläche einzeichnen").''

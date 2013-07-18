@@ -1,11 +1,11 @@
-<div id="map" style="width: 600px; height: 500px;"></div>
+<div id="map" style="width: 100%; height: 500px; margin-left: 5px; margin-right: 5px;"></div>
 
 <input type="hidden" id="seminar_id" value="<?= $_SESSION['SessionSeminar'] ?>">
 
 <script>
 jQuery(function () {
-    STUDIP.Lagekarte.draw_map_leaflet(<?= (double) $map['longitude'] ?>, <?= (double) $map['latitude'] ?>, <?= (int) $map['zoom'] ?>);
-    STUDIP.Lagekarte.edit_map_leaflet();
+    STUDIP.Lagekarte.draw_map(<?= (double) $map['longitude'] ?>, <?= (double) $map['latitude'] ?>, <?= (int) $map['zoom'] ?>);
+    STUDIP.Lagekarte.edit_map();
 });
 </script>
 
@@ -37,7 +37,7 @@ $infobox = array(
                 ),
                 array(
                     "icon" => "icons/16/black/edit",
-                    "text" => '<a href="#" onClick="STUDIP.Lagekarte.save_map_leaflet(); return false;">'._("Lagekarte speichern.").'</a>'
+                    "text" => '<a href="#" onClick="STUDIP.Lagekarte.save_map(); return false;">'._("Lagekarte speichern.").'</a>'
                 )
             )
         )

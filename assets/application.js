@@ -26,15 +26,27 @@ STUDIP.Lagekarte = {
             if (type === 'marker') {
                 // Do marker specific actions
             }
+            console.log(layer._latings);
+            var coord = [];
+            jQuery.each(layer._latings, function (key, value) {
+                coord.push([value.lat, value.lng]);
+            });
+            
+            var json = {
+                'type': type,
+                'coord': coord
+            };
 
             // Do whatever else you need to. (save to db, add to map etc)
             STUDIP.Lagekarte.map.addLayer(layer);
+            //jQuery.ajax();
         })
 
         STUDIP.Lagekarte.map.on('draw:edited', function (e) {
             var layers = e.layers;
             layers.eachLayer(function (layer) {
                 //do whatever you want, most likely save back to db
+                console.log(layer);
             });
         });
     },

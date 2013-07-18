@@ -8,7 +8,7 @@ STUDIP.Lagekarte = {
     },
     edit_map: function () {
         // Initialize the FeatureGroup to store editable layers
-        var drawnItems = new L.FeatureGroup();
+        /*var drawnItems = new L.FeatureGroup();
         STUDIP.Lagekarte.map.addLayer(drawnItems);
 
         // Initialize the draw control and pass it the FeatureGroup of editable layers
@@ -48,6 +48,47 @@ STUDIP.Lagekarte = {
                 //do whatever you want, most likely save back to db
                 console.log(layer);
             });
+        });*/
+
+        var drawnItems = new L.FeatureGroup();
+        STUDIP.Lagekarte.map.addLayer(drawnItems);
+
+        var drawControl = new L.Control.Draw({
+            draw: {
+                position: 'topleft',
+                polygon: {
+                    title: 'Draw a sexy polygon!',
+                    allowIntersection: false,
+                    drawError: {
+                        color: '#b00b00',
+                        timeout: 1000
+                    },
+                    shapeOptions: {
+                        color: '#bada55'
+                    },
+                    showArea: true
+                },
+                circle: {
+                    shapeOptions: {
+                        color: '#662d91'
+                    }
+                }
+            },
+            edit: {
+                featureGroup: drawnItems
+            }
+        });
+        STUDIP.Lagekarte.map.addControl(drawControl);
+
+        STUDIP.Lagekarte.map.on('draw:created', function (e) {
+            var type = e.layerType,
+                layer = e.layer;
+
+            if (type === 'marker') {
+                layer.bindPopup('A popup!');
+            }
+
+            drawnItems.addLayer(layer);
         });
     },
     save_map: function () {

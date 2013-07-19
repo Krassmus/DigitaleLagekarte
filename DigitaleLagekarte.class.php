@@ -93,7 +93,7 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
         echo $template->render();
     }
     
-    public function save_map_action() {
+    public function save_map_viewport_action() {
         if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
             throw new AccessDeniedException("Kein Zugriff");
         }

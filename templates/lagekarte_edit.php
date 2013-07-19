@@ -1,10 +1,15 @@
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="<?= $this->plugin->getPluginURL() ?>/assets/Leaflet/leaflet.ie.css" />
+    <link rel="stylesheet" href="<?= $this->plugin->getPluginURL() ?>/assets/Leaflet/leaflet.draw.ie.css" />
+<![endif]-->
+
 <div id="map" style="width: 100%; height: 500px; margin-left: 5px; margin-right: 5px;"></div>
 
 <input type="hidden" id="seminar_id" value="<?= $_SESSION['SessionSeminar'] ?>">
 
 <script>
 jQuery(function () {
-    STUDIP.Lagekarte.draw_map(<?= (double) $map['longitude'] ?>, <?= (double) $map['latitude'] ?>, <?= (int) $map['zoom'] ?>);
+    STUDIP.Lagekarte.draw_map(<?= (double) $map['latitude'] ?>, <?= (double) $map['longitude'] ?>, <?= (int) $map['zoom'] ?>);
     STUDIP.Lagekarte.edit_map();
 });
 </script>
@@ -16,7 +21,7 @@ $infobox = array(
         array(
             array(
                 "icon" => "icons/16/black/info",
-                "text" => _("Hier sehen Sie immer die aktuelle Lagekarte")
+                "text" => _("Hier sehen Sie die aktuelle Lagekarte")
             )
         )
     ),
@@ -26,18 +31,19 @@ $infobox = array(
             array(
                 array(
                     "icon" => "icons/16/black/add",
-                    "text" => '<input type="radio" name="action" value="point">'._("Punkt einzeichnen").' <br>'
-                             .'<input type="radio" name="action" value="line">'._("Pfad einzeichnen").' <br>'
-                             .'<input type="radio" name="action" value="point">'._("Fläche einzeichnen").''
+                    "text" => '<label><input type="radio" name="action" value="point">'._("Punkt einzeichnen").'</label> <br>'
+                             .'<label><input type="radio" name="action" value="line">'._("Pfad einzeichnen").'</label> <br>'
+                             .'<label><input type="radio" name="action" value="point">'._("Fläche einzeichnen").'</label>'
                 ),array(
                     "icon" => "icons/16/black/tools",
-                    "text" => '<input type="radio" name="action" value="point">'._("Punkt verschieben").' <br>'
-                             .'<input type="radio" name="action" value="line">'._("Pfad einzeichnen").' <br>'
-                             .'<input type="radio" name="action" value="point">'._("Fläche einzeichnen").''
+                    "text" => '<label><input type="radio" name="action" value="point">'._("Punkt verschieben").'</label> <br>'
+                             .'<label><input type="radio" name="action" value="line">'._("Pfad einzeichnen").'</label> <br>'
+                             .'<label><input type="radio" name="action" value="point">'._("Fläche einzeichnen").'</label>'
                 ),
                 array(
                     "icon" => "icons/16/black/edit",
-                    "text" => '<a href="#" onClick="STUDIP.Lagekarte.save_map(); return false;">'._("Lagekarte speichern.").'</a>'
+                    "text" => '<a href="#" onClick="STUDIP.Lagekarte.save_map_viewport(); return false;">'._("Bildsausschnitt speichern.").'</a>' 
+                                .'<span style="display: none;" id="save_map_viewport_spinner">'.Assets::img("ajax_indicator_small.gif", array('class' => "text-bottom")).'</span>'
                 )
             )
         )

@@ -7,8 +7,8 @@ class InitPlugin extends DBMigration
             CREATE TABLE IF NOT EXISTS `katip_lagekarte` (
             `map_id` varchar(32) NOT NULL,
             `seminar_id` varchar(32) NOT NULL,
-            `longitude` double NOT NULL,
             `latitude` double NOT NULL,
+            `longitude` double NOT NULL,
             `zoom` int(11) NOT NULL,
             `user_id` varchar(32) NOT NULL,
             `chdate` bigint(20) NOT NULL,

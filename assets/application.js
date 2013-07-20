@@ -21,13 +21,17 @@ STUDIP.Lagekarte = {
                         timeout: 1000
                     },
                     shapeOptions: {
-                        color: '#bada55'
+                        color: '#222277'
                     },
                     showArea: true
                 },
                 circle: {
+                    drawError: {
+                        color: '#b00b00',
+                        timeout: 1000
+                    },
                     shapeOptions: {
-                        color: '#662d91'
+                        color: '#222277'
                     }
                 }
             },
@@ -39,21 +43,21 @@ STUDIP.Lagekarte = {
 
         STUDIP.Lagekarte.map.on('draw:created', function (e) {
             var type = e.layerType,
-                layer = e.layer;
+                layer = e.layer
+                geometry = layer.toGeoJSON().geometry;
 
-            if (type === 'marker') {
-                layer.bindPopup('A popup!');
-            }
-            var coord = [];
-            jQuery.each(layer._latlngs, function (key, value) {
-                coord.push([value.lat, value.lng]);
-            });
-            
             var json = {
                 'type': type,
-                'coord': coord
+                'coord': geometry.coordinates,
+                'radius': layer._mRadius
             };
             console.log(json);
+            jQuery("#create_poi_window").dialog({
+                'title': jQuery("#create_poi_window_title").text(),
+                'modal': true,
+                'show': "fade",
+                'hide': "fade"
+            });
 
             drawnItems.addLayer(layer);
             

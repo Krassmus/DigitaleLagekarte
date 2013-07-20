@@ -14,6 +14,26 @@ jQuery(function () {
 });
 </script>
 
+<div style="display: none;" id="create_poi_window_title"><?= _("Objekt zuordnen") ?></div>
+<div style="display: none;" id="create_poi_window">
+    <table>
+        <tbody>
+            <tr>
+                <td><label for="schadenskonto"><?= _("Schadenskonto") ?></label></td>
+                <td>
+                    <select name="schadenskonto" id="schadenskonto" required>
+                        <option value=""><?= _("---") ?></option>
+                        <option value="eal1"><?= _("EAL1") ?></option>
+                        <option value="eal2"><?= _("EAL2") ?></option>
+                        <option value="deich2"><?= _("Deichbruchstelle 2") ?></option>
+                        <option value="neu"><?= _("neues Konto") ?></option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
 <? 
 $infobox = array(
     array("kategorie" => _("Informationen"),

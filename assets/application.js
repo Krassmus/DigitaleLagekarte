@@ -1,10 +1,33 @@
 STUDIP.Lagekarte = {
     map: null,
+    pois: {},
     draw_map: function (latitude, longitude, zoom) {
-        STUDIP.Lagekarte.map = L.map('map').setView([latitude, longitude], zoom);
+        STUDIP.Lagekarte.map = L.map('map', { 'attributionControl': false }).setView([latitude, longitude], zoom);
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             //attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(STUDIP.Lagekarte.map);
+    },
+    draw_poi: function (id, json) {
+        if (typeof STUDIP.Lagekarte.pois[id] === "undefined") {
+            var new_object = null;
+            if (json.type === "marker") {
+                new_object = L.Marker(json.coordinates, {});
+            }
+            if (json.type === "circle") {
+                new_object = L.Circle(json.coordinates, json.radius);
+            }
+            if (json.type === "polyline") {
+                new_object = L.Polyline(json.coordinates, {});
+            }
+            if (json.type === "polygon") {
+                new_object = L.MultiPolygon(json.coordinates, {});
+            }
+            
+            if (new_object !== null) {
+                STUDIP.Lagekarte.pois[id] = new_object;
+                new_object.addTo(STUDIP.Lagekarte.map);
+            }
+        }
     },
     edit_map: function () {
         var drawnItems = new L.FeatureGroup();
@@ -48,7 +71,7 @@ STUDIP.Lagekarte = {
 
             var json = {
                 'type': type,
-                'coord': geometry.coordinates,
+                'coordinates': geometry.coordinates,
                 'radius': layer._mRadius
             };
             console.log(json);
@@ -80,7 +103,7 @@ STUDIP.Lagekarte = {
         var latitude = center.lat;
         jQuery("#save_map_viewport_spinner").show('swing');
         jQuery.ajax({
-            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/save_map_viewport",
+            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/save_viewport",
             'data': {
                 'zoom': zoom,
                 'longitude': longitude,

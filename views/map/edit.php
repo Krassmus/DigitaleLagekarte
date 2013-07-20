@@ -1,6 +1,6 @@
 <!--[if lte IE 8]>
-    <link rel="stylesheet" href="<?= $this->plugin->getPluginURL() ?>/assets/Leaflet/leaflet.ie.css" />
-    <link rel="stylesheet" href="<?= $this->plugin->getPluginURL() ?>/assets/Leaflet/leaflet.draw.ie.css" />
+    <link rel="stylesheet" href="<?= $this->assets_url ?>Leaflet/leaflet.ie.css" />
+    <link rel="stylesheet" href="<?= $this->assets_url ?>Leaflet/leaflet.draw.ie.css" />
 <![endif]-->
 
 <div id="map" style="width: 100%; height: 500px; margin-left: 5px; margin-right: 5px;"></div>
@@ -70,6 +70,6 @@ $infobox = array(
         : null
 );
 $infobox = array(
-    'picture' => $GLOBALS['ABSOLUTE_URI_STUDIP'].$plugin->getPluginPath()."/assets/Lagekarte-4.jpg",
+    'picture' => $assets_url."Lagekarte-4.jpg",
     'content' => $infobox
 );

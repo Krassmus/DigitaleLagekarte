@@ -19,4 +19,8 @@ class Schadenskonto extends SimpleORMap {
         }
         return $success;
     }
+    
+    public function getPOIs() {
+        return PointOfInterest::findBySQL("schadenskonto_id = ? ORDER BY title ASC", array($this->getId()));
+    }
 }

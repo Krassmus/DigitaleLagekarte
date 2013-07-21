@@ -11,6 +11,11 @@
 jQuery(function () {
     STUDIP.Lagekarte.draw_map(<?= (double) $map['latitude'] ?>, <?= (double) $map['longitude'] ?>, <?= (int) $map['zoom'] ?>);
     STUDIP.Lagekarte.edit_map();
+    <? foreach ($schadenskonten as $schadenskonto) : ?>
+        <? foreach ($schadenskonto->getPOIs() as $poi) : ?>
+            STUDIP.Lagekarte.draw_poi('<?= $poi->getId() ?>', '<?= htmlReady($poi['shape']) ?>', <?= json_encode($poi['coordinates']) ?>, <?= (int) $poi['radius'] ?>);
+        <? endforeach ?>
+    <? endforeach ?>
 });
 </script>
 

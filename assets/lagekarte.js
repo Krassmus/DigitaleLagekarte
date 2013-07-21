@@ -8,24 +8,31 @@ STUDIP.Lagekarte = {
             //attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(STUDIP.Lagekarte.map);
     },
-    draw_poi: function (id, json) {
+    draw_poi: function (id, type, coordinates, radius) {
         if (typeof STUDIP.Lagekarte.pois[id] === "undefined") {
             var new_object = null;
-            if (json.type === "marker") {
-                new_object = L.Marker(json.coordinates, {});
+            
+            if (type === "marker") {
+                new_object = new L.Marker(coordinates, {});
             }
-            if (json.type === "circle") {
-                new_object = L.Circle(json.coordinates, json.radius);
+            if (type === "circle") {
+                new_object = new L.Circle(coordinates, radius);
             }
-            if (json.type === "polyline") {
-                new_object = L.Polyline(json.coordinates, {});
+            if (type === "polyline") {
+                new_object = new L.Polyline(coordinates, {});
             }
-            if (json.type === "polygon") {
-                new_object = L.MultiPolygon(json.coordinates, {});
+            if (type === "polygon") {
+                coordinates = _.map(coordinates, function (value1) {
+                    return _.map(value1, function (value2) {
+                        return new L.LatLng(value2[0], value2[1]);
+                    });
+                });
+                new_object = new L.MultiPolygon(coordinates, {});
             }
             
             if (new_object !== null) {
                 STUDIP.Lagekarte.pois[id] = new_object;
+                console.log("ngh");
                 new_object.addTo(STUDIP.Lagekarte.map);
             }
         }
@@ -107,7 +114,7 @@ STUDIP.Lagekarte = {
         jQuery.ajax({
             'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/save_new_layer",
             'data': {
-                'type': jQuery("#create_poi_window input[name=type]").val(),
+                'shape': jQuery("#create_poi_window input[name=type]").val(),
                 'coordinates': JSON.parse(jQuery("#create_poi_window input[name=coordinates]").val()),
                 'radius': jQuery("#create_poi_window input[name=radius]").val(),
                 'title': jQuery("#create_poi_window input[name=title]").val(),

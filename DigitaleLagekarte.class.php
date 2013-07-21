@@ -26,7 +26,7 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
         $nav = new Navigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "map/show"));
         $show = new AutoNavigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "map/show"));
         $nav->addSubNavigation('show', $show);
-        $schadenskonten = new AutoNavigation(_("Schadenskonten"), PluginEngine::getURL($this, array(), "map/schadenskonten"));
+        $schadenskonten = new AutoNavigation(_("Schadenskonten"), PluginEngine::getURL($this, array(), "schadenskonten/overview"));
         $nav->addSubNavigation('schadenskonten', $schadenskonten);
         
         if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {

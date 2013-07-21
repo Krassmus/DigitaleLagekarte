@@ -13,12 +13,17 @@ STUDIP.Lagekarte = {
             var new_object = null;
             
             if (type === "marker") {
+                coordinates = new L.LatLng(coordinates[1], coordinates[0]);
                 new_object = new L.Marker(coordinates, {});
             }
             if (type === "circle") {
+                coordinates = new L.LatLng(coordinates[1], coordinates[0]);
                 new_object = new L.Circle(coordinates, radius);
             }
             if (type === "polyline") {
+                coordinates = _.map(coordinates, function (value) {
+                    return new L.LatLng(value[1], value[0]);
+                });
                 new_object = new L.Polyline(coordinates, {});
             }
             if (type === "polygon") {
@@ -32,7 +37,6 @@ STUDIP.Lagekarte = {
             
             if (new_object !== null) {
                 STUDIP.Lagekarte.pois[id] = new_object;
-                console.log(new_object);
                 new_object.addTo(STUDIP.Lagekarte.map);
             }
         }

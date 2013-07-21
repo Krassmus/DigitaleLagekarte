@@ -24,7 +24,7 @@ STUDIP.Lagekarte = {
             if (type === "polygon") {
                 coordinates = _.map(coordinates, function (value1) {
                     return _.map(value1, function (value2) {
-                        return new L.LatLng(value2[0], value2[1]);
+                        return new L.LatLng(value2[1], value2[0]);
                     });
                 });
                 new_object = new L.MultiPolygon(coordinates, {});
@@ -32,7 +32,7 @@ STUDIP.Lagekarte = {
             
             if (new_object !== null) {
                 STUDIP.Lagekarte.pois[id] = new_object;
-                console.log("ngh");
+                console.log(new_object);
                 new_object.addTo(STUDIP.Lagekarte.map);
             }
         }

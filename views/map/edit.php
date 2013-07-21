@@ -16,19 +16,32 @@ jQuery(function () {
 
 <div style="display: none;" id="create_poi_window_title"><?= _("Objekt zuordnen") ?></div>
 <div style="display: none;" id="create_poi_window">
+    <input type="hidden" name="type" value="">
+    <input type="hidden" name="coordinates" value="">
+    <input type="hidden" name="radius" value="">
     <table>
         <tbody>
             <tr>
-                <td><label for="schadenskonto"><?= _("Schadenskonto") ?></label></td>
+                <td><label for="title"><?= _("Name") ?></label></td>
+                <td><input type="text" value="" name="title" id="title"></td>
+            </tr>
+            <tr>
+                <td><label for="schadenskonto_id"><?= _("Schadenskonto") ?></label></td>
                 <td>
-                    <select name="schadenskonto" id="schadenskonto" required>
+                    <select name="schadenskonto_id" id="schadenskonto_id" required onChange="this.value==='neu' ? jQuery('#schadenskonto_title').fadeIn() : jQuery('#schadenskonto_title').fadeOut(); ">
                         <option value=""><?= _("---") ?></option>
-                        <option value="eal1"><?= _("EAL1") ?></option>
-                        <option value="eal2"><?= _("EAL2") ?></option>
-                        <option value="deich2"><?= _("Deichbruchstelle 2") ?></option>
+                        <? foreach ($schadenskonten as $schadenskonto) : ?>
+                        <option value="<?= htmlReady($schadenskonto->getId()) ?>"><?= htmlReady($schadenskonto['title']) ?></option>
+                        <? endforeach ?>
                         <option value="neu"><?= _("neues Konto") ?></option>
                     </select>
+                    <br>
+                    <input type="text" name="schadenskonto_title" id="schadenskonto_title" aria-label="<?= _("Name des neuen Kontos") ?>" style="display: none;" placeholder='<?= _("Name des neuen Kontos") ?>'>
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><?= \Studip\Button::create(_("speichern"), 'send', array('onClick' => "STUDIP.Lagekarte.save_new_layer();")) ?></td>
             </tr>
         </tbody>
     </table>

@@ -1,6 +1,7 @@
 STUDIP.Lagekarte = {
     map: null,
     pois: {},
+    temporary_layer: null,
     draw_map: function (latitude, longitude, zoom) {
         STUDIP.Lagekarte.map = L.map('map', { 'attributionControl': false }).setView([latitude, longitude], zoom);
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -69,12 +70,17 @@ STUDIP.Lagekarte = {
                 layer = e.layer
                 geometry = layer.toGeoJSON().geometry;
 
-            var json = {
-                'type': type,
-                'coordinates': geometry.coordinates,
-                'radius': layer._mRadius
-            };
-            console.log(json);
+            console.log(type);
+            
+            jQuery("#create_poi_window input[name=type]").val(type);
+            jQuery("#create_poi_window input[name=coordinates]").val(JSON.stringify(geometry.coordinates));
+            jQuery("#create_poi_window input[name=radius]").val(layer._mRadius);
+            
+            jQuery("#create_poi_window input[name=schadenskonto_title]").val("");
+            jQuery("#create_poi_window input[name=title]").val("");
+            jQuery("#create_poi_window select[name=schadenskonto_id]").val("");
+            jQuery("#create_poi_window input[name=schadenskonto_title]").hide();
+            
             jQuery("#create_poi_window").dialog({
                 'title': jQuery("#create_poi_window_title").text(),
                 'modal': true,
@@ -83,6 +89,7 @@ STUDIP.Lagekarte = {
             });
 
             drawnItems.addLayer(layer);
+            STUDIP.Lagekarte.temporary_layer = layer;
             
         });
         
@@ -95,6 +102,35 @@ STUDIP.Lagekarte = {
             });
         });
          */
+    },
+    save_new_layer: function () {
+        jQuery.ajax({
+            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/save_new_layer",
+            'data': {
+                'type': jQuery("#create_poi_window input[name=type]").val(),
+                'coordinates': JSON.parse(jQuery("#create_poi_window input[name=coordinates]").val()),
+                'radius': jQuery("#create_poi_window input[name=radius]").val(),
+                'title': jQuery("#create_poi_window input[name=title]").val(),
+                'schadenskonto_id': jQuery("#create_poi_window select[name=schadenskonto_id]").val(),
+                'schadenskonto_title': jQuery("#create_poi_window input[name=schadenskonto_title]").val(),
+                'image': jQuery("#create_poi_window input[name=image]:selected").val(),
+                'cid': jQuery("#seminar_id").val()
+            },
+            dataType: "json",
+            success: function (output) {
+                if (output.new_schadenskonto) {
+                    jQuery('<option/>')
+                        .attr('value', output.new_schadenskonto.id)
+                        .text(output.new_schadenskonto.name)
+                        .prependTo("#create_poi_window select[name=schadenskonto_id]");
+                }
+                if (output.new_poi) {
+                    STUDIP.Lagekarte.pois[output.new_poi.id] = STUDIP.Lagekarte.temporary_layer;
+                    STUDIP.Lagekarte.temporary_layer = null;
+                }
+                jQuery("#create_poi_window").dialog("close");
+            }
+        });
     },
     save_map_viewport: function () {
         var zoom = STUDIP.Lagekarte.map.getZoom();

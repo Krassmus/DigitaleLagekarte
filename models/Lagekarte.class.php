@@ -30,4 +30,8 @@ class Lagekarte extends SimpleORMap {
         $map['seminar_id'] = $old_map['seminar_id'];
         return $map;
     }
+    
+    public function getSchadenskonten() {
+        return Schadenskonto::findBySQL("map_id = ? ORDER BY title ASC", array($this->getId()));
+    }
 }

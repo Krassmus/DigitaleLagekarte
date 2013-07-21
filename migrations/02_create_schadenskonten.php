@@ -20,10 +20,11 @@ class CreateSchadenskonten extends DBMigration
             CREATE TABLE IF NOT EXISTS `katip_poi` (
             `poi_id` varchar(32) NOT NULL,
             `schadenskonto_id` varchar(32) NOT NULL,
-            `shape` varchar(16),
+            `shape` varchar(16) NULL,
             `title` TEXT NULL,
             `image` varchar(128) NULL,
-            `coords` TEXT NOT NULL,
+            `coordinates` TEXT NOT NULL,
+            `radius` INTEGER NULL,
             `predecessor` varchar(32) NÚLL,
             `first_predecessor` varchar(32) NULL,
             `chdate` bigint(20) NOT NULL,

@@ -6,14 +6,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>EAL1</td>
+        <? foreach ($schadenskonten as $schadenskonto) : ?>
+        <tr id="<?= htmlReady($schadenskonto->getId()) ?>">
+            <td><?= htmlReady($schadenskonto['title']) ?></td>
             <td><?= Assets::img("icons/16/blue/link-intern", array('class' => "text-bottom")) ?></td>
         </tr>
-        <tr>
-            <td>EAL2</td>
-            <td><?= Assets::img("icons/16/blue/link-intern", array('class' => "text-bottom")) ?></td>
-        </tr>
+        <? endforeach ?>
     </tbody>
     <tfoot>
         <tr>

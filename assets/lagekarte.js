@@ -2,11 +2,14 @@ STUDIP.Lagekarte = {
     map: null,
     pois: {},
     temporary_layer: null,
+    featureGroup: null,
     draw_map: function (latitude, longitude, zoom) {
         STUDIP.Lagekarte.map = L.map('map', { 'attributionControl': false }).setView([latitude, longitude], zoom);
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             //attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(STUDIP.Lagekarte.map);
+        STUDIP.Lagekarte.featureGROUP = new L.FeatureGroup();
+        STUDIP.Lagekarte.map.addLayer(STUDIP.Lagekarte.featureGROUP);
     },
     draw_poi: function (id, type, coordinates, radius) {
         if (typeof STUDIP.Lagekarte.pois[id] === "undefined") {
@@ -34,17 +37,13 @@ STUDIP.Lagekarte = {
                 });
                 new_object = new L.MultiPolygon(coordinates, {});
             }
-            
             if (new_object !== null) {
                 STUDIP.Lagekarte.pois[id] = new_object;
-                new_object.addTo(STUDIP.Lagekarte.map);
+                new_object.addTo(STUDIP.Lagekarte.featureGROUP);
             }
         }
     },
     edit_map: function () {
-        var drawnItems = new L.FeatureGroup();
-        STUDIP.Lagekarte.map.addLayer(drawnItems);
-
         var drawControl = new L.Control.Draw({
             draw: {
                 position: 'topleft',
@@ -71,7 +70,7 @@ STUDIP.Lagekarte = {
                 }
             },
             edit: {
-                featureGroup: drawnItems
+                featureGroup: STUDIP.Lagekarte.featureGROUP
             }
         });
         STUDIP.Lagekarte.map.addControl(drawControl);
@@ -99,9 +98,8 @@ STUDIP.Lagekarte = {
                 'hide': "fade"
             });
 
-            drawnItems.addLayer(layer);
+            STUDIP.Lagekarte.featureGROUP.addLayer(layer);
             STUDIP.Lagekarte.temporary_layer = layer;
-            
         });
         
         /**

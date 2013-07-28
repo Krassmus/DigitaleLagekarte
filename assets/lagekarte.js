@@ -38,6 +38,7 @@ STUDIP.Lagekarte = {
                 new_object = new L.MultiPolygon(coordinates, {});
             }
             if (new_object !== null) {
+                new_object.feature_id = id;
                 STUDIP.Lagekarte.pois[id] = new_object;
                 new_object.addTo(STUDIP.Lagekarte.featureGROUP);
             }
@@ -80,7 +81,7 @@ STUDIP.Lagekarte = {
                 layer = e.layer
                 geometry = layer.toGeoJSON().geometry;
 
-            console.log(type);
+            //console.log(type);
             
             jQuery("#create_poi_window input[name=type]").val(type);
             jQuery("#create_poi_window input[name=coordinates]").val(JSON.stringify(geometry.coordinates));
@@ -102,15 +103,40 @@ STUDIP.Lagekarte = {
             STUDIP.Lagekarte.temporary_layer = layer;
         });
         
-        /**
+        
         STUDIP.Lagekarte.map.on('draw:edited', function (e) {
             var layers = e.layers;
+            var ids = [];
             layers.eachLayer(function (layer) {
                 //do whatever you want, most likely save back to db
-                console.log(layer);
+                console.log(layer.feature_id);
+                ids.push(layer.feature_id);
             });
+            
         });
-         */
+        
+        STUDIP.Lagekarte.map.on('draw:deleted', function (e) {
+            var layers = e.layers;
+            var ids = [];
+            layers.eachLayer(function (layer) {
+                //these layers should be deleted
+                ids.push(layer.feature_id);
+            });
+            STUDIP.Lagekarte.delete_poi(ids);
+        });
+        
+    },
+    delete_poi: function (poi_ids) {
+        jQuery.ajax({
+            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/delete_poi",
+            'data': {
+                'poi_ids': poi_ids,
+                'cid': jQuery("#seminar_id").val()
+            }
+        });
+        jQuery.each(poi_ids, function (index, id) {
+            delete STUDIP.Lagekarte.pois[id];
+        });
     },
     save_new_layer: function () {
         jQuery.ajax({

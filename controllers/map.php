@@ -76,4 +76,18 @@ class MapController extends ApplicationController {
         $this->render_json($output);
     }
     
+    public function delete_poi_action() {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
+            throw new AccessDeniedException("Kein Zugriff");
+        }
+        $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        foreach (Request::optionArray("poi_ids") as $poi_id) {
+            $poi = new PointOfInterest($poi_id);
+            if (Schadenskonto::find($poi['schadenskonto_id'])->map_id === $map->getId()) {
+                $poi->delete();
+            }
+        }
+        $this->render_nothing();
+    }
+    
 }

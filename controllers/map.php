@@ -4,7 +4,7 @@ require_once dirname(__file__)."/application.php";
 
 class MapController extends ApplicationController {
     
-    public function show_action() {
+    public function current_action() {
         PageLayout::addHeadElement("script", array('src' => $this->assets_url."Leaflet/leaflet.js"), "");
         PageLayout::addHeadElement("script", array('src' => $this->assets_url."Leaflet/leaflet.draw.js"), "");
         PageLayout::addHeadElement("link", array('href' => $this->assets_url."Leaflet/leaflet.css", 'rel' => "stylesheet"));
@@ -27,14 +27,6 @@ class MapController extends ApplicationController {
         } else {
             $this->schadenskonten =  $this->map->getSchadenskonten();
         }
-    }
-    
-    public function edit_action() {
-        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
-            throw new AccessDeniedException("Kein Zugriff");
-        }
-        $this->show_action();
-        Navigation::activateItem("/course/lagekarte/show");
     }
     
     public function save_viewport_action() {

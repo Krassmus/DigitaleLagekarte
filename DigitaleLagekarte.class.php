@@ -23,8 +23,8 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
     }
     
     public function getTabNavigation($course_id) {
-        $nav = new Navigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "map/show"));
-        $show = new AutoNavigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "map/show"));
+        $nav = new Navigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "map/current"));
+        $show = new AutoNavigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "map/current"));
         $nav->addSubNavigation('show', $show);
         $schadenskonten = new AutoNavigation(_("Schadenskonten"), PluginEngine::getURL($this, array(), "schadenskonten/overview"));
         $nav->addSubNavigation('schadenskonten', $schadenskonten);
@@ -43,7 +43,7 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
     }
     
     public function getIconNavigation($course_id, $last_visit, $user_id) {
-        $nav = new AutoNavigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "map/show"));
+        $nav = new AutoNavigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "map/current"));
         if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
             $nav->setImage($this->getPluginURL()."/assets/32_grey_world.png", array('title' => _("Lagekarte"), 'width' => "16px"));
         } else {

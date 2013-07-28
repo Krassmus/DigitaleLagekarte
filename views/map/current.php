@@ -10,12 +10,14 @@
 <script>
 jQuery(function () {
     STUDIP.Lagekarte.draw_map(<?= (double) $map['latitude'] ?>, <?= (double) $map['longitude'] ?>, <?= (int) $map['zoom'] ?>);
-    STUDIP.Lagekarte.edit_map();
     <? foreach ($schadenskonten as $schadenskonto) : ?>
         <? foreach ($schadenskonto->getPOIs() as $poi) : ?>
             STUDIP.Lagekarte.draw_poi('<?= $poi->getId() ?>', '<?= htmlReady($poi['shape']) ?>', <?= json_encode($poi['coordinates']) ?>, <?= (int) $poi['radius'] ?>);
         <? endforeach ?>
     <? endforeach ?>
+    <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) : ?>
+    STUDIP.Lagekarte.edit_map();
+    <? endif ?>
 });
 </script>
 
@@ -67,17 +69,6 @@ $infobox = array(
         ? array("kategorie" => _("Aktionen"),
             "eintrag"   =>
             array(
-                array(
-                    "icon" => "icons/16/black/add",
-                    "text" => '<label><input type="radio" name="action" value="point">'._("Punkt einzeichnen").'</label> <br>'
-                             .'<label><input type="radio" name="action" value="line">'._("Pfad einzeichnen").'</label> <br>'
-                             .'<label><input type="radio" name="action" value="point">'._("Fläche einzeichnen").'</label>'
-                ),array(
-                    "icon" => "icons/16/black/tools",
-                    "text" => '<label><input type="radio" name="action" value="point">'._("Punkt verschieben").'</label> <br>'
-                             .'<label><input type="radio" name="action" value="line">'._("Pfad einzeichnen").'</label> <br>'
-                             .'<label><input type="radio" name="action" value="point">'._("Fläche einzeichnen").'</label>'
-                ),
                 array(
                     "icon" => "icons/16/black/edit",
                     "text" => '<a href="#" onClick="STUDIP.Lagekarte.save_map_viewport(); return false;">'._("Bildsausschnitt speichern.").'</a>' 

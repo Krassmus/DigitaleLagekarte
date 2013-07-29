@@ -90,4 +90,20 @@ class MapController extends ApplicationController {
         $this->render_nothing();
     }
     
+    public function edit_poi_action() {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
+            throw new AccessDeniedException("Kein Zugriff");
+        }
+        $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        foreach (Request::optionArray("poi") as $poi_id => $attributes) {
+            $poi = new PointOfInterest($poi_id);
+            if (Schadenskonto::find($poi['schadenskonto_id'])->map_id === $map->getId()) {
+                $poi['radius'] = $attributes['radius'];
+                $poi['coordinates'] = $attributes['coordinates'];
+                $poi->store();
+            }
+        }
+        $this->render_nothing();
+    }
+    
 }

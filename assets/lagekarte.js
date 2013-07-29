@@ -106,11 +106,22 @@ STUDIP.Lagekarte = {
         
         STUDIP.Lagekarte.map.on('draw:edited', function (e) {
             var layers = e.layers;
-            var ids = [];
+            var geometries = {};
             layers.eachLayer(function (layer) {
                 //do whatever you want, most likely save back to db
                 console.log(layer.feature_id);
-                ids.push(layer.feature_id);
+                geometries[layer.feature_id] = {
+                    'coordinates': layer.toGeoJSON().geometry.coordinates,
+                    'radius': layer._mRadius
+                }
+            });
+            console.log(geometries);
+            jQuery.ajax({
+                'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/edit_poi",
+                'data': {
+                    'poi': geometries,
+                    'cid': jQuery("#seminar_id").val()
+                }
             });
             
         });

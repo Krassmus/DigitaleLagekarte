@@ -9,6 +9,8 @@ class MapController extends ApplicationController {
         PageLayout::addHeadElement("script", array('src' => $this->assets_url."Leaflet/leaflet.draw.js"), "");
         PageLayout::addHeadElement("link", array('href' => $this->assets_url."Leaflet/leaflet.css", 'rel' => "stylesheet"));
         PageLayout::addHeadElement("link", array('href' => $this->assets_url."Leaflet/leaflet.draw.css", 'rel' => "stylesheet"));
+        PageLayout::addHeadElement("link", array('href' => $this->assets_url."Leaflet/Control.FullScreen.css", 'rel' => "stylesheet"));
+        PageLayout::addHeadElement("script", array('src' => $this->assets_url."Leaflet/Control.FullScreen.js"), "");
         PageLayout::addHeadElement("script", array('src' => $this->assets_url."lagekarte.js"), "");
         if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
             Navigation::getItem("/course/lagekarte")->setImage($this->assets_url."32_black_world.png");

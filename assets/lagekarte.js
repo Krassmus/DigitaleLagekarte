@@ -8,6 +8,8 @@ STUDIP.Lagekarte = {
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             //attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(STUDIP.Lagekarte.map);
+        L.control.scale().addTo(STUDIP.Lagekarte.map);
+        STUDIP.Lagekarte.map.addControl(new L.Control.FullScreen());
         STUDIP.Lagekarte.featureGROUP = new L.FeatureGroup();
         STUDIP.Lagekarte.map.addLayer(STUDIP.Lagekarte.featureGROUP);
     },

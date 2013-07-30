@@ -11,7 +11,7 @@ STUDIP.Lagekarte = {
         STUDIP.Lagekarte.featureGROUP = new L.FeatureGroup();
         STUDIP.Lagekarte.map.addLayer(STUDIP.Lagekarte.featureGROUP);
     },
-    draw_poi: function (id, type, coordinates, radius) {
+    draw_poi: function (id, type, coordinates, radius, image, popup) {
         if (typeof STUDIP.Lagekarte.pois[id] === "undefined") {
             var new_object = null;
             
@@ -39,6 +39,9 @@ STUDIP.Lagekarte = {
             }
             if (new_object !== null) {
                 new_object.feature_id = id;
+                if (popup) {
+                    new_object.bindPopup(popup);
+                }
                 STUDIP.Lagekarte.pois[id] = new_object;
                 new_object.addTo(STUDIP.Lagekarte.featureGROUP);
             }
@@ -48,8 +51,10 @@ STUDIP.Lagekarte = {
         var drawControl = new L.Control.Draw({
             draw: {
                 position: 'topleft',
+                polyline: {
+                    shapeOptions: { color: '#222277'}
+                },
                 polygon: {
-                    title: 'Draw a sexy polygon!',
                     allowIntersection: false,
                     drawError: {
                         color: '#b00b00',
@@ -68,7 +73,8 @@ STUDIP.Lagekarte = {
                     shapeOptions: {
                         color: '#222277'
                     }
-                }
+                },
+                rectangle: null
             },
             edit: {
                 featureGroup: STUDIP.Lagekarte.featureGROUP

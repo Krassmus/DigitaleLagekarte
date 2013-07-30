@@ -3,6 +3,12 @@
     <link rel="stylesheet" href="<?= $this->assets_url ?>Leaflet/leaflet.draw.ie.css" />
 <![endif]-->
 
+<style>
+    .leaflet-popup-content-wrapper {
+        border-radius: 3px;
+    }
+</style>
+
 <div id="map" style="width: 100%; height: 500px; margin-left: 5px; margin-right: 5px;"></div>
 
 <input type="hidden" id="seminar_id" value="<?= $_SESSION['SessionSeminar'] ?>">
@@ -12,7 +18,14 @@ jQuery(function () {
     STUDIP.Lagekarte.draw_map(<?= (double) $map['latitude'] ?>, <?= (double) $map['longitude'] ?>, <?= (int) $map['zoom'] ?>);
     <? foreach ($schadenskonten as $schadenskonto) : ?>
         <? foreach ($schadenskonto->getPOIs() as $poi) : ?>
-            STUDIP.Lagekarte.draw_poi('<?= $poi->getId() ?>', '<?= htmlReady($poi['shape']) ?>', <?= json_encode($poi['coordinates']) ?>, <?= (int) $poi['radius'] ?>);
+            STUDIP.Lagekarte.draw_poi(
+                '<?= $poi->getId() ?>', 
+                '<?= htmlReady($poi['shape']) ?>', 
+                <?= json_encode($poi['coordinates']) ?>, 
+                <?= (int) $poi['radius'] ?>,
+                '<?= htmlReady($poi['image']) ?>',
+                "<?= addslashes(str_replace("\n", "", $this->render_partial("map/_poi_popup.php", array('poi' => $poi)))) ?>"
+            );
         <? endforeach ?>
     <? endforeach ?>
     <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) : ?>

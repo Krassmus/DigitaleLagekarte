@@ -30,9 +30,9 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
         $nav->addSubNavigation('schadenskonten', $schadenskonten);
         
         if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
-            $nav->setImage($this->assets_url."32_white_world.png");
+            $nav->setImage($this->getPluginURL()."/assets/32_white_world.png");
         } else {
-            $nav->setImage($this->assets_url."16_white_world.png");
+            $nav->setImage($this->getPluginURL()."/assets/16_white_world.png");
         }
         
         return array('lagekarte' => $nav);

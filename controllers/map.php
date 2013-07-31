@@ -36,13 +36,12 @@ class MapController extends ApplicationController {
             throw new AccessDeniedException("Kein Zugriff");
         }
         $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
-        $new_map = Lagekarte::copyFrom($map);
-        $new_map['seminar_id'] = $_SESSION['SessionSeminar'];
-        $new_map['longitude'] = Request::float("longitude");
-        $new_map['latitude'] = Request::float("latitude");
-        $new_map['zoom'] = Request::int("zoom");
-        $new_map['user_id'] = $GLOBALS['user']->id;
-        $new_map->store();
+        $map['seminar_id'] = $_SESSION['SessionSeminar'];
+        $map['longitude'] = Request::float("longitude");
+        $map['latitude'] = Request::float("latitude");
+        $map['zoom'] = Request::int("zoom");
+        $map['user_id'] = $GLOBALS['user']->id;
+        $map->store();
         
         $this->render_nothing();
     }

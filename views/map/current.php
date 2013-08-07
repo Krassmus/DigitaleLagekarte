@@ -86,6 +86,11 @@ $infobox = array(
                     "icon" => "icons/16/black/edit",
                     "text" => '<a href="#" onClick="STUDIP.Lagekarte.save_map_viewport(); return false;">'._("Bildsausschnitt speichern.").'</a>' 
                                 .'<span style="display: none;" id="save_map_viewport_spinner">'.Assets::img("ajax_indicator_small.gif", array('class' => "text-bottom")).'</span>'
+                ),
+                array(
+                    "icon" => "icons/16/black/date",
+                    "text" => '<a href="#" onClick="STUDIP.Lagekarte.create_snapshot(); return false;">'._("Snapshot der Karte anlegen.").'</a>' 
+                                .'<span style="display: none;" id="create_snapshot_spinner">'.Assets::img("ajax_indicator_small.gif", array('class' => "text-bottom")).'</span>'
                 )
             )
         )

@@ -46,6 +46,15 @@ class MapController extends ApplicationController {
         $this->render_nothing();
     }
     
+    public function create_snapshot_action() {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
+            throw new AccessDeniedException("Kein Zugriff");
+        }
+        $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        $new_map = $map->createCopy();
+        $this->render_nothing();
+    }
+    
     public function save_new_layer_action() {
         if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
             throw new AccessDeniedException("Kein Zugriff");

@@ -204,5 +204,17 @@ STUDIP.Lagekarte = {
                 jQuery("#save_map_viewport_spinner").hide('swing');
             }
         });
+    },
+    create_snapshot: function () {
+        jQuery("#create_snapshot_spinner").show('swing');
+        jQuery.ajax({
+            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/create_snapshot",
+            'data': {
+                'cid': $("#seminar_id").val()
+            },
+            'success': function () {
+                jQuery("#create_snapshot_spinner").hide('swing');
+            }
+        });
     }
 };

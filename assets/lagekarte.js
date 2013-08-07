@@ -3,11 +3,26 @@ STUDIP.Lagekarte = {
     pois: {},
     temporary_layer: null,
     featureGroup: null,
+    periodicalPushData: function () {
+        return {
+            'current_map': jQuery("#current_map").val() === "true" ? 1 : 0,
+            'map_id': jQuery("#map_id").val()
+        };
+    },
+    updateMap: function (mapdata) {
+        if (mapdata['map_id'] !== jQuery("#map_id").val()) {
+            jQuery("#map_id").val(mapdata['map_id']);
+        }
+        var existing_ids = [];
+        jQuery.each(mapdata.poi, function (index, poi) {
+            STUDIP.Lagekarte.draw_poi(poi.poi_id, poi.type, poi.coordinates, poi.radius, poi.image, "ha!");
+            existing_ids.push(poi.poi_id);
+        });
+        //noch die gelöschten POIs löschen:
+    },
     draw_map: function (latitude, longitude, zoom) {
         STUDIP.Lagekarte.map = L.map('map', { 'attributionControl': false }).setView([latitude, longitude], zoom);
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            //attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(STUDIP.Lagekarte.map);
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(STUDIP.Lagekarte.map);
         L.control.scale().addTo(STUDIP.Lagekarte.map);
         STUDIP.Lagekarte.map.addControl(new L.Control.FullScreen());
         STUDIP.Lagekarte.featureGROUP = new L.FeatureGroup();
@@ -46,6 +61,30 @@ STUDIP.Lagekarte = {
                 }
                 STUDIP.Lagekarte.pois[id] = new_object;
                 new_object.addTo(STUDIP.Lagekarte.featureGROUP);
+            }
+        } else {
+            if (type === "marker") {
+                coordinates = new L.LatLng(coordinates[1], coordinates[0]);
+                STUDIP.Lagekarte.pois[id].setLatLng(coordinates);
+            }
+            if (type === "circle") {
+                coordinates = new L.LatLng(coordinates[1], coordinates[0]);
+                STUDIP.Lagekarte.pois[id].setLatLng(coordinates);
+                STUDIP.Lagekarte.pois[id].setRadius(radius);
+            }
+            if (type === "polyline") {
+                coordinates = _.map(coordinates, function (value) {
+                    return new L.LatLng(value[1], value[0]);
+                });
+                STUDIP.Lagekarte.pois[id].setLatLngs(coordinates);
+            }
+            if (type === "polygon") {
+                coordinates = _.map(coordinates, function (value1) {
+                    return _.map(value1, function (value2) {
+                        return new L.LatLng(value2[1], value2[0]);
+                    });
+                });
+                STUDIP.Lagekarte.pois[id].setLatLngs(coordinates);
             }
         }
     },

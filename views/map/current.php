@@ -11,6 +11,8 @@
 
 <div id="map" style="width: 100%; height: 500px; margin-left: 5px; margin-right: 5px;"></div>
 
+<input type="hidden" id="current_map" value="true">
+<input type="hidden" id="map_id" value="<?= $map->getId() ?>">
 <input type="hidden" id="seminar_id" value="<?= $_SESSION['SessionSeminar'] ?>">
 
 <script>
@@ -32,6 +34,9 @@ jQuery(function () {
     STUDIP.Lagekarte.edit_map();
     <? endif ?>
 });
+window.setInterval(function () {
+    jQuery("body").trigger("mousemove");
+}, 3000);
 </script>
 
 <div style="display: none;" id="create_poi_window_title"><?= _("Objekt zuordnen") ?></div>

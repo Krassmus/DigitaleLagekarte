@@ -13,6 +13,7 @@
 
 <input type="hidden" id="current_map" value="true">
 <input type="hidden" id="map_id" value="<?= $map->getId() ?>">
+<input type="hidden" id="last_update" value="<?= time() ?>">
 <input type="hidden" id="seminar_id" value="<?= $_SESSION['SessionSeminar'] ?>">
 
 <script>

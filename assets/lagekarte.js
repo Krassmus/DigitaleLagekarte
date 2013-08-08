@@ -6,7 +6,8 @@ STUDIP.Lagekarte = {
     periodicalPushData: function () {
         return {
             'current_map': jQuery("#current_map").val() === "true" ? 1 : 0,
-            'map_id': jQuery("#map_id").val()
+            'map_id': jQuery("#map_id").val(),
+            'last_update': jQuery("#last_update").val()
         };
     },
     updateMap: function (mapdata) {
@@ -14,11 +15,15 @@ STUDIP.Lagekarte = {
             jQuery("#map_id").val(mapdata['map_id']);
         }
         var existing_ids = [];
-        jQuery.each(mapdata.poi, function (index, poi) {
-            STUDIP.Lagekarte.draw_poi(poi.poi_id, poi.type, poi.coordinates, poi.radius, poi.image, "ha!");
-            existing_ids.push(poi.poi_id);
-        });
+        if (mapdata.poi) {
+            jQuery.each(mapdata.poi, function (index, poi) {
+                STUDIP.Lagekarte.draw_poi(poi.poi_id, poi.type, poi.coordinates, poi.radius, poi.image, "ha!");
+                existing_ids.push(poi.poi_id);
+            });
+        }
         //noch die gelöschten POIs löschen:
+        
+        jQuery('#last_update').val(Math.floor(new Date().getTime() / 1000));
     },
     draw_map: function (latitude, longitude, zoom) {
         STUDIP.Lagekarte.map = L.map('map', { 'attributionControl': false }).setView([latitude, longitude], zoom);
@@ -128,8 +133,6 @@ STUDIP.Lagekarte = {
                 layer = e.layer
                 geometry = layer.toGeoJSON().geometry;
 
-            //console.log(type);
-            
             jQuery("#create_poi_window input[name=type]").val(type);
             jQuery("#create_poi_window input[name=coordinates]").val(JSON.stringify(geometry.coordinates));
             jQuery("#create_poi_window input[name=radius]").val(layer._mRadius);
@@ -156,13 +159,11 @@ STUDIP.Lagekarte = {
             var geometries = {};
             layers.eachLayer(function (layer) {
                 //do whatever you want, most likely save back to db
-                console.log(layer.feature_id);
                 geometries[layer.feature_id] = {
                     'coordinates': layer.toGeoJSON().geometry.coordinates,
                     'radius': layer._mRadius
                 }
             });
-            console.log(geometries);
             jQuery.ajax({
                 'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/edit_poi",
                 'data': {

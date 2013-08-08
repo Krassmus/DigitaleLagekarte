@@ -27,14 +27,16 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
                 $output['map_id'] = $new_map->getId();
                 foreach ($new_map->getSchadenskonten() as $schadenskonto) {
                     foreach ($schadenskonto->getPOIs() as $poi) {
-                        $output['poi'][] = array(
-                            'poi_id' => $poi->getId(),
-                            'type' => $poi['shape'],
-                            'image' => $poi['image'],
-                            'coordinates' => $poi['coordinates'],
-                            'radius' => $poi['radius'],
-                            'predecessor' => $poi['predecessor']
-                        );
+                        if ($poi['chdate'] >= $data['Lagekarte']['last_update']) {
+                            $output['poi'][] = array(
+                                'poi_id' => $poi->getId(),
+                                'type' => $poi['shape'],
+                                'image' => $poi['image'],
+                                'coordinates' => $poi['coordinates'],
+                                'radius' => $poi['radius'],
+                                'predecessor' => $poi['predecessor']
+                            );
+                        }
                     }
                 }
                 

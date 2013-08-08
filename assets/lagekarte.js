@@ -166,6 +166,7 @@ STUDIP.Lagekarte = {
             });
             jQuery.ajax({
                 'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/edit_poi",
+                'type': "post",
                 'data': {
                     'poi': geometries,
                     'cid': jQuery("#seminar_id").val()
@@ -188,6 +189,7 @@ STUDIP.Lagekarte = {
     delete_poi: function (poi_ids) {
         jQuery.ajax({
             'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/delete_poi",
+            'type': "post",
             'data': {
                 'poi_ids': poi_ids,
                 'cid': jQuery("#seminar_id").val()
@@ -210,6 +212,7 @@ STUDIP.Lagekarte = {
                 'image': jQuery("#create_poi_window input[name=image]:selected").val(),
                 'cid': jQuery("#seminar_id").val()
             },
+            'type': "post",
             dataType: "json",
             success: function (output) {
                 if (output.new_schadenskonto) {
@@ -240,6 +243,7 @@ STUDIP.Lagekarte = {
                 'latitude': latitude,
                 'cid': $("#seminar_id").val()
             },
+            'type': "post",
             'success': function () {
                 jQuery("#save_map_viewport_spinner").hide('swing');
             }
@@ -252,6 +256,7 @@ STUDIP.Lagekarte = {
             'data': {
                 'cid': $("#seminar_id").val()
             },
+            'type': "post",
             'success': function () {
                 jQuery("#create_snapshot_spinner").hide('swing');
             }

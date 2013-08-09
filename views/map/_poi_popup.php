@@ -10,8 +10,16 @@
             </a>
         </td>
     </tr>
+    <? if ($poi['shape'] === "polyline") : ?>
     <tr>
-        <td><strong><?= _("Bezeichnung") ?></strong></td>
-        <td><?= htmlReady($poi['title']) ?></td>
+        <td><strong><?= _("Länge") ?></strong></td>
+        <td><?= $poi->getLength() ?> km</td>
     </tr>
+    <? endif ?>
+    <? if ($poi['shape'] === "marker") : ?>
+    <tr>
+        <td><strong><?= _("Koordinaten (Latitude, Longitude)") ?></strong></td>
+        <td><?= $poi['coordinates'][1].", ".$poi['coordinates'][0] ?></td>
+    </tr>
+    <? endif ?>
 </table>

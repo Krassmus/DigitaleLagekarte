@@ -123,7 +123,8 @@ STUDIP.Lagekarte = {
                 rectangle: null
             },
             edit: {
-                featureGroup: STUDIP.Lagekarte.featureGROUP
+                featureGroup: STUDIP.Lagekarte.featureGROUP,
+                
             }
         });
         STUDIP.Lagekarte.map.addControl(drawControl);
@@ -146,7 +147,13 @@ STUDIP.Lagekarte = {
                 'title': jQuery("#create_poi_window_title").text(),
                 'modal': true,
                 'show': "fade",
-                'hide': "fade"
+                'hide': "fade",
+                close: function () {
+                    if (STUDIP.Lagekarte.temporary_layer) {
+                        STUDIP.Lagekarte.map.removeLayer(STUDIP.Lagekarte.temporary_layer);
+                        STUDIP.Lagekarte.temporary_layer = null;
+                    }
+                }
             });
 
             STUDIP.Lagekarte.featureGROUP.addLayer(layer);

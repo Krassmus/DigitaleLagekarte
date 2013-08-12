@@ -15,25 +15,20 @@ STUDIP.Lagekarte = {
             jQuery("#map_id").val(mapdata['map_id']);
         }
         var existing_ids = [];
+        var layer;
         if (mapdata.poi) {
             jQuery.each(mapdata.poi, function (index, poi) {
-                STUDIP.Lagekarte.draw_poi(poi.poi_id, poi.type, poi.coordinates, poi.radius, poi.image, "ha!");
+                layer = STUDIP.Lagekarte.draw_poi(poi.poi_id, poi.type, poi.coordinates, poi.radius, poi.image, "ha!");
+                if (typeof STUDIP.Lagekarte.pois[poi.poi_id] === "undefined") {
+                    STUDIP.Lagekarte.fadeInLayer(layer);
+                }
                 existing_ids.push(poi.poi_id);
             });
         }
         //noch die gelöschten POIs löschen:
         jQuery.each(STUDIP.Lagekarte.pois, function (poi_id, layer) {
             if (_.indexOf(mapdata.poi_ids, poi_id) === -1) {
-                var fadeOut = function (map, layer, opacity) {
-                    opacity -= 0.05;
-                    layer.setOpacity(opacity > 0 ? opacity : 0);
-                    if (opacity > 0) {
-                        window.setTimeout(function () { fadeOut(STUDIP.Lagekarte.map, layer, opacity); }, 50);
-                    } else {
-                        map.removeLayer(layer);
-                    }
-                }
-                window.setTimeout(function () { fadeOut(STUDIP.Lagekarte.map, layer, 1); }, 50);
+                STUDIP.Lagekarte.fadeOutLayer(layer);
                 delete STUDIP.Lagekarte.pois[poi_id];
             }
         });
@@ -81,11 +76,13 @@ STUDIP.Lagekarte = {
                 }
                 STUDIP.Lagekarte.pois[id] = new_object;
                 new_object.addTo(STUDIP.Lagekarte.featureGROUP);
+                return new_object;
             }
         } else {
             if (type === "marker") {
                 coordinates = new L.LatLng(coordinates[1], coordinates[0]);
-                STUDIP.Lagekarte.pois[id].setLatLng(coordinates);
+                STUDIP.Lagekarte.moveMarker(STUDIP.Lagekarte.pois[id], coordinates);
+                //STUDIP.Lagekarte.pois[id].setLatLng(coordinates);
             }
             if (type === "circle") {
                 coordinates = new L.LatLng(coordinates[1], coordinates[0]);
@@ -165,8 +162,7 @@ STUDIP.Lagekarte = {
                 'hide': "fade",
                 close: function () {
                     if (STUDIP.Lagekarte.temporary_layer) {
-                        STUDIP.Lagekarte.map.removeLayer(STUDIP.Lagekarte.temporary_layer);
-                        STUDIP.Lagekarte.temporary_layer = null;
+                        STUDIP.Lagekarte.fadeOutLayer(STUDIP.Lagekarte.temporary_layer);
                     }
                 }
             });
@@ -283,5 +279,68 @@ STUDIP.Lagekarte = {
                 jQuery("#create_snapshot_spinner").hide('swing');
             }
         });
+    },
+    
+    
+    /* special effects section */
+    fadeOutLayer: function (layer) {
+        var starttime = new Date();
+        var isMarker = layer instanceof L.Marker;
+        var fadeOut = function (layer, duration) {
+            var time = new Date();
+            var opacity = 1 - (time - starttime) / duration;
+            if (isMarker) {
+                layer.setOpacity(opacity > 0 ? opacity : 0);
+            } else {
+                layer.setStyle({
+                    opacity: opacity * 0.5,
+                    fillOpacity: opacity * 0.2
+                });
+            }
+            if (opacity > 0) {
+                window.setTimeout(function () { fadeOut(layer, duration); }, 10);
+            } else {
+                STUDIP.Lagekarte.map.removeLayer(layer);
+            }
+        }
+        fadeOut(layer, 300);
+    },
+    fadeInLayer: function (layer) {
+        var starttime = new Date();
+        var isMarker = layer instanceof L.Marker;
+        var fadeIn = function (layer, duration) {
+            var time = new Date();
+            var opacity = (time - starttime) / duration;
+            if (isMarker) {
+                layer.setOpacity(opacity < 1 ? opacity : 1);
+            } else {
+                layer.setStyle({
+                    opacity: opacity < 1 ? opacity * 0.5 : 0.5,
+                    fillOpacity: opacity < 1 ? opacity * 0.2 : 0.2
+                });
+            }
+            if (opacity < 1) {
+                window.setTimeout(function () { fadeIn(layer, duration); }, 10);
+            }
+        }
+        fadeIn(layer, 300);
+    },
+    moveMarker: function (layer, position) {
+        var starttime = new Date();
+        var originalPosition = layer.getLatLng();
+        var moveMarker = function (layer, position, duration) {
+            var time = new Date();
+            var way = (time - starttime) / duration;
+            var newPosition = new L.LatLng(
+                (position.lat * way + originalPosition.lat * (1 - way)), 
+                (position.lng * way + originalPosition.lng * (1 - way))
+            );
+            layer.setLatLng(way < 1 ? newPosition : position);
+            if (way < 1) {
+                window.setTimeout(function () { moveMarker(layer, position, duration); }, 10);
+            }
+        }
+        moveMarker(layer, position, 1000);
     }
+    
 };

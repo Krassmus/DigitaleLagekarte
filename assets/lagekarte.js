@@ -22,6 +22,12 @@ STUDIP.Lagekarte = {
             });
         }
         //noch die gelöschten POIs löschen:
+        jQuery.each(STUDIP.Lagekarte.pois, function (poi_id, layer) {
+            if (_.indexOf(mapdata.poi_ids, poi_id) === -1) {
+                STUDIP.Lagekarte.map.removeLayer(layer);
+                delete STUDIP.Lagekarte.pois[poi_id];
+            }
+        });
         
         jQuery('#last_update').val(Math.floor(new Date().getTime() / 1000));
     },

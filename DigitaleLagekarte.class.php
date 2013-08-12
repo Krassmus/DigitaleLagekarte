@@ -25,6 +25,7 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
                 $old_map = new Lagekarte($data['Lagekarte']['map_id']);
                 $new_map = Lagekarte::getCurrent($old_map['seminar_id']);
                 $output['map_id'] = $new_map->getId();
+                $output['poi_ids'] = array();
                 foreach ($new_map->getSchadenskonten() as $schadenskonto) {
                     foreach ($schadenskonto->getPOIs() as $poi) {
                         if ($poi['chdate'] >= $data['Lagekarte']['last_update']) {
@@ -37,6 +38,7 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
                                 'predecessor' => $poi['predecessor']
                             );
                         }
+                        $output['poi_ids'][] = $poi->getId();
                     }
                 }
                 

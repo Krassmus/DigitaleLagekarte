@@ -22,9 +22,9 @@ jQuery(function () {
     <? foreach ($schadenskonten as $schadenskonto) : ?>
         <? foreach ($schadenskonto->getPOIs() as $poi) : ?>
             STUDIP.Lagekarte.draw_poi(
-                '<?= $poi->getId() ?>', 
-                '<?= htmlReady($poi['shape']) ?>', 
-                <?= json_encode($poi['coordinates']) ?>, 
+                '<?= $poi->getId() ?>',
+                '<?= htmlReady($poi['shape']) ?>',
+                <?= json_encode($poi['coordinates']) ?>,
                 <?= (int) $poi['radius'] ?>,
                 '<?= htmlReady($poi['image']) ?>',
                 "<?= addslashes(str_replace("\n", "", $this->render_partial("map/_poi_popup.php", array('poi' => $poi)))) ?>"

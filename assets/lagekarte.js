@@ -18,7 +18,7 @@ STUDIP.Lagekarte = {
         var layer;
         if (mapdata.poi) {
             jQuery.each(mapdata.poi, function (index, poi) {
-                layer = STUDIP.Lagekarte.draw_poi(poi.poi_id, poi.type, poi.coordinates, poi.radius, poi.image, "ha!");
+                layer = STUDIP.Lagekarte.draw_poi(poi.poi_id, poi.type, poi.coordinates, poi.radius, poi.image, poi.popup);
                 if (typeof STUDIP.Lagekarte.pois[poi.poi_id] === "undefined") {
                     STUDIP.Lagekarte.fadeInLayer(layer);
                 }
@@ -241,6 +241,7 @@ STUDIP.Lagekarte = {
                 }
                 if (output.new_poi) {
                     STUDIP.Lagekarte.pois[output.new_poi.id] = STUDIP.Lagekarte.temporary_layer;
+                    STUDIP.Lagekarte.pois[output.new_poi.id].bindPopup(output.new_poi.popup);
                     STUDIP.Lagekarte.temporary_layer = null;
                 }
                 jQuery("#create_poi_window").dialog("close");

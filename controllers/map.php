@@ -81,7 +81,13 @@ class MapController extends ApplicationController {
         $object['title'] = studip_utf8decode(Request::get("title"));
         $success = $object->store();
         if ($success) {
-            $output['new_poi'] = array('id' => $object->getId());
+            $popup_template = $this->get_template_factory()->open("map/_poi_popup.php");
+            $popup_template->set_attribute('plugin', $this->plugin);
+            $popup_template->set_attribute('poi', $object);
+            $output['new_poi'] = array(
+                'id' => $object->getId(),
+                'popup' => $popup_template->render()
+            );
         }
         $this->render_json($output);
     }

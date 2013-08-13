@@ -26,16 +26,21 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
                 $new_map = Lagekarte::getCurrent($old_map['seminar_id']);
                 $output['map_id'] = $new_map->getId();
                 $output['poi_ids'] = array();
+                $tf = new Flexi_TemplateFactory(dirname(__file__)."/views");
                 foreach ($new_map->getSchadenskonten() as $schadenskonto) {
                     foreach ($schadenskonto->getPOIs() as $poi) {
                         if ($poi['chdate'] >= $data['Lagekarte']['last_update']) {
+                            $popup_template = $tf->open("map/_poi_popup.php");
+                            $popup_template->set_attribute('plugin', $this);
+                            $popup_template->set_attribute('poi', $poi);
                             $output['poi'][] = array(
                                 'poi_id' => $poi->getId(),
                                 'type' => $poi['shape'],
                                 'image' => $poi['image'],
                                 'coordinates' => $poi['coordinates'],
                                 'radius' => $poi['radius'],
-                                'predecessor' => $poi['predecessor']
+                                'predecessor' => $poi['predecessor'],
+                                'popup' => $popup_template->render()
                             );
                         }
                         $output['poi_ids'][] = $poi->getId();

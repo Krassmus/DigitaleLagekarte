@@ -19,7 +19,15 @@ class Lagekarte extends SimpleORMap {
             "WHERE seminar_id = ".$db->quote($seminar_id)." " .
             "ORDER BY mkdate DESC " .
         "")->fetch(PDO::FETCH_COLUMN, 0);
-        return new Lagekarte($map_id ? $map_id : null);
+        $map = new Lagekarte($map_id ? $map_id : null);
+        if ($map->isNew()) {
+            $map['seminar_id'] = $_SESSION['SessionSeminar'];
+            $map['latitude'] = 53.152692;
+            $map['longitude'] = 8.187937;
+            $map['zoom'] = 17;
+            $map['user_id'] = $GLOBALS['user_id'];
+        }
+        return $map;
     }
     
     public function createCopy() {

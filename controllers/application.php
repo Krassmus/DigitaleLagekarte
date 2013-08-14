@@ -32,6 +32,16 @@ class ApplicationController extends Trails_Controller {
         $this->current_action = $action;
         $this->set_layout($GLOBALS['template_factory']->open('layouts/base'));
         $this->assets_url = $this->plugin->getPluginUrl(). '/assets/';
+        
+        PageLayout::addStylesheet($this->assets_url."lagekarte.css");
+        PageLayout::addHeadElement("script", array('src' => $this->assets_url."Leaflet/leaflet.js"), "");
+        PageLayout::addHeadElement("script", array('src' => $this->assets_url."Leaflet/leaflet.draw.js"), "");
+        PageLayout::addHeadElement("link", array('href' => $this->assets_url."Leaflet/leaflet.css", 'rel' => "stylesheet"));
+        PageLayout::addHeadElement("link", array('href' => $this->assets_url."Leaflet/leaflet.draw.css", 'rel' => "stylesheet"));
+        PageLayout::addHeadElement("link", array('href' => $this->assets_url."Leaflet/Control.FullScreen.css", 'rel' => "stylesheet"));
+        PageLayout::addHeadElement("script", array('src' => $this->assets_url."Leaflet/Control.FullScreen.js"), "");
+        PageLayout::addHeadElement("script", array('src' => $this->assets_url."lagekarte.js"), "");
+        
     }
 
     /**

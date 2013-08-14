@@ -1,4 +1,4 @@
-<table class="default">
+<table class="default zebra zebra-hover" id="overview_schadenskonten">
     <thead>
         <tr>
             <th><?= _("Name des Schadenskontos") ?></th>
@@ -23,3 +23,20 @@
         </tr>
     </tfoot>
 </table>
+
+<? 
+$infobox = array(
+    array("kategorie" => _("Information"),
+          "eintrag"   =>
+        array(
+            array(
+                "icon" => "icons/16/black/info-circle",
+                "text" => _("Wählen Sie ein Schadenskonto aus.")
+            )
+        )
+    )
+);
+$infobox = array(
+    'picture' => $assets_url."Lagekarte-4.jpg",
+    'content' => $infobox
+);

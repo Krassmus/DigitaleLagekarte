@@ -346,3 +346,30 @@ STUDIP.Lagekarte = {
     }
     
 };
+
+jQuery(function () {
+    jQuery("#overview_schadenskonten > tbody > tr").bind("click", function () {
+        location.href = jQuery(this).find("a").attr("href");
+    });
+    jQuery(".troopstrength").bind("keydown", function (event) {
+        if (event.keyCode === 32) {
+            jQuery(this).next().focus();
+            event.stopPropagation();
+            event.preventDefault();
+            return false;
+        }
+        
+    });
+    jQuery(".troopstrength").bind("keyup", function () {
+        jQuery("#gesamt").val(
+            parseInt(jQuery("#fuehrer").val() || 0, 10)
+            + parseInt(jQuery("#unterfuehrer").val() || 0, 10)
+            + parseInt(jQuery("#helfer").val() || 0, 10)
+        );
+    });
+    jQuery(".troopstrength").bind("blur", function () {
+        if (!jQuery(this).val()) {
+            jQuery(this).val(0);
+        }
+    });
+});

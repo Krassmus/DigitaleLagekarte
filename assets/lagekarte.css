@@ -1,0 +1,10 @@
+#overview_schadenskonten > tbody > tr:hover {
+    cursor: pointer;
+}
+#select_schadenskonto {
+    width: 200px;
+    max-width: 200px;
+}
+.troopstrength {
+    width: 30px;
+}

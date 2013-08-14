@@ -22,6 +22,7 @@ class SchadenskontenController extends ApplicationController {
     public function konto_action($id) {
         $this->schadenskonto = new Schadenskonto($id);
         $this->map = new Lagekarte($this->schadenskonto['map_id']);
+        $this->schadenskonten = $this->map->getSchadenskonten();
         if ($this->schadenskonto->isNew() 
                 || $this->map->isNew() 
                 || !$GLOBALS['perm']->have_studip_perm("autor", $this->map['seminar_id'])) {

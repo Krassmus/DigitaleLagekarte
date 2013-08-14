@@ -86,8 +86,7 @@ STUDIP.Lagekarte = {
             }
             if (type === "circle") {
                 coordinates = new L.LatLng(coordinates[1], coordinates[0]);
-                STUDIP.Lagekarte.pois[id].setLatLng(coordinates);
-                STUDIP.Lagekarte.pois[id].setRadius(radius);
+                STUDIP.Lagekarte.moveCircle(STUDIP.Lagekarte.pois[id], coordinates, radius);
             }
             if (type === "polyline") {
                 coordinates = _.map(coordinates, function (value) {
@@ -343,6 +342,25 @@ STUDIP.Lagekarte = {
             }
         }
         moveMarker(layer, position, 1000);
+    },
+    moveCircle: function (layer, position, radius) {
+        var starttime = new Date();
+        var originalPosition = layer.getLatLng();
+        var originalradius = layer.getRadius();
+        var moveCircle = function (layer, position, radius, duration) {
+            var time = new Date();
+            var way = (time - starttime) / duration;
+            var newPosition = new L.LatLng(
+                (position.lat * way + originalPosition.lat * (1 - way)), 
+                (position.lng * way + originalPosition.lng * (1 - way))
+            );
+            layer.setLatLng(way < 1 ? newPosition : position);
+            layer.setRadius((radius * way + originalradius * (1 - way)));
+            if (way < 1) {
+                window.setTimeout(function () { moveCircle(layer, position, radius, duration); }, 10);
+            }
+        }
+        moveCircle(layer, position, radius, 1000);
     }
     
 };

@@ -241,6 +241,7 @@ STUDIP.Lagekarte = {
                 }
                 if (output.new_poi) {
                     STUDIP.Lagekarte.pois[output.new_poi.id] = STUDIP.Lagekarte.temporary_layer;
+                    STUDIP.Lagekarte.pois[output.new_poi.id].feature_id = output.new_poi.id;
                     STUDIP.Lagekarte.pois[output.new_poi.id].bindPopup(output.new_poi.popup);
                     STUDIP.Lagekarte.temporary_layer = null;
                 }

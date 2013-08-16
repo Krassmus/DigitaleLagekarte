@@ -69,6 +69,7 @@ class MapController extends ApplicationController {
         $object['radius'] = Request::get("radius") ? Request::get("radius") : null;
         $object['shape'] = Request::get("shape");
         $object['image'] = Request::get("image");
+        $object['visible'] = 1;
         $object['title'] = studip_utf8decode(Request::get("title"));
         $success = $object->store();
         if ($success) {
@@ -98,7 +99,7 @@ class MapController extends ApplicationController {
     }
     
     public function edit_poi_action() {
-        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar']) || !Request::isPost()) {
             throw new AccessDeniedException("Kein Zugriff");
         }
         $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
@@ -109,6 +110,19 @@ class MapController extends ApplicationController {
                 $poi['coordinates'] = $attributes['coordinates'];
                 $poi->store();
             }
+        }
+        $this->render_nothing();
+    }
+    
+    public function edit_poi_color_action() {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar']) || !Request::isPost()) {
+            throw new AccessDeniedException("Kein Zugriff");
+        }
+        $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        $poi = new PointOfInterest(Request::option("poi_id"));
+        if (Schadenskonto::find($poi['schadenskonto_id'])->map_id === $map->getId()) {
+            $poi['color'] = Request::get("color");
+            $poi->store();
         }
         $this->render_nothing();
     }

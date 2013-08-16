@@ -39,6 +39,7 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
                                 'image' => $poi['image'],
                                 'coordinates' => $poi['coordinates'],
                                 'radius' => $poi['radius'],
+                                'color' => $poi['color'],
                                 'predecessor' => $poi['predecessor'],
                                 'popup' => $popup_template->render()
                             );

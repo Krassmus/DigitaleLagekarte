@@ -8,3 +8,6 @@
 .troopstrength {
     width: 30px;
 }
+#select_schadenskonto > option {
+    padding: 7px;
+}

@@ -1,3 +1,5 @@
+<input type="hidden" id="seminar_id" value="<?= $_SESSION['SessionSeminar'] ?>">
+
 
 <h1><?= htmlReady($schadenskonto['title']) ?></h1>
 
@@ -44,14 +46,14 @@ jQuery(function () {
 });
 </script>
 <? 
-$select = '<select name="" id="select_schadenskonto" size="10">';
+$select = '<select name="schadenkonto_id" id="select_schadenskonto" size="10">';
 foreach ($schadenskonten as $sch) {
     $select .= '<option value="'.htmlReady($sch->getId()).'"'.($schadenskonto->getId() === $sch->getId() ? " selected" : "").'>'.htmlReady($sch['title']).'</option>';
 }
 $select .= '</select>';
 
 $infobox = array(
-    array("kategorie" => _("Navigation"),
+    array("kategorie" => _("Schadenskonten"),
           "eintrag"   =>
         array(
             array(

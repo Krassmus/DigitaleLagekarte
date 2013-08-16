@@ -21,14 +21,17 @@ jQuery(function () {
     STUDIP.Lagekarte.draw_map(<?= (double) $map['latitude'] ?>, <?= (double) $map['longitude'] ?>, <?= (int) $map['zoom'] ?>);
     <? foreach ($schadenskonten as $schadenskonto) : ?>
         <? foreach ($schadenskonto->getPOIs() as $poi) : ?>
+            <? if ($poi['visible']) : ?>
             STUDIP.Lagekarte.draw_poi(
                 '<?= $poi->getId() ?>',
                 '<?= htmlReady($poi['shape']) ?>',
                 <?= json_encode($poi['coordinates']) ?>,
                 <?= (int) $poi['radius'] ?>,
+                '<?= htmlReady($poi['color'] ? $poi['color'] : "blue") ?>',
                 '<?= htmlReady($poi['image']) ?>',
                 "<?= addslashes(str_replace("\n", "", $this->render_partial("map/_poi_popup.php", array('poi' => $poi)))) ?>"
             );
+            <? endif ?>
         <? endforeach ?>
     <? endforeach ?>
     <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) : ?>

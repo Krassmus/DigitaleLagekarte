@@ -87,7 +87,6 @@ STUDIP.Lagekarte = {
                 coordinates = new L.LatLng(coordinates[1], coordinates[0]);
                 STUDIP.Lagekarte.moveCircle(STUDIP.Lagekarte.pois[id], coordinates, radius);
                 STUDIP.Lagekarte.pois[id].setStyle({'color': color, 'fillColor': color});
-                jQuery("#poi_" + id + "_color").val(color);
             }
             if (type === "polyline") {
                 coordinates = _.map(coordinates, function (value) {
@@ -95,7 +94,6 @@ STUDIP.Lagekarte = {
                 });
                 STUDIP.Lagekarte.pois[id].setLatLngs(coordinates);
                 STUDIP.Lagekarte.pois[id].setStyle({'color': color, 'fillColor': color});
-                jQuery("#poi_" + id + "_color").val(color);
             }
             if (type === "polygon") {
                 coordinates = _.map(coordinates, function (value1) {
@@ -105,8 +103,8 @@ STUDIP.Lagekarte = {
                 });
                 STUDIP.Lagekarte.pois[id].setLatLngs(coordinates);
                 STUDIP.Lagekarte.pois[id].setStyle({'color': color, 'fillColor': color});
-                jQuery("#poi_" + id + "_color").val(color);
             }
+            STUDIP.Lagekarte.pois[id].bindPopup(popup);
         }
     },
     edit_map: function () {

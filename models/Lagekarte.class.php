@@ -53,6 +53,8 @@ class Lagekarte extends SimpleORMap {
                 $new_poi['title'] = $old_poi['title'];
                 $new_poi['coordinates'] = $old_poi['coordinates'];
                 $new_poi['radius'] = $old_poi['radius'];
+                $new_poi['visible'] = $old_poi['visible'];
+                $new_poi['color'] = $old_poi['color'];
                 $new_poi['predecessor'] = $old_poi->getId();
                 $new_poi['first_predecessor'] = $old_poi['first_predecessor'];
                 $new_poi->store();

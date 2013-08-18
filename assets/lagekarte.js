@@ -67,7 +67,7 @@ STUDIP.Lagekarte = {
                         return new L.LatLng(value2[1], value2[0]);
                     });
                 });
-                new_object = new L.MultiPolygon(coordinates, {'color': color, 'weight': "2"});
+                new_object = new L.Polygon(coordinates, {'color': color, 'weight': "2"});
             }
             if (new_object !== null) {
                 new_object.feature_id = id;
@@ -127,12 +127,12 @@ STUDIP.Lagekarte = {
                         weight: "2"
                     }
                 },
-                rectangle: null
+                rectangle: null //disable rectangles
             },
             edit: {
                 featureGroup: STUDIP.Lagekarte.featureGROUP,
                 edit: {
-                    selectedPathOptions: null
+                    selectedPathOptions: null //so colors won't be overwritten
                 }
                 
             }

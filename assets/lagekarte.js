@@ -53,7 +53,7 @@ STUDIP.Lagekarte = {
             }
             if (type === "circle") {
                 coordinates = new L.LatLng(coordinates[1], coordinates[0]);
-                new_object = new L.Circle(coordinates, radius, {'color': color});
+                new_object = new L.Circle(coordinates, radius, {'color': color, 'weight': "2"});
             }
             if (type === "polyline") {
                 coordinates = _.map(coordinates, function (value) {
@@ -67,7 +67,7 @@ STUDIP.Lagekarte = {
                         return new L.LatLng(value2[1], value2[0]);
                     });
                 });
-                new_object = new L.MultiPolygon(coordinates, {'color': color});
+                new_object = new L.MultiPolygon(coordinates, {'color': color, 'weight': "2"});
             }
             if (new_object !== null) {
                 new_object.feature_id = id;
@@ -116,28 +116,24 @@ STUDIP.Lagekarte = {
                 },
                 polygon: {
                     allowIntersection: false,
-                    drawError: {
-                        color: 'blue',
-                        timeout: 1000
-                    },
                     shapeOptions: {
-                        color: 'blue'
-                    },
-                    showArea: true
+                        color: 'blue',
+                        weight: "2"
+                    }
                 },
                 circle: {
-                    drawError: {
-                        color: 'blue',
-                        timeout: 1000
-                    },
                     shapeOptions: {
-                        color: 'blue'
+                        color: 'blue',
+                        weight: "2"
                     }
                 },
                 rectangle: null
             },
             edit: {
                 featureGroup: STUDIP.Lagekarte.featureGROUP,
+                edit: {
+                    selectedPathOptions: null
+                }
                 
             }
         });

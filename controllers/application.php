@@ -41,7 +41,7 @@ class ApplicationController extends Trails_Controller {
         PageLayout::addHeadElement("link", array('href' => $this->assets_url."Leaflet/Control.FullScreen.css", 'rel' => "stylesheet"));
         PageLayout::addHeadElement("script", array('src' => $this->assets_url."Leaflet/Control.FullScreen.js"), "");
         PageLayout::addHeadElement("script", array('src' => $this->assets_url."lagekarte.js"), "");
-        
+        PageLayout::addHeadElement("link", array('href' => $this->assets_url."lagekarte.css", 'rel' => "stylesheet"));
     }
 
     /**

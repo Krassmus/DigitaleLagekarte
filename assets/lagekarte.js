@@ -406,4 +406,17 @@ jQuery(function () {
             }
         });
     });
+    jQuery(".pois").sortable({
+        'placeholder': "poi_batch"
+    });
+    jQuery("#select_schadenskonto > option").droppable({
+        'accept': ".poi_batch",
+        'hoverClass': "drophere",
+        'drop': function (event, ui) {
+            var poi_id = ui.draggable.attr('id').substr(ui.draggable.attr('id').lastIndexOf("_") + 1);
+            var schadenskonto_id = this.value;
+            event.stopPropagation();
+            event.preventDefault();
+        }
+    });
 });

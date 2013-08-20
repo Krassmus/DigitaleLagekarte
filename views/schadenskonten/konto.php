@@ -34,7 +34,7 @@
     <div>
         <ul class="pois">
         <? foreach ($schadenskonto->getPOIs() as $poi) : ?>
-            <li><?= htmlReady($poi['title']) ?> (<?= $poi['shape'] ?>)</li>
+            <?= $this->render_partial("schadenskonten/_poi_batch.php", compact('poi', 'assets_url')) ?>
         <? endforeach ?>
         </ul>
     </div>

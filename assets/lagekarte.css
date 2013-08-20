@@ -11,3 +11,24 @@
 #select_schadenskonto > option {
     padding: 7px;
 }
+#select_schadenskonto > option.drophere {
+    background-color: yellow;
+}
+
+.pois {
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+}
+.poi_batch {
+    display: inline-block;
+    margin: 3px;
+    width: 100px;
+    height: 100px;
+    border: thin solid rgba(0,0,0,0.2);
+    vertical-align: top;
+    text-align: center;
+    background-size: 100% auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+}

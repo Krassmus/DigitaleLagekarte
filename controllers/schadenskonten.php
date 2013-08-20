@@ -14,7 +14,6 @@ class SchadenskontenController extends ApplicationController {
     }
     
     public function overview_action() {
-        PageLayout::addHeadElement("script", array('src' => $this->assets_url."lagekarte.js"), "");
         $this->map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
         $this->schadenskonten = $this->map->getSchadenskonten();
     }

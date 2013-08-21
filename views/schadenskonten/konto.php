@@ -33,9 +33,9 @@
     <h3><?= _("Elemente") ?></h3>
     <div>
         <ul class="pois">
-        <? foreach ($schadenskonto->getPOIs() as $poi) : ?>
-            <?= $this->render_partial("schadenskonten/_poi_batch.php", compact('poi', 'assets_url')) ?>
-        <? endforeach ?>
+        <? foreach ($schadenskonto->getPOIs() as $poi) {
+            echo $this->render_partial("schadenskonten/_poi_batch.php", compact('poi', 'assets_url'));
+        } ?>
         </ul>
     </div>
 </div>

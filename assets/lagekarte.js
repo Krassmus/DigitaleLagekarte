@@ -408,7 +408,7 @@ jQuery(function () {
     });
     jQuery(".pois").sortable({
         'placeholder': "poi_batch",
-        'revert': true
+        'revert': 200
     });
     jQuery("#select_schadenskonto > option").droppable({
         'accept': ".poi_batch",

@@ -25,7 +25,7 @@ STUDIP.Lagekarte = {
                 existing_ids.push(poi.poi_id);
             });
         }
-        //noch die gelöschten POIs löschen:
+        //noch die gelï¿½schten POIs lï¿½schen:
         jQuery.each(STUDIP.Lagekarte.pois, function (poi_id, layer) {
             if (_.indexOf(mapdata.poi_ids, poi_id) === -1) {
                 STUDIP.Lagekarte.fadeOutLayer(layer);
@@ -407,7 +407,8 @@ jQuery(function () {
         });
     });
     jQuery(".pois").sortable({
-        'placeholder': "poi_batch"
+        'placeholder': "poi_batch",
+        'revert': true
     });
     jQuery("#select_schadenskonto > option").droppable({
         'accept': ".poi_batch",

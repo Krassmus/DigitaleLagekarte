@@ -407,7 +407,7 @@ jQuery(function () {
         });
     });
     jQuery(".pois").sortable({
-        'placeholder': "poi_batch",
+        'placeholder': "empty_symbol",
         'revert': 200
     });
     jQuery("#select_schadenskonto > option").droppable({
@@ -416,8 +416,24 @@ jQuery(function () {
         'drop': function (event, ui) {
             var poi_id = ui.draggable.attr('id').substr(ui.draggable.attr('id').lastIndexOf("_") + 1);
             var schadenskonto_id = this.value;
-            event.stopPropagation();
-            event.preventDefault();
+            jQuery.ajax({
+                'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/schadenskonten/move_poi_to_schadenskonto",
+                'data': {
+                    'poi_id': poi_id,
+                    'schadenskonto_id': schadenskonto_id,
+                    'cid': jQuery("#seminar_id").val()
+                },
+                'type': "post"
+            });
+            ui.draggable.hide('swing', function () { 
+                jQuery(this).remove();
+                jQuery(".pois li.empty_symbol").remove();
+                jQuery(".pois").sortable("destroy");
+                jQuery(".pois").sortable({
+                    'placeholder': "empty_symbol",
+                    'revert': 200
+                });
+            });
         }
     });
 });

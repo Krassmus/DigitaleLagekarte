@@ -30,4 +30,21 @@ class SchadenskontenController extends ApplicationController {
         Navigation::activateItem("/course/lagekarte/schadenskonten");
     }
     
+    public function move_poi_to_schadenskonto_action() {
+        $schadenskonto = new Schadenskonto(Request::option("schadenskonto_id"));
+        $poi = new PointOfInterest(Request::option("poi_id"));
+        $old_schadenskonto = new Schadenskonto($poi['schadenskonto_id']);
+        $new_map = new Lagekarte($schadenskonto['map_id']);
+        $old_map = new Lagekarte($old_schadenskonto['map_id']);
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar']) 
+                || !Request::isPost()
+                || $new_map['Seminar_id'] !== $_SESSION['SessionSeminar']
+                || $old_map['Seminar_id'] !== $_SESSION['SessionSeminar']) {
+            throw new AccessDeniedException("kein Zugriff");
+        }
+        $poi['schadenskonto_id'] = $schadenskonto->getId();
+        $poi->store();
+        $this->render_nothing();
+    }
+    
 }

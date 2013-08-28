@@ -1,8 +1,7 @@
 <form>
 <input type="hidden" name="poi_id" value="<?= $poi->getId() ?>">
-<h3 style="margin: 0px;"><?= htmlReady($poi['title']) ?></h3>
-<hr>
-<table>
+<table class="default" style="margin: 0px;">
+    <caption><?= htmlReady($poi['title']) ?></caption>
     <tr>
         <td><strong><?= _("Schadenskonto") ?></strong></td>
         <td>

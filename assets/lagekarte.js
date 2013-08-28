@@ -408,7 +408,12 @@ jQuery(function () {
     });
     jQuery(".pois").sortable({
         'placeholder': "empty_symbol",
-        'revert': 200
+        'revert': 200,
+        'connectWith': ".pois"
+    });
+    jQuery(".pois > li").droppable({
+        'accept': ".poi_batch",
+        'hoverClass': "drophere"
     });
     jQuery("#select_schadenskonto > option").droppable({
         'accept': ".poi_batch",

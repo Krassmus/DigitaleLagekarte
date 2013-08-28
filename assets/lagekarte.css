@@ -19,6 +19,8 @@
     margin: 0px;
     padding: 0px;
     list-style-type: none;
+    min-width: 100px;
+    min-height: 100px;
 }
 .pois > li {
     display: inline-block;
@@ -32,4 +34,7 @@
     background-position: center center;
     background-repeat: no-repeat;
     cursor: move;
+}
+.pois > li.drophere {
+    background-color: yellow;
 }

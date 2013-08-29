@@ -32,31 +32,23 @@ class Lagekarte extends SimpleORMap {
     
     public function createCopy() {
         $map = new Lagekarte();
-        $map['longitude'] = $this['longitude'];
-        $map['latitude'] = $this['latitude'];
-        $map['zoom'] = $this['zoom'];
+        $map->setData($this->toArray());
+        $map->setId($map->getNewId());
         $map['user_id'] = $GLOBALS['user']->id;
-        $map['seminar_id'] = $this['seminar_id'];
         $map->store();
         foreach ($this->getSchadenskonten() as $old_schadenskonto) {
             $new_schadenskonto = new Schadenskonto();
+            $new_schadenskonto->setData($old_schadenskonto->toArray());
             $new_schadenskonto['map_id'] = $map->getId();
-            $new_schadenskonto['title'] = $old_schadenskonto['title'];
             $new_schadenskonto['predecessor'] = $old_schadenskonto->getId();
-            $new_schadenskonto['first_predecessor'] = $old_schadenskonto['first_predecessor'];
+            $new_schadenskonto->setId($new_schadenskonto->getNewId());
             $new_schadenskonto->store();
             foreach ($old_schadenskonto->getPOIs() as $old_poi) {
                 $new_poi = new PointOfInterest();
+                $new_poi->setData($old_poi->toArray());
+                $new_poi->setId($new_poi->getNewId());
                 $new_poi['schadenskonto_id'] = $new_schadenskonto->getId();
-                $new_poi['shape'] = $old_poi['shape'];
-                $new_poi['image'] = $old_poi['image'];
-                $new_poi['title'] = $old_poi['title'];
-                $new_poi['coordinates'] = $old_poi['coordinates'];
-                $new_poi['radius'] = $old_poi['radius'];
-                $new_poi['visible'] = $old_poi['visible'];
-                $new_poi['color'] = $old_poi['color'];
                 $new_poi['predecessor'] = $old_poi->getId();
-                $new_poi['first_predecessor'] = $old_poi['first_predecessor'];
                 $new_poi->store();
             }
         }

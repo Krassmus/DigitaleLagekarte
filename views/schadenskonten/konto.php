@@ -1,7 +1,12 @@
 <input type="hidden" id="seminar_id" value="<?= $_SESSION['SessionSeminar'] ?>">
+<input type="hidden" id="schadenskonto_id" value="<?= htmlReady($schadenskonto->getId()) ?>">
 
 
-<h1><?= htmlReady($schadenskonto['title']) ?></h1>
+<h1 class="editable">
+    <div class="edit-icon"><?= Assets::img("icons/16/blue/edit") ?></div>
+    <div class="value"><?= htmlReady($schadenskonto['title']) ?></div>
+    <div class="input"><input type="text" name="title" value="<?= htmlReady($schadenskonto['title']) ?>"></div>
+</h1>
 
 <h2><?= _("Beschreibung") ?></h2>
 <div>

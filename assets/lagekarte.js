@@ -406,6 +406,27 @@ jQuery(function () {
             }
         });
     });
+    //Edit schadenskonto:
+    jQuery(".editable .edit-icon").live('click', function () {
+        jQuery(this).closest(".editable").addClass("edit").find(".input input").focus();
+    });
+    jQuery(".editable .input").live("blur", function () {
+        var that = this;
+        jQuery.ajax({
+            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/schadenskonten/edit",
+            'data': {
+                'cid': jQuery("#seminar_id").val(),
+                'schadenskonto_id': jQuery("#schadenskonto_id").val(),
+                'attribute': jQuery(this).find("input").attr("name"),
+                'value': jQuery(this).find("input").val()
+            },
+            success: function (html) {
+                jQuery(that).closest(".editable").find(".value").html(html);
+                jQuery(that).closest(".editable").removeClass("edit");
+                
+            }
+        });
+    });
     jQuery(".pois").sortable({
         'placeholder': "empty_symbol",
         'revert': 200,

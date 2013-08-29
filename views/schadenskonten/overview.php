@@ -1,4 +1,4 @@
-<table class="default zebra zebra-hover" id="overview_schadenskonten">
+<table class="default" id="overview_schadenskonten">
     <thead>
         <tr>
             <th><?= _("Name des Schadenskontos") ?></th>

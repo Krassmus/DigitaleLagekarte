@@ -47,4 +47,11 @@ class SchadenskontenController extends ApplicationController {
         $this->render_nothing();
     }
     
+    public function edit_action() {
+        $schadenskonto = new Schadenskonto(Request::option("schadenskonto_id"));
+        $schadenskonto[Request::get("attribute")] = Request::get("value");
+        $schadenskonto->store();
+        $this->render_text(formatReady($schadenskonto[Request::get("attribute")]));
+    }
+    
 }

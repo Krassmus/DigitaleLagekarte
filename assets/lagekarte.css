@@ -38,3 +38,25 @@
 .pois > li.drophere {
     background-color: yellow;
 }
+
+.editable.edit .value {
+    display: none;
+}
+.editable .input {
+    display: none;
+}
+.editable.edit .input {
+    display: block;
+}
+.editable.edit .input input {
+    width: 80%;
+    font-size: 1em;
+}
+.editable .edit-icon {
+    float: right;
+    visibility: hidden;
+    cursor: pointer;
+}
+.editable:hover .edit-icon {
+    visibility: visible;
+}

@@ -16,5 +16,11 @@ class ExternedatenController extends ApplicationController {
     public function overview_action() {
         $this->urls = ExternalDataURL::findBySeminar($_SESSION['SessionSeminar']);
     }
+
+    public function details_action() {
+        $this->url = new ExternalDataURL(array($_SESSION['SessionSeminar'], Request::get("url")));
+        $this->url->fetch();
+        Navigation::activateItem("/course/lagekarte/externedaten");
+    }
     
 }

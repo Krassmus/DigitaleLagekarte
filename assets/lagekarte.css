@@ -60,3 +60,9 @@
 .editable:hover .edit-icon {
     visibility: visible;
 }
+
+.json_object_list ul {
+    list-style-type: none;
+    margin: 10px;
+    background-color: rgba(0,0,30,0.2);
+}

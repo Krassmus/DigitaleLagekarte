@@ -28,7 +28,7 @@
             <td><?= $url['active'] && count($url['mapping'])
                     ? Assets::img("icons/16/black/checkbox-checked", array("class" => "text-bottom"))
                     : Assets::img("icons/16/black/checkbox-checked", array("class" => "text-bottom")) ?></td>
-            <td><?= Assets::img("icons/16/blue/edit", array("class" => "text-bottom")) ?></td>
+            <td><a href="<?= PluginEngine::getLink($plugin, array('url' => $url['url']), "externedaten/details") ?>"><?= Assets::img("icons/16/blue/edit", array("class" => "text-bottom")) ?></a></td>
         </tr>
         <? endforeach ?>
         <? else : ?>

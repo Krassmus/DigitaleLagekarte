@@ -35,7 +35,7 @@ class ExternalDataURL extends SimpleORMap {
     public function fetch() {
         // cURL-Request:
         $c = curl_init();
-        curl_setopt($c, CURLOPT_HTTPHEADER, "Accept: application/json");
+        curl_setopt($c, CURLOPT_HTTPHEADER, array("Accept" => "application/json"));
         curl_setopt($c, CURLOPT_URL, $this['url']);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($c, CURLOPT_VERBOSE, 0);
@@ -56,7 +56,7 @@ class ExternalDataURL extends SimpleORMap {
             curl_errno($c);
             curl_error($c);
         } else {
-            $this['last_object'] = json_decode($result);
+            $this['last_object'] = studip_utf8decode(json_decode($result));
             $this['last_update'] = time();
             $this->store();
             //map new data to pois:

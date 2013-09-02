@@ -28,8 +28,8 @@ class ExternalDataURL extends SimpleORMap {
     }
 
     protected function unserializeDataAndMapping() {
-        $this->last_object = studip_utf8decode(json_decode($this->last_object));
-        $this->mapping = studip_utf8decode(json_decode($this->mapping));
+        $this->last_object = (array) studip_utf8decode(json_decode($this->last_object, true));
+        $this->mapping = (array) studip_utf8decode(json_decode($this->mapping, true));
     }
 
     public function fetch() {

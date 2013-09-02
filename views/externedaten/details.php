@@ -22,7 +22,7 @@ function display_json_representation($arr) {
             if (is_array($value)) {
                 display_json_representation($value);
             } else {
-                $output .= $value;
+                $output .= '<span class="key">'.htmlReady($key).'<span>: <span class="value">'.htmlReady($value).'</span>';
             }
             $output .= "</li>";
         }
@@ -32,7 +32,7 @@ function display_json_representation($arr) {
         foreach ($arr as $value) {
             $output .= "<li>";
             if (is_array($value)) {
-                display_json_representation($value);
+                $output .= display_json_representation($value);
             } else {
                 $output .= $value;
             }
@@ -46,6 +46,5 @@ function display_json_representation($arr) {
 ?>
 <h1><?= htmlReady($url['name']) ?></h1>
 <div class="json_object_list">
-    <pre><? var_dump($url) ?></pre>
 <?= display_json_representation($url['last_object']) ?>
 </div>

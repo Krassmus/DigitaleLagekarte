@@ -9,6 +9,7 @@
  *  the License, or (at your option) any later version.
  */
 ?>
+<input type="hidden" id="Seminar_id" value="<?= $_SESSION['SessionSeminar'] ?>">
 <table class="default">
     <caption><?= _("Externe Daten") ?></caption>
     <thead>
@@ -27,7 +28,7 @@
             <td><?= date("j.m.Y", $url['last_update']) ?></td>
             <td><?= $url['active'] && count($url['mapping'])
                     ? Assets::img("icons/16/black/checkbox-checked", array("class" => "text-bottom"))
-                    : Assets::img("icons/16/black/checkbox-checked", array("class" => "text-bottom")) ?></td>
+                    : Assets::img("icons/16/black/checkbox-unchecked", array("class" => "text-bottom")) ?></td>
             <td><a href="<?= PluginEngine::getLink($plugin, array('url' => $url['url']), "externedaten/details") ?>"><?= Assets::img("icons/16/blue/edit", array("class" => "text-bottom")) ?></a></td>
         </tr>
         <? endforeach ?>
@@ -39,10 +40,32 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="4"><?= Assets::img("icons/16/blue/add") ?></td>
+            <td colspan="4"><a href="" onClick="STUDIP.Lagekarte.new_external_data_url(); return false;"><?= Assets::img("icons/16/blue/add") ?></td>
         </tr>
     </tfoot>
 </table>
+
+<div id="new_external_data_url_window_title" style="display: none;"><?= _("Neue externe URL") ?></div>
+<div id="new_external_data_url_window" style="display: none;">
+    <form>
+        <table>
+            <tr>
+                <td><label><?= _("Name") ?></label></td>
+                <td><input type="text" name="name"></td>
+            </tr>
+            <tr>
+                <td><label><?= _("URL") ?></label></td>
+                <td><input type="text" name="url"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <?= \Studip\Button::create(_("erstellen"), '', array('onClick' => "STUDIP.Lagekarte.create_external_data_url(); return false;")) ?>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
 
 <?
 $infobox = array(

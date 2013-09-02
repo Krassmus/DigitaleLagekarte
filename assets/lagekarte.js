@@ -360,6 +360,30 @@ STUDIP.Lagekarte = {
             }
         }
         moveCircle(layer, position, radius, 1000);
+    },
+    // external data urls:
+    new_external_data_url: function () {
+        jQuery("#new_external_data_url_window").dialog({
+            'title': jQuery("#new_external_data_url_window_title").text(),
+            'modal': true,
+            'show': "fade",
+            'hide': "fade"
+        });
+    },
+    create_external_data_url: function () {
+        jQuery.ajax({
+            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/externedaten/create_external_data_url",
+            'data': {
+                'cid': jQuery("#Seminar_id").val(),
+                'name': jQuery("#new_external_data_url_window input[name=name]").val(),
+                'url': jQuery("#new_external_data_url_window input[name=url]").val()
+            },
+            'type': "POST",
+            'dataType': "json",
+            'success': function (result) {
+                location.href = result.link
+            }
+        });
     }
     
 };

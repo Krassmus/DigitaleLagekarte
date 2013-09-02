@@ -11,6 +11,7 @@
 require_once(dirname(__file__)."/models/Lagekarte.class.php");
 require_once(dirname(__file__)."/models/Schadenskonto.class.php");
 require_once(dirname(__file__)."/models/PointOfInterest.class.php");
+require_once(dirname(__file__)."/models/ExternalDataURL.class.php");
 
 class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
     
@@ -68,6 +69,10 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
         $nav->addSubNavigation('show', $show);
         $schadenskonten = new AutoNavigation(_("Schadenskonten"), PluginEngine::getURL($this, array(), "schadenskonten/overview"));
         $nav->addSubNavigation('schadenskonten', $schadenskonten);
+        if ($GLOBALS['perm']->have_studip_perm("tutor", $course_id)) {
+            $schadenskonten = new AutoNavigation(_("Externe Daten"), PluginEngine::getURL($this, array(), "externedaten/overview"));
+            $nav->addSubNavigation('externedaten', $schadenskonten);
+        }
         
         if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
             $nav->setImage($this->getPluginURL()."/assets/32_white_world.png");

@@ -1,4 +1,5 @@
 <table class="default" id="overview_schadenskonten">
+    <caption><?= _("Schadenskonten") ?></caption>
     <thead>
         <tr>
             <th><?= _("Name des Schadenskontos") ?></th>

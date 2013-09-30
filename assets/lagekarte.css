@@ -64,5 +64,21 @@
 .json_object_list ul {
     list-style-type: none;
     margin: 10px;
-    background-color: rgba(0,0,30,0.2);
+    padding: 8px;
+    background-color: rgba(0,0,60,0.1);
+    border-radius: 4px;
+    border: thin solid rgba(0,0,60,0.3);
+}
+.json_object_list ol {
+    list-style-type: none;
+    padding: 10px;
+    border-left: 2px solid grey;
+}
+.json_object_list ol > *:before {
+    content: " ";
+    float: left;
+    border-bottom: 2px solid grey;
+    width: 20px;
+    margin-top: 27px;
+    margin-left: -10px;
 }

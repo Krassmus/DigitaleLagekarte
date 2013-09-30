@@ -6,9 +6,9 @@ class MapController extends ApplicationController {
     
     public function current_action() {
         if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
-            Navigation::getItem("/course/lagekarte")->setImage($this->assets_url."32_black_world.png");
+            Navigation::getItem("/course/lagekarte")->setImage($this->assets_url."40_black_world.png");
         } else {
-            Navigation::getItem("/course/lagekarte")->setImage($this->assets_url."16_black_world.png");
+            Navigation::getItem("/course/lagekarte")->setImage($this->assets_url."20_black_world.png");
         }
         $this->map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
         if ($this->map->isNew()) {

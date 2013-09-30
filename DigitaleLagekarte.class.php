@@ -75,9 +75,9 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
         }
         
         if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
-            $nav->setImage($this->getPluginURL()."/assets/32_white_world.png");
+            $nav->setImage($this->getPluginURL()."/assets/40_white_world.png");
         } else {
-            $nav->setImage($this->getPluginURL()."/assets/16_white_world.png");
+            $nav->setImage($this->getPluginURL()."/assets/20_white_world.png");
         }
         
         return array('lagekarte' => $nav);
@@ -90,9 +90,9 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
     public function getIconNavigation($course_id, $last_visit, $user_id) {
         $nav = new AutoNavigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "map/current"));
         if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
-            $nav->setImage($this->getPluginURL()."/assets/32_grey_world.png", array('title' => _("Lagekarte"), 'width' => "16px"));
+            $nav->setImage($this->getPluginURL()."/assets/40_grey_world.png", array('title' => _("Lagekarte"), 'width' => "20px"));
         } else {
-            $nav->setImage($this->getPluginURL()."/assets/16_grey_world.png", array('title' => _("Lagekarte")));
+            $nav->setImage($this->getPluginURL()."/assets/20_grey_world.png", array('title' => _("Lagekarte")));
         }
         return $nav;
     }

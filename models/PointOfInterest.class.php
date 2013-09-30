@@ -11,6 +11,18 @@
 class PointOfInterest extends SimpleORMap {
     protected $db_table = "katip_poi";
     
+    static public function findCurrentByPoiID($poi_id) {
+        $pois = self::findBySQL("first_predecessor = :poi_id OR poi_id = :poi_id ORDER BY mkdate DESC LIMIT 1", array($poi_id));
+        if (!count($pois)) {
+            return false;
+        }
+        if ($pois[0]['first_predecesor'] === $poi_id) {
+            return $pois[0];
+        }
+        $pois = self::findBySQL("first_predecessor = :poi_id ORDER BY mkdate DESC LIMIT 1", array($pois[0]['first_predecessor']));
+        return $pois[0];
+    }
+    
     public function __construct($id = null) {
         $this->registerCallback('before_store', 'serializeCoordinates');
         $this->registerCallback('after_store after_initialize', 'unserializeCoordinates');

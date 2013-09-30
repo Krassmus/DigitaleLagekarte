@@ -80,11 +80,15 @@
 .json_object_list tr:not(:hover) .key {
     background-color: transparent;
 }
+.json_object_list td.key {
+    font-weight: bold;
+}
 .json_object_list td.value {
     font-family: monospace;
 }
 .json_object_list td.match {
     width: 20px;
+    cursor: pointer;
 }
 .json_object_list ol {
     list-style-type: none;

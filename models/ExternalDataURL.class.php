@@ -61,14 +61,18 @@ class ExternalDataURL extends SimpleORMap {
             $this->store();
             //map new data to pois:
             foreach ($this['mapping'] as $mapping_rule) {
-                $poi = new PointOfInterest($mapping_rule['poi_id']);
-                $mapping_rule['poi_attribute'];
-                $value = $this['last_object'];
-                foreach ($mapping_rule['mapping_path'] as $path_unit) {
-                    $value = $value[$path_unit];
+                $poi = PointOfInterest::findCurrentByPoiID($mapping_rule['poi_id']);
+                if ($poi) {
+                    $mapping_rule['poi_attribute'];
+                    $value = $this['last_object'];
+                    foreach ($mapping_rule['mapping_path'] as $path_unit) {
+                        $value = $value[$path_unit];
+                    }
+                    if ($poi->isField($mapping_rule['poi_attribute'])) {
+                        $poi[$mapping_rule['poi_attribute']] = $value;
+                    }
+                    $poi->store();
                 }
-                $poi[$mapping_rule['poi_attribute']] = $value;
-                $poi->store();
             }
         }
     }

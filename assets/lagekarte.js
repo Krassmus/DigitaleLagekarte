@@ -384,6 +384,23 @@ STUDIP.Lagekarte = {
                 location.href = result.link
             }
         });
+    },
+    show_matching_dialog: function () {
+        var index = [];
+        var parent = jQuery(this).closest("li, tr");
+        var i = 0;
+        while (parent.length > 0 && i < 10000) {
+            if (jQuery(parent).is("li")) {
+                index.push(parent.index());
+            } else {
+                index.push(parent.attr('data-key'));
+            }
+            parent = parent.parents("li, tr").first();
+            i++;
+        }
+        console.log(index.reverse());
+        
+        return false;
     }
     
 };
@@ -486,4 +503,7 @@ jQuery(function () {
             });
         }
     });
+    
+    jQuery(".json_object_list tr > td.match a").bind('click', STUDIP.Lagekarte.show_matching_dialog);
+    
 });

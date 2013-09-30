@@ -24,7 +24,7 @@ function display_json_representation($arr) {
                 $output .= '<td>'.display_json_representation($value).'</td>';
             } else {
                 $output .= '<td class="value">'.htmlReady($value).'</td>';
-                $output .= '<td class="match">'.Assets::img("icons/16/blue/staple", array('class' => "text-bottom")).'</td>';
+                $output .= '<td class="match"><a>'.Assets::img("icons/16/blue/staple", array('class' => "text-bottom")).'</a></td>';
             }
             $output .= "</tr>";
         }

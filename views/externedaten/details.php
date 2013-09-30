@@ -20,7 +20,7 @@ function display_json_representation($arr) {
         foreach ($arr as $key => $value) {
             $output .= "<li data-key=\"".htmlReady($key)."\">";
             if (is_array($value)) {
-                display_json_representation($value);
+                $output .= display_json_representation($value);
             } else {
                 $output .= $value;
             }
@@ -32,7 +32,7 @@ function display_json_representation($arr) {
         foreach ($arr as $value) {
             $output .= "<li>";
             if (is_array($value)) {
-                display_json_representation($value);
+                $output .= display_json_representation($value);
             } else {
                 $output .= $value;
             }

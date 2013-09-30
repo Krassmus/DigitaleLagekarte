@@ -19,10 +19,11 @@ function display_json_representation($arr) {
         $output .= "<ul>";
         foreach ($arr as $key => $value) {
             $output .= "<li data-key=\"".htmlReady($key)."\">";
+            $output .= '<span class="key">'.htmlReady($key).'<span>: ';
             if (is_array($value)) {
                 $output .= display_json_representation($value);
             } else {
-                $output .= '<span class="key">'.htmlReady($key).'<span>: <span class="value">'.htmlReady($value).'</span>';
+                $output .= '<span class="value">'.htmlReady($value).'</span>';
             }
             $output .= "</li>";
         }

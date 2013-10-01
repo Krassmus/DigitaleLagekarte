@@ -61,6 +61,7 @@
     visibility: visible;
 }
 
+
 .json_object_list table {
     margin: 10px;
     padding: 8px;
@@ -103,4 +104,7 @@
     width: 20px;
     margin-top: 27px;
     margin-left: -10px;
+}
+.json_object_list ol > *:hover:before {
+    border-bottom: 2px solid black;
 }

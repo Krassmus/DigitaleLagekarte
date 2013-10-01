@@ -25,7 +25,7 @@
         <? foreach ($urls as $url) : ?>
         <tr>
             <td><?= htmlReady($url['name']) ?></td>
-            <td><?= date("j.n.Y", $url['last_update']) ?></td>
+            <td><?= date("G:i j.n.Y", $url['last_update']) ?></td>
             <td><?= $url['active']
                     ? Assets::img("icons/16/black/checkbox-checked", array("class" => "text-bottom"))
                     : Assets::img("icons/16/black/checkbox-unchecked", array("class" => "text-bottom")) ?></td>

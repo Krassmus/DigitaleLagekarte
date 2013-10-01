@@ -48,10 +48,14 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
                         $output['poi_ids'][] = $poi->getId();
                     }
                 }
-                
                 UpdateInformation::setInformation("Lagekarte.updateMap", $output);
-                
             }
+        }
+        
+        /* pseudo-cronjob after 10 minutes */
+        $urls = ExternalDataURL::findBySQL("active = 1 AND last_update < UNIX_TIMESTAMP() - (60 * 10)");
+        foreach ($urls as $url) {
+            $url->fetch();
         }
     }
     

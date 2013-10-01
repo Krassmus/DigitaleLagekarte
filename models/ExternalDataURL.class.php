@@ -59,20 +59,39 @@ class ExternalDataURL extends SimpleORMap {
             $this['last_object'] = studip_utf8decode(json_decode($result));
             $this['last_update'] = time();
             $this->store();
-            //map new data to pois:
-            foreach ($this['mapping'] as $mapping_rule) {
-                $poi = PointOfInterest::findCurrentByPoiID($mapping_rule['poi_id']);
-                if ($poi) {
-                    $mapping_rule['poi_attribute'];
-                    $value = $this['last_object'];
-                    foreach ($mapping_rule['mapping_path'] as $path_unit) {
-                        $value = $value[$path_unit];
-                    }
-                    if ($poi->isField($mapping_rule['poi_attribute'])) {
-                        $poi[$mapping_rule['poi_attribute']] = $value;
-                    }
-                    $poi->store();
+            $this->apply_mapping();
+        }
+    }
+    
+    public function apply_mapping() {
+        if (!$this['active']) {
+            return;
+        }
+        //map new data to pois:
+        foreach ($this['mapping'] as $path => $mapping_rule) {
+            $poi = PointOfInterest::findCurrentByPoiID($mapping_rule['poi_id']);
+            if ($poi) {
+                $value = $this['last_object'];
+                foreach (explode(" ", $path) as $path_unit) {
+                    $value = $value[$path_unit];
                 }
+                if ($poi->isField($mapping_rule['poi_attribute'])) {
+                    $poi[$mapping_rule['poi_attribute']] = $value;
+                }
+                var_dump($mapping_rule['poi_attribute']);
+                if ($poi['shape'] === "marker" && $mapping_rule['poi_attribute'] === "longitude") {
+                    $poi['coordinates'] = array(
+                        $value,
+                        $poi['coordinates'][1]
+                    );
+                }
+                if ($poi['shape'] === "marker" && $mapping_rule['poi_attribute'] === "latitude") {
+                    $poi['coordinates'] = array(
+                        $poi['coordinates'][0],
+                        $value
+                    );
+                }
+                $poi->store();
             }
         }
     }

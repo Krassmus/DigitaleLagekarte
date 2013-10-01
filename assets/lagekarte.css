@@ -64,12 +64,11 @@
 
 .json_object_list table {
     margin: 10px;
-    padding: 8px;
     background-color: rgba(0,0,60,0.1);
     border-radius: 4px;
     border: thin solid rgba(0,0,60,0.3);
     border-collapse: collapse;
-    width: 100%;
+    width: calc(100% - 20px);
 }
 .json_object_list table > tbody > tr > td {
     text-align: left;
@@ -80,6 +79,9 @@
 }
 .json_object_list tr:not(:hover) .key {
     background-color: transparent;
+}
+.json_object_list td {
+    border: thin solid rgba(0,0,60,0.1);
 }
 .json_object_list td.key {
     font-weight: bold;
@@ -107,4 +109,10 @@
 }
 .json_object_list ol > *:hover:before {
     border-bottom: 2px solid black;
+}
+
+span.value {
+    font-family: monospace;
+    background-color: rgba(0,0,60,0.1);
+    padding: 3px;
 }

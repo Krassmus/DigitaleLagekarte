@@ -37,4 +37,37 @@ class ExternedatenController extends ApplicationController {
         ));
     }
     
+    public function mapping_window_action() {
+        $output = array();
+        $template = $this->get_template_factory()->open("externedaten/mapping_window.php");
+        $url = new ExternalDataURL(array($_SESSION['SessionSeminar'], Request::get('url')));
+        $value = $url['last_object'];
+        foreach (Request::getArray('path') as $path_index) {
+            $value = $value[$path_index];
+        }
+        $template->set_attribute('value', $value);
+        $template->set_attribute('url', $url);
+        $template->set_attribute('pois', PointOfInterest::findCurrent($_SESSION['SessionSeminar']));
+        $output['html'] = $template->render();
+        $this->render_json($output);
+    }
+    
+    public function edit_mapping_action() {
+        $output = array();
+        $url = new ExternalDataURL(array($_SESSION['SessionSeminar'], Request::get('url')));
+        $mapping = $url['mapping'];
+        if (Request::get('poi_id')) {
+            $mapping[Request::get("path")] = array(
+                'poi_id' => Request::option('poi_id'),
+                'poi_attribute' => Request::get('poi_attribute')
+            );
+        } else {
+            unset($mapping[Request::get("path")]);
+        }
+        $url['mapping'] = $mapping;
+        $url->store();
+        $url->apply_mapping();
+        $this->render_json($output);
+    }
+    
 }

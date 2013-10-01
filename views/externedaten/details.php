@@ -47,10 +47,14 @@ function display_json_representation($arr) {
 
 ?>
 <h1><?= htmlReady($url['name']) ?></h1>
+<input type="hidden" id="Seminar_id" value="<?= htmlReady($_SESSION['SessionSeminar']) ?>">
+<input type="hidden" id="url" value="<?= htmlReady($url['url']) ?>">
 <div class="json_object_list">
 <?= display_json_representation($url['last_object']) ?>
 </div>
 
+
+<div style="display: none" id="mapping_window_title"><?= _("Verknüpfung zu Zeichen") ?></div>
 
 <?
 $infobox = array(

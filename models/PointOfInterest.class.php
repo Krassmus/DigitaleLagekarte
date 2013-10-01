@@ -12,15 +12,37 @@ class PointOfInterest extends SimpleORMap {
     protected $db_table = "katip_poi";
     
     static public function findCurrentByPoiID($poi_id) {
-        $pois = self::findBySQL("first_predecessor = :poi_id OR poi_id = :poi_id ORDER BY mkdate DESC LIMIT 1", array($poi_id));
+        $pois = self::findBySQL("first_predecessor = :poi_id OR poi_id = :poi_id ORDER BY mkdate DESC LIMIT 1", array('poi_id' => $poi_id));
         if (!count($pois)) {
             return false;
         }
-        if ($pois[0]['first_predecesor'] === $poi_id) {
+        if ($pois[0]['first_predecessor'] === $poi_id) {
             return $pois[0];
         }
-        $pois = self::findBySQL("first_predecessor = :poi_id ORDER BY mkdate DESC LIMIT 1", array($pois[0]['first_predecessor']));
+        $pois = self::findBySQL("first_predecessor = :poi_id ORDER BY mkdate DESC LIMIT 1", array('poi_id' => $pois[0]['first_predecessor']));
         return $pois[0];
+    }
+    
+    static public function findCurrent($seminar_id) {
+        $current_map = Lagekarte::getCurrent($seminar_id);
+        $statement = DBManager::get()->prepare(
+            "SELECT katip_poi.* " .
+            "FROM katip_poi " .
+                "INNER JOIN katip_schadenskonten ON (katip_schadenskonten.schadenskonto_id = katip_poi.schadenskonto_id) " .
+            "WHERE katip_schadenskonten.map_id = :map_id " .
+            "ORDER BY katip_poi.title ASC " .
+        "");
+        $statement->execute(array(
+            'map_id' => $current_map->getId()
+        ));
+        $pois = array();
+        foreach ($statement->fetchAll(PDO::FETCH_ASSOC) as $poi_data) {
+            $poi = new PointOfInterest();
+            $poi->setData($poi_data);
+            $poi->setNew(false);
+            $pois[] = $poi;
+        }
+        return $pois;
     }
     
     public function __construct($id = null) {

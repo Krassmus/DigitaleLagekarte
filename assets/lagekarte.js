@@ -398,9 +398,45 @@ STUDIP.Lagekarte = {
             parent = parent.parents("li, tr").first();
             i++;
         }
-        console.log(index.reverse());
+        jQuery.ajax({
+            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/externedaten/mapping_window",
+            'data': {
+                'url': jQuery("#url").val(),
+                'path': index.reverse(),
+                'cid': jQuery("#Seminar_id").val()
+            },
+            'dataType': "json",
+            'success': function (json) {
+                jQuery(json.html).dialog({
+                    'title': jQuery("#mapping_window_title").text(),
+                    'show': "fade",
+                    'hide': "fade",
+                    'modal': true,
+                    'close': function() {
+                        jQuery(this).remove();
+                    }
+                });
+            }
+        });
         
         return false;
+    },
+    map_external_data: function () {
+        jQuery.ajax({
+            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/externedaten/edit_mapping",
+            'data': {
+                'url': jQuery("#url").val(),
+                'path': jQuery("#mapping_path").val(),
+                'cid': jQuery("#Seminar_id").val(),
+                'poi_id': jQuery("#poi_id").val(),
+                'poi_attribute': jQuery("#poi_attribute").val()
+            },
+            'type': "post",
+            'dataType': "json",
+            'success': function (json) {
+                jQuery("#mapping_window").dialog('close');
+            }
+        });
     }
     
 };

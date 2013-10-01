@@ -13,7 +13,8 @@ function isAssoc($arr) {
     return array_keys($arr) !== range(0, count($arr) - 1);
 }
 
-function display_json_representation($arr) {
+
+function display_json_representation($arr, $url, $index) {
     $output = "";
     if (isAssoc($arr)) {
         $output .= "<table><tbody>";
@@ -21,20 +22,25 @@ function display_json_representation($arr) {
             $output .= "<tr data-key=\"".htmlReady($key)."\">";
             $output .= '<td class="key">'.htmlReady($key).'</td>';
             if (is_array($value)) {
-                $output .= '<td>'.display_json_representation($value).'</td>';
+                $output .= '<td>'.display_json_representation($value, $url, $index." ".$key).'</td>';
             } else {
                 $output .= '<td class="value">'.htmlReady($value).'</td>';
-                $output .= '<td class="match"><a>'.Assets::img("icons/16/blue/staple", array('class' => "text-bottom")).'</a></td>';
+                $output .= '<td class="match">';
+                $output .= '<a title="'._("Verknüpfung verwalten").'">'.Assets::img("icons/16/blue/staple", array('class' => "text-bottom")).'</a>';
+                if (isset($url['mapping'][trim($index." ".$key)])) {
+                    $output .= Assets::img("icons/16/green/star", array('class' => "text-bottom", 'title' => _("verknüpft")));
+                }
+                $output .= '</td>';
             }
             $output .= "</tr>";
         }
         $output .= "</tbody></table>";
     } else {
         $output .= "<ol>";
-        foreach ($arr as $value) {
+        foreach ($arr as $key => $value) {
             $output .= "<li>";
             if (is_array($value)) {
-                $output .= display_json_representation($value);
+                $output .= display_json_representation($value, $url, $index." ".$key);
             } else {
                 $output .= $value;
             }
@@ -50,7 +56,7 @@ function display_json_representation($arr) {
 <input type="hidden" id="Seminar_id" value="<?= htmlReady($_SESSION['SessionSeminar']) ?>">
 <input type="hidden" id="url" value="<?= htmlReady($url['url']) ?>">
 <div class="json_object_list">
-<?= display_json_representation($url['last_object']) ?>
+<?= display_json_representation($url['last_object'], $url, "") ?>
 </div>
 
 

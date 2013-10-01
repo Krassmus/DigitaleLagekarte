@@ -91,6 +91,8 @@
 }
 .json_object_list td.match {
     width: 20px;
+}
+.json_object_list td.match a {
     cursor: pointer;
 }
 .json_object_list ol {

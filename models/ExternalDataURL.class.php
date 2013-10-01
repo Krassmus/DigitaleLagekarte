@@ -78,14 +78,13 @@ class ExternalDataURL extends SimpleORMap {
                 if ($poi->isField($mapping_rule['poi_attribute'])) {
                     $poi[$mapping_rule['poi_attribute']] = $value;
                 }
-                var_dump($mapping_rule['poi_attribute']);
-                if ($poi['shape'] === "marker" && $mapping_rule['poi_attribute'] === "longitude") {
+                if (in_array($poi['shape'], array("marker","circle")) && $mapping_rule['poi_attribute'] === "longitude") {
                     $poi['coordinates'] = array(
                         $value,
                         $poi['coordinates'][1]
                     );
                 }
-                if ($poi['shape'] === "marker" && $mapping_rule['poi_attribute'] === "latitude") {
+                if (in_array($poi['shape'], array("marker","circle")) && $mapping_rule['poi_attribute'] === "latitude") {
                     $poi['coordinates'] = array(
                         $poi['coordinates'][0],
                         $value

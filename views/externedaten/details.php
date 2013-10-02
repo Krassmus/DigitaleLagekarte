@@ -28,7 +28,7 @@ function display_json_representation($arr, $url, $index) {
                 $output .= '<td class="match">';
                 $output .= '<a title="'._("Verknüpfung verwalten").'">'.Assets::img("icons/16/blue/staple", array('class' => "text-bottom")).'</a>';
                 if (isset($url['mapping'][trim($index." ".$key)])) {
-                    $output .= Assets::img("icons/16/green/star", array('class' => "text-bottom", 'title' => _("verknüpft")));
+                    $output .= Assets::img("icons/16/red/star", array('class' => "text-bottom", 'title' => _("verknüpft")));
                 }
                 $output .= '</td>';
             }

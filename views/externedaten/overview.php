@@ -17,18 +17,20 @@
             <th><?= _("Name") ?></th>
             <th><?= _("Letztes Update") ?></th>
             <th><?= _("Aktiv") ?></th>
+            <th><?= _("Verknüpft") ?></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         <? if (count($urls)) : ?>
         <? foreach ($urls as $url) : ?>
-        <tr>
+        <tr data-url="<?= htmlReady($url['url']) ?>">
             <td><?= htmlReady($url['name']) ?></td>
             <td><?= date("G:i j.n.Y", $url['last_update']) ?></td>
             <td><?= $url['active']
                     ? Assets::img("icons/16/black/checkbox-checked", array("class" => "text-bottom"))
                     : Assets::img("icons/16/black/checkbox-unchecked", array("class" => "text-bottom")) ?></td>
+            <td><?= count($url['mapping']) ? Assets::img("icons/16/green/star") : "" ?></td>
             <td><a href="<?= PluginEngine::getLink($plugin, array('url' => $url['url']), "externedaten/details") ?>"><?= Assets::img("icons/16/blue/edit", array("class" => "text-bottom")) ?></a></td>
         </tr>
         <? endforeach ?>

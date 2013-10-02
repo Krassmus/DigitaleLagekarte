@@ -7,7 +7,7 @@
             <tr>
                 <td><label for="poi_id"><?= _("Zeichen") ?></label></td>
                 <td>
-                    <select id="poi_id" required>
+                    <select id="poi_id">
                         <option value="">  --  </option>
                         <? foreach ($pois as $poi) : ?>
                         <option value="<?= $poi['first_predecessor'] ?>"<?= $url['mapping'][$path]['poi_id'] === $poi['first_predecessor'] ? " selected" : "" ?>><?= htmlReady($poi['title']) ?></option>
@@ -18,7 +18,7 @@
             <tr>
                 <td><label for="poi_attribute"><?= _("Eigenschaft") ?></label></td>
                 <td>
-                    <select id="poi_attribute" required>
+                    <select id="poi_attribute">
                         <option value="">  --  </option>
                         <option value="title"<?= $url['mapping'][$path]['poi_attribute'] === "title" ? " selected" : "" ?>><?= _("Titel") ?></option>
                         <option value="longitude"<?= $url['mapping'][$path]['poi_attribute'] === "longitude" ? " selected" : "" ?>><?= _("Longitude") ?></option>

@@ -389,6 +389,11 @@ STUDIP.Lagekarte = {
         var url = jQuery(this).closest("tr").attr("data-url");
         var icon = jQuery(this).find("img");
         var activated = (icon.attr('src').indexOf("checkbox-checked") !== -1);
+        if (!activated) {
+            icon.attr('src', icon.attr('src').replace("checkbox-unchecked", "checkbox-checked"));
+        } else {
+            icon.attr('src', icon.attr('src').replace("checkbox-checked", "checkbox-unchecked"));
+        }
         jQuery.ajax({
             'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/externedaten/toggle_external_data_url_activation",
             'data': {
@@ -399,11 +404,7 @@ STUDIP.Lagekarte = {
             'type': "POST",
             'dataType': "json",
             'success': function (json) {
-                if (!activated) {
-                    icon.attr('src', icon.attr('src').replace("checkbox-unchecked", "checkbox-checked"));
-                } else {
-                    icon.attr('src', icon.attr('src').replace("checkbox-checked", "checkbox-unchecked"));
-                }
+                //nothing
             }
         });
         return false;

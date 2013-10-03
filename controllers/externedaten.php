@@ -37,6 +37,17 @@ class ExternedatenController extends ApplicationController {
         ));
     }
     
+    public function toggle_external_data_url_activation_action() {
+        if (!Request::isPost()) {
+            throw new Exception("Nichtakzeptierte HTTP-Methode");
+        }
+        $output = array();
+        $url = new ExternalDataURL(array($_SESSION['SessionSeminar'], studip_utf8decode(Request::get("url"))));
+        $url['active'] = Request::int("active");
+        $url->store();
+        $this->render_json($output);
+    }
+    
     public function mapping_window_action() {
         $output = array();
         $template = $this->get_template_factory()->open("externedaten/mapping_window.php");

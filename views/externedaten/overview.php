@@ -10,7 +10,7 @@
  */
 ?>
 <input type="hidden" id="Seminar_id" value="<?= $_SESSION['SessionSeminar'] ?>">
-<table class="default">
+<table class="default" id="url_overview">
     <caption><?= _("Externe Daten") ?></caption>
     <thead>
         <tr>
@@ -27,9 +27,9 @@
         <tr data-url="<?= htmlReady($url['url']) ?>">
             <td><?= htmlReady($url['name']) ?></td>
             <td><?= date("G:i j.n.Y", $url['last_update']) ?></td>
-            <td><?= $url['active']
-                    ? Assets::img("icons/16/black/checkbox-checked", array("class" => "text-bottom"))
-                    : Assets::img("icons/16/black/checkbox-unchecked", array("class" => "text-bottom")) ?></td>
+            <td><a href="#" class="checkbox"><?= $url['active']
+                    ? Assets::img("icons/16/blue/checkbox-checked", array("class" => "text-bottom"))
+                    : Assets::img("icons/16/blue/checkbox-unchecked", array("class" => "text-bottom")) ?></a></td>
             <td><?= count($url['mapping']) ? Assets::img("icons/16/green/star") : "" ?></td>
             <td><a href="<?= PluginEngine::getLink($plugin, array('url' => $url['url']), "externedaten/details") ?>"><?= Assets::img("icons/16/blue/edit", array("class" => "text-bottom")) ?></a></td>
         </tr>

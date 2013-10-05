@@ -16,6 +16,7 @@ class MapController extends ApplicationController {
         } else {
             $this->schadenskonten =  $this->map->getSchadenskonten();
         }
+        $this->images = PointOfInterest::getImages($_SESSION['SessionSeminar']);
     }
     
     public function save_viewport_action() {

@@ -14,6 +14,20 @@ STUDIP.Lagekarte = {
         if (mapdata['map_id'] !== jQuery("#map_id").val()) {
             jQuery("#map_id").val(mapdata['map_id']);
         }
+        if (mapdata['longitude'] !== jQuery("#original_lon").val() 
+                || mapdata['latitude'] !== jQuery("#original_lat").val()
+                || mapdata['zoom'] !== jQuery("#original_zoom").val()) {
+            STUDIP.Lagekarte.map.setZoom(mapdata['zoom'], {
+                'animate': false
+            });
+            STUDIP.Lagekarte.map.panTo({lon: mapdata['longitude'], lat: mapdata['latitude']}, {
+                'animate': true,
+                'duration': 1
+            });
+            jQuery("#original_zoom").val(mapdata['zoom']);
+            jQuery("#original_lon").val(mapdata['longitude']);
+            jQuery("#original_lat").val(mapdata['latitude']);
+        }
         var existing_ids = [];
         var layer;
         if (mapdata.poi) {
@@ -25,14 +39,13 @@ STUDIP.Lagekarte = {
                 existing_ids.push(poi.poi_id);
             });
         }
-        //noch die gelï¿½schten POIs lï¿½schen:
+        //noch die gelöschten POIs löschen:
         jQuery.each(STUDIP.Lagekarte.pois, function (poi_id, layer) {
             if (_.indexOf(mapdata.poi_ids, poi_id) === -1) {
                 STUDIP.Lagekarte.fadeOutLayer(layer);
                 delete STUDIP.Lagekarte.pois[poi_id];
             }
         });
-        
         jQuery('#last_update').val(Math.floor(new Date().getTime() / 1000));
     },
     draw_map: function (latitude, longitude, zoom) {

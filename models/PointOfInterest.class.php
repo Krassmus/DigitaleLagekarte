@@ -45,6 +45,28 @@ class PointOfInterest extends SimpleORMap {
         return $pois;
     }
     
+    static private function getLocalFiles($path, $shortpath) {
+        $images = array();
+        $handle = opendir($path);
+        if (!$handle) {
+            return $images;
+        }
+        while (false !== ($file = readdir($handle))) {
+            if (!in_array($file, array(".", ".."))) {
+                if (is_dir($path."/".$file)) {
+                    $images[$shortpath."/".$file] = self::getLocalFiles($path."/".$file, $shortpath."/".$file);
+                } else {
+                    $images[$shortpath."/".$file] = $file;
+                }
+            }
+        }
+        return $images;
+    }
+    
+    static public function getImages($course_id = null) {
+        return self::getLocalFiles(dirname(__file__)."/../assets/markers", "");
+    }
+    
     public function __construct($id = null) {
         $this->registerCallback('before_store', 'serializeCoordinates');
         $this->registerCallback('after_store after_initialize', 'unserializeCoordinates');

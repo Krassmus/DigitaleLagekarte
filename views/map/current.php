@@ -15,6 +15,9 @@
 <input type="hidden" id="map_id" value="<?= $map->getId() ?>">
 <input type="hidden" id="last_update" value="<?= time() ?>">
 <input type="hidden" id="seminar_id" value="<?= $_SESSION['SessionSeminar'] ?>">
+<input type="hidden" id="original_lat" value="<?= $map['latitude'] ?>">
+<input type="hidden" id="original_lon" value="<?= $map['longitude'] ?>">
+<input type="hidden" id="original_zoom" value="<?= $map['zoom'] ?>">
 
 <script>
 jQuery(function () {
@@ -29,7 +32,7 @@ jQuery(function () {
                 <?= (int) $poi['radius'] ?>,
                 '<?= htmlReady($poi['color'] ? $poi['color'] : "blue") ?>',
                 '<?= htmlReady($poi['image']) ?>',
-                "<?= addslashes(str_replace("\n", "", $this->render_partial("map/_poi_popup.php", array('poi' => $poi)))) ?>"
+                "<?= addslashes(str_replace("\n", "", $this->render_partial("map/_poi_popup.php", array('poi' => $poi, 'images' => $images)))) ?>"
             );
             <? endif ?>
         <? endforeach ?>

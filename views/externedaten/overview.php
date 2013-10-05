@@ -42,7 +42,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="4"><a href="" onClick="STUDIP.Lagekarte.new_external_data_url(); return false;"><?= Assets::img("icons/16/blue/add") ?></td>
+            <td colspan="5"><a href="" onClick="STUDIP.Lagekarte.new_external_data_url(); return false;"><?= Assets::img("icons/16/blue/add") ?></td>
         </tr>
     </tfoot>
 </table>

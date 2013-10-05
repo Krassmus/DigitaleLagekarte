@@ -26,6 +26,9 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
                 $old_map = new Lagekarte($data['Lagekarte']['map_id']);
                 $new_map = Lagekarte::getCurrent($old_map['seminar_id']);
                 $output['map_id'] = $new_map->getId();
+                $output['longitude'] = $new_map['longitude'];
+                $output['latitude'] = $new_map['latitude'];
+                $output['zoom'] = $new_map['zoom'];
                 $output['poi_ids'] = array();
                 $tf = new Flexi_TemplateFactory(dirname(__file__)."/views");
                 foreach ($new_map->getSchadenskonten() as $schadenskonto) {
@@ -55,7 +58,7 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
         /* pseudo-cronjob after 10 minutes */
         $urls = ExternalDataURL::findBySQL("active = 1 AND last_update < UNIX_TIMESTAMP() - (60 * 10)");
         foreach ($urls as $url) {
-            $url->fetch();
+            @$url->fetch();
         }
     }
     

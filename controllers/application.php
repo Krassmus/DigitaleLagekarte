@@ -9,6 +9,8 @@
  *  the License, or (at your option) any later version.
  */
 
+require_once 'app/models/plugin_administration.php';
+
 /**
  * Special controller for trailsplugins
  */
@@ -32,16 +34,23 @@ class ApplicationController extends Trails_Controller {
         $this->current_action = $action;
         $this->set_layout($GLOBALS['template_factory']->open('layouts/base'));
         $this->assets_url = $this->plugin->getPluginUrl(). '/assets/';
-        
+        $version = shell_exec("cd ".__DIR__." && git log -1 --pretty=format:'%h' --abbrev-commit");
+        if (!$version) {
+            $version = PluginManager::getInstance()->getPluginInfo("DigitaleLagekarte");
+            $plugin_admin = new PluginAdministration();
+            $manifest = $plugin_admin->getPluginManifest($GLOBALS['PLUGINS_PATH']."/".$version['path']);
+            $version = $manifest['version'];
+        }
+        $version = $version ? '?version='.urlencode($version) : "";
         PageLayout::addStylesheet($this->assets_url."lagekarte.css");
-        PageLayout::addHeadElement("script", array('src' => $this->assets_url."Leaflet/leaflet.js"), "");
-        PageLayout::addHeadElement("script", array('src' => $this->assets_url."Leaflet/leaflet.draw.js"), "");
-        PageLayout::addHeadElement("link", array('href' => $this->assets_url."Leaflet/leaflet.css", 'rel' => "stylesheet"));
-        PageLayout::addHeadElement("link", array('href' => $this->assets_url."Leaflet/leaflet.draw.css", 'rel' => "stylesheet"));
-        PageLayout::addHeadElement("link", array('href' => $this->assets_url."Leaflet/Control.FullScreen.css", 'rel' => "stylesheet"));
-        PageLayout::addHeadElement("script", array('src' => $this->assets_url."Leaflet/Control.FullScreen.js"), "");
-        PageLayout::addHeadElement("script", array('src' => $this->assets_url."lagekarte.js"), "");
-        PageLayout::addHeadElement("link", array('href' => $this->assets_url."lagekarte.css", 'rel' => "stylesheet"));
+        PageLayout::addHeadElement("script", array('src' => $this->assets_url."Leaflet/leaflet.js".$version), "");
+        PageLayout::addHeadElement("script", array('src' => $this->assets_url."Leaflet/leaflet.draw.js".$version), "");
+        PageLayout::addHeadElement("link", array('href' => $this->assets_url."Leaflet/leaflet.css".$version, 'rel' => "stylesheet"));
+        PageLayout::addHeadElement("link", array('href' => $this->assets_url."Leaflet/leaflet.draw.css".$version, 'rel' => "stylesheet"));
+        PageLayout::addHeadElement("link", array('href' => $this->assets_url."Leaflet/Control.FullScreen.css".$version, 'rel' => "stylesheet"));
+        PageLayout::addHeadElement("script", array('src' => $this->assets_url."Leaflet/Control.FullScreen.js".$version), "");
+        PageLayout::addHeadElement("script", array('src' => $this->assets_url."lagekarte.js".$version), "");
+        PageLayout::addHeadElement("link", array('href' => $this->assets_url."lagekarte.css".$version, 'rel' => "stylesheet"));
     }
 
     /**

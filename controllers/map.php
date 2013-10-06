@@ -128,4 +128,24 @@ class MapController extends ApplicationController {
         $this->render_nothing();
     }
     
+    public function edit_poi_attribute_action() {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar']) || !Request::isPost()) {
+            throw new AccessDeniedException("Kein Zugriff");
+        }
+        $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        $poi = new PointOfInterest(Request::option("poi_id"));
+        if (Schadenskonto::find($poi['schadenskonto_id'])->map_id === $map->getId()) {
+            if (Request::submitted("color")) {
+                $poi['color'] = Request::get("color");
+            }
+            if (Request::submitted("image")) {
+                $poi['image'] = Request::get("image");
+            }
+            $poi->store();
+        }
+        $this->render_nothing();
+    }
+    
+    
+    
 }

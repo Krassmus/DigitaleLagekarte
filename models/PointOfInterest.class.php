@@ -52,7 +52,7 @@ class PointOfInterest extends SimpleORMap {
             return $images;
         }
         while (false !== ($file = readdir($handle))) {
-            if (!in_array($file, array(".", ".."))) {
+            if ($file[0] !== ".") { //means . & .. & .htaccess et cetera
                 if (is_dir($path."/".$file)) {
                     $images[$shortpath."/".$file] = self::getLocalFiles($path."/".$file, $shortpath."/".$file);
                 } else {

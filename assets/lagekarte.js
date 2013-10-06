@@ -63,6 +63,7 @@ STUDIP.Lagekarte = {
             if (type === "marker") {
                 coordinates = new L.LatLng(coordinates[1], coordinates[0]);
                 new_object = new L.Marker(coordinates, {});
+                new_object.setIcon(STUDIP.Lagekarte.get_icon(image));
             }
             if (type === "circle") {
                 coordinates = new L.LatLng(coordinates[1], coordinates[0]);
@@ -95,6 +96,7 @@ STUDIP.Lagekarte = {
             if (type === "marker") {
                 coordinates = new L.LatLng(coordinates[1], coordinates[0]);
                 STUDIP.Lagekarte.moveMarker(STUDIP.Lagekarte.pois[id], coordinates);
+                STUDIP.Lagekarte.pois[id].setIcon(STUDIP.Lagekarte.get_icon(image));
             }
             if (type === "circle") {
                 coordinates = new L.LatLng(coordinates[1], coordinates[0]);
@@ -118,6 +120,23 @@ STUDIP.Lagekarte = {
                 STUDIP.Lagekarte.pois[id].setStyle({'color': color, 'fillColor': color});
             }
             STUDIP.Lagekarte.pois[id].bindPopup(popup);
+        }
+    },
+    get_icon: function (image) {
+        var image_url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins_packages/THW/DigitaleLagekarte/assets/Markers" + image;
+        var shadow_url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins_packages/THW/DigitaleLagekarte/assets/symbol_shadow.svg";
+        if (image) {
+            return new L.Icon({
+                iconUrl: image_url,
+                iconSize: [40, 30],
+                iconAnchor: [20, 44],
+                popupAnchor: [0, -36],
+                shadowUrl: shadow_url,
+                shadowSize: [60, 30],
+                shadowAnchor: [30, 30]
+            });
+        } else {
+            return new L.Icon.Default();
         }
     },
     edit_map: function () {
@@ -290,6 +309,21 @@ STUDIP.Lagekarte = {
             'type': "post",
             'success': function () {
                 jQuery("#create_snapshot_spinner").hide('swing');
+            }
+        });
+    },
+    change_marker_image: function () {
+        var poi_id = jQuery(this).closest("form").find("input[name=poi_id]").val();
+        var value = this.value;
+        STUDIP.Lagekarte.pois[poi_id].setIcon(STUDIP.Lagekarte.get_icon(value));
+        
+        jQuery.ajax({
+            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/edit_poi_attribute",
+            'type': "POST",
+            'data': {
+                'cid': jQuery("#Seminar_id").val(),
+                'poi_id': poi_id,
+                'image': value
             }
         });
     },
@@ -579,4 +613,5 @@ jQuery(function () {
     
     jQuery(".json_object_list tr > td.match a").bind('click', STUDIP.Lagekarte.show_matching_dialog);
     jQuery("#url_overview .checkbox").live("click", STUDIP.Lagekarte.toggle_external_data_url_activation);
+    jQuery(".poi_popup select[name=poi_image]").live("change", STUDIP.Lagekarte.change_marker_image);
 });

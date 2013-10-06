@@ -123,7 +123,7 @@ STUDIP.Lagekarte = {
         }
     },
     get_icon: function (image) {
-        var image_url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins_packages/THW/DigitaleLagekarte/assets/Markers" + image;
+        var image_url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins_packages/THW/DigitaleLagekarte/assets/markers" + image;
         var shadow_url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins_packages/THW/DigitaleLagekarte/assets/symbol_shadow.svg";
         if (image) {
             return new L.Icon({

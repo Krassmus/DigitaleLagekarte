@@ -31,12 +31,14 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
                 $output['zoom'] = $new_map['zoom'];
                 $output['poi_ids'] = array();
                 $tf = new Flexi_TemplateFactory(dirname(__file__)."/views");
+                $images = PointOfInterest::getImages($old_map['seminar_id']);
                 foreach ($new_map->getSchadenskonten() as $schadenskonto) {
                     foreach ($schadenskonto->getPOIs() as $poi) {
                         if ($poi['chdate'] >= $data['Lagekarte']['last_update']) {
                             $popup_template = $tf->open("map/_poi_popup.php");
                             $popup_template->set_attribute('plugin', $this);
                             $popup_template->set_attribute('poi', $poi);
+                            $popup_template->set_attribute('images', $images);
                             $output['poi'][] = array(
                                 'poi_id' => $poi->getId(),
                                 'type' => $poi['shape'],

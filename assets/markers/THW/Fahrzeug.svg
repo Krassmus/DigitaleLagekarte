@@ -28,7 +28,7 @@
      inkscape:cx="-87.25166"
      inkscape:cy="139.94915"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="text2991"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -98,19 +98,19 @@
        sodipodi:nodetypes="ccccc" />
     <g
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       id="text3808">
+       id="text2991">
       <path
-         d="m 359.27921,249.15747 -3.02454,0 0,-6.5885 -4.93176,0 0,18.68445 3.02453,0 0,3.23987 -9.54052,0 0,-3.23987 2.95202,0 0,-18.68445 -4.93176,0 0,6.5885 -3.02454,0 0,-9.61194 19.47657,0 z"
-         style="font-size:36px;font-variant:normal;font-stretch:normal;font-family:Rockland;-inkscape-font-specification:Rockland;fill:#ffffff"
-         id="path2991" />
+         d="m 352.25214,247.8595 -4.94825,0 0,-3.09864 -2.41211,0 0,14.16016 2.47461,0 0,5.57227 -11.35351,0 0,-5.57227 2.3916,0 0,-14.16016 -2.3916,0 0,3.18164 -5.11426,0 0,-8.96191 21.35352,0 z"
+         style="font-size:32px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Lubalin Graph;-inkscape-font-specification:Lubalin Graph Bold;fill:#ffffff"
+         id="path2996" />
       <path
-         d="m 385.24319,264.49329 -9.57568,0 0,-3.23987 3.02454,0 0,-8.63965 -10.83692,0 0,8.63965 3.09595,0 0,3.23987 -9.61194,0 0,-3.23987 2.95203,0 0,-18.68445 -2.95203,0 0,-3.02344 9.61194,0 0,3.02344 -3.09595,0 0,7.09277 10.83692,0 0,-7.09277 -3.02454,0 0,-3.02344 9.57568,0 0,3.02344 -2.95202,0 0,18.68445 2.95202,0 z"
-         style="font-size:36px;font-variant:normal;font-stretch:normal;font-family:Rockland;-inkscape-font-specification:Rockland;fill:#ffffff"
-         id="path2993" />
+         d="m 380.32635,264.49329 -11.51855,0 0,-5.57227 2.47363,0 0,-4.26269 -7.87988,0 0,4.26269 2.47461,0 0,5.57227 -11.60254,0 0,-5.57227 2.70313,0 0,-14.45117 -2.70313,0 0,-5.48926 11.60254,0 0,5.48926 -2.47461,0 0,3.86719 7.87988,0 0,-3.86719 -2.47363,0 0,-5.48926 11.51855,0 0,5.48926 -2.32812,0 0,14.45117 2.32812,0 z"
+         style="font-size:32px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Lubalin Graph;-inkscape-font-specification:Lubalin Graph Bold;fill:#ffffff"
+         id="path2998" />
       <path
-         d="m 419.26785,242.56897 -3.16736,0 -5.40087,21.92432 -3.31128,0 -5.36463,-19.83582 -4.82409,19.83582 -3.31128,0 -5.90406,-21.92432 -2.70044,0 0,-3.02344 9.21643,0 0,3.02344 -3.09594,0 4.28357,16.70471 4.10449,-16.70471 -3.09595,0 0,-3.02344 11.23132,0 0,3.02344 -3.09594,0 4.31982,16.70471 4.06824,-16.70471 -3.09595,0 0,-3.02344 9.14392,0 z"
-         style="font-size:36px;font-variant:normal;font-stretch:normal;font-family:Rockland;-inkscape-font-specification:Rockland;fill:#ffffff"
-         id="path2995" />
+         d="m 417.43378,244.46985 -2.53711,0 -5.34375,20.02344 -5.63477,0 -4.0332,-13.93067 -3.95117,13.93067 -5.78028,0 -5.73828,-20.02344 -2.16308,0 0,-5.48926 11.41504,0 0,5.48926 -2.59864,0 2.22461,8.6084 3.80469,-14.09766 5.36523,0 4.17871,14.01465 1.95508,-8.52539 -2.41211,0 0,-5.48926 11.22852,0 z"
+         style="font-size:32px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Lubalin Graph;-inkscape-font-specification:Lubalin Graph Bold;fill:#ffffff"
+         id="path3000" />
     </g>
   </g>
 </svg>

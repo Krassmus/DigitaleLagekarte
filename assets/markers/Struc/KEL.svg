@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="EAL.svg">
+   sodipodi:docname="KatSL.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -25,10 +25,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.93566975"
-     inkscape:cx="-12.762702"
+     inkscape:cx="62.981024"
      inkscape:cy="11.698771"
      inkscape:document-units="px"
-     inkscape:current-layer="text3003"
+     inkscape:current-layer="text3038"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -88,15 +88,19 @@
        sodipodi:nodetypes="cccccc" />
     <g
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       id="text3003">
+       id="text3038">
       <path
-         d="m 304.91034,187.22755 -12.39258,0 0,-4.7832 -8.48242,0 0,7.11133 11.60156,0 0,12.06055 -11.60156,0 0,8.52539 8.48242,0 0,-6.19727 12.22656,0 0,17.79883 -39.13086,0 0,-11.14453 4.82422,0 0,-28.90235 -4.82422,0 0,-10.97851 39.29688,0 z"
+         d="m 287.07549,222.81194 -24.28711,0 0,-10.6875 3.86718,0 -11.72656,-11.60157 0,11.60157 4.61719,0 0,10.6875 -22.58203,0 0,-11.14454 4.82422,0 0,-28.90234 -4.82422,0 0,-10.97852 22.12304,0 0,10.97852 -4.1582,0 0,10.64648 11.43555,-10.64648 -3.57617,0 0,-10.97852 23.03906,0 0,10.97852 -2.91016,0 -15.92773,14.05664 15.75976,14.8457 4.32618,0 z"
          style="font-size:64px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Lubalin Graph;-inkscape-font-specification:Lubalin Graph Bold"
-         id="path3008" />
+         id="path3811" />
       <path
-         d="m 348.16034,221.74318 -39.29688,0 0,-11.14453 5.28125,0 0,-28.90235 -5.28125,0 0,-10.97851 22.7461,0 0,10.97851 -4.49024,0 0,28.11133 8.81641,0 0,-6.94336 12.22461,0 z"
+         d="m 330.554,188.29631 -12.39258,0 0,-4.7832 -8.48242,0 0,7.11133 11.60156,0 0,12.06054 -11.60156,0 0,8.52539 8.48242,0 0,-6.19726 12.22657,0 0,17.79883 -39.13086,0 0,-11.14454 4.82421,0 0,-28.90234 -4.82421,0 0,-10.97852 39.29687,0 z"
          style="font-size:64px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Lubalin Graph;-inkscape-font-specification:Lubalin Graph Bold"
-         id="path3010" />
+         id="path3813" />
+      <path
+         d="m 373.804,222.81194 -39.29687,0 0,-11.14454 5.28125,0 0,-28.90234 -5.28125,0 0,-10.97852 22.74609,0 0,10.97852 -4.49023,0 0,28.11133 8.8164,0 0,-6.94336 12.22461,0 z"
+         style="font-size:64px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Lubalin Graph;-inkscape-font-specification:Lubalin Graph Bold"
+         id="path3815" />
     </g>
   </g>
 </svg>

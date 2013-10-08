@@ -85,8 +85,10 @@ STUDIP.Lagekarte = {
             }
             if (new_object !== null) {
                 new_object.feature_id = id;
+                new_object.iconWidth = 60;
                 if (popup) {
                     new_object.bindPopup(popup);
+                    new_object.on("popupopen", STUDIP.Lagekarte.create_slider);
                 }
                 STUDIP.Lagekarte.pois[id] = new_object;
                 new_object.addTo(STUDIP.Lagekarte.featureGROUP);
@@ -326,6 +328,29 @@ STUDIP.Lagekarte = {
                 'image': value
             }
         });
+    },
+    create_slider: function () {
+        jQuery(".poi_slider").each(function (index, div) {
+            var poi_id = jQuery(this).closest("form").find("input[name=poi_id]").val();
+            jQuery(div).slider({
+                max: 150,
+                min: 20,
+                value: STUDIP.Lagekarte.pois[poi_id].iconWidth,
+                slide: function (event, ui) {
+                    var value = Math.floor(ui.value);
+                    var icon = STUDIP.Lagekarte.pois[poi_id].options.icon;
+                    console.log(icon.options);
+                    icon.options.iconSize = [value, value * 0.66];
+                    icon.options.iconAnchor = [value/2, value * 0.66 + 20];
+                    icon.options.shadowSize = [value + 20, 30];
+                    icon.options.shadowAnchor = [value/2 + 10, 30];
+                    icon.options.popupAnchor = [0, value * (-0.66) - 10];
+                    STUDIP.Lagekarte.pois[poi_id].setIcon(icon);
+                    STUDIP.Lagekarte.pois[poi_id].iconWidth = value;
+                }
+            });
+        });
+                
     },
     
     

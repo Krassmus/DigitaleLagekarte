@@ -56,6 +56,13 @@
             </select>
         </td>
     </tr>
+    <tr>
+        <td colspan="2">
+            <strong><?= _("Größe") ?></strong>
+            <div id="poi_<?= $poi->getId() ?>_slider" class="poi_slider"></div>
+            <div></div>
+        </td>
+    </tr>
     <? endif ?>
 </table>
 </form>

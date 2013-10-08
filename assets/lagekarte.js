@@ -128,12 +128,12 @@ STUDIP.Lagekarte = {
         if (image) {
             return new L.Icon({
                 iconUrl: image_url,
-                iconSize: [40, 30],
-                iconAnchor: [20, 44],
+                iconSize: [60, 40],
+                iconAnchor: [30, 54],
                 popupAnchor: [0, -36],
                 shadowUrl: shadow_url,
-                shadowSize: [60, 30],
-                shadowAnchor: [30, 30]
+                shadowSize: [80, 30],
+                shadowAnchor: [40, 30]
             });
         } else {
             return new L.Icon.Default();

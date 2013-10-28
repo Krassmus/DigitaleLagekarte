@@ -10,7 +10,7 @@
 
 <h2><?= _("Beschreibung") ?></h2>
 <div>
-    <table>
+    <table class="default nohover">
         <tr>
             <td><label for="kurzbeschreibung"><?= _("Kurzbeschreibung") ?></label></td>
             <td>
@@ -36,7 +36,7 @@
 </div>
 <h2><?= _("Elemente") ?></h2>
 <div>
-    <table class="default">
+    <table class="default nohover">
         <tbody>
             <tr>
                 <th><?= _("Schäden") ?></th>
@@ -66,6 +66,9 @@
         } ?>
     </ul>
 </div>
+
+<br>
+<br>
 
 <? 
 $select = '<select name="schadenkonto_id" id="select_schadenskonto" size="10">';

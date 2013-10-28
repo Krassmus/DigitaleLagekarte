@@ -52,11 +52,11 @@ class ExternalDataURL extends SimpleORMap {
         $result = curl_exec($c);
         $response_code = curl_getinfo($c, CURLINFO_HTTP_CODE);
         curl_close($c);
-        if ($result === false) {
+        if ($result === false && ($object = studip_utf8decode(json_decode($result)))) {
             curl_errno($c);
             curl_error($c);
         } else {
-            $this['last_object'] = studip_utf8decode(json_decode($result));
+            $this['last_object'] = $object;
             $this['last_update'] = time();
             $this->store();
             $this->apply_mapping();

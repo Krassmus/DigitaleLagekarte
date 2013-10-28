@@ -15,7 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="GKW1.svg">
+   sodipodi:docname="Fahrzeug2.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -76,9 +76,9 @@
        d="m 432.84501,193.50308 c 0,6.19769 -5.50271,11.22191 -12.29066,11.22191 -6.78794,0 -12.29066,-5.02422 -12.29066,-11.22191 0,-6.19769 5.50272,-11.22191 12.29066,-11.22191 6.78795,0 12.29066,5.02422 12.29066,11.22191 z"
        transform="matrix(1,0,0,1.083456,-19.561209,86.501677)" />
     <image
-       y="280.21213"
-       x="285.63324"
-       id="image3015"
+       y="280.34964"
+       x="287.77075"
+       id="image3029"
        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAABHNCSVQICAgIfAhkiAAAA2lJREFU
 WIW9lztII1EUhu9MVphdJa6DgWSySVBIxCaiFj6SVsTGPkgsBDuxtBMb0wlpXESxsNAIEgJaCj5A
 ZNA0NpEVDEM2RlcjLNGJK3nMv4XGZ/TexMeBv/vvOd/cx9xzCRhD0zTIsoyRkRE0NzejqqoKhJBH
@@ -136,26 +136,6 @@ ExMTcDqdTMV5nofb7cbc3BxTs43bd81PUkLs7u5WB4PBH4eHh9+TyeS3VCr1lRACURT/GY3GtMPh
          d="m 417.43378,244.46985 -2.53711,0 -5.34375,20.02344 -5.63477,0 -4.0332,-13.93067 -3.95117,13.93067 -5.78028,0 -5.73828,-20.02344 -2.16308,0 0,-5.48926 11.41504,0 0,5.48926 -2.59864,0 2.22461,8.6084 3.80469,-14.09766 5.36523,0 4.17871,14.01465 1.95508,-8.52539 -2.41211,0 0,-5.48926 11.22852,0 z"
          style="font-size:32px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Lubalin Graph;-inkscape-font-specification:Lubalin Graph Bold;fill:#ffffff"
          id="path3000" />
-      <g
-         style="font-family:Bitstream Vera Sans"
-         id="text3021">
-        <path
-           d="m 253.73639,228.1557 -9.6062,0 0,-3.78369 c -0.82491,1.18832 -2.42622,2.2738 -4.80396,3.25647 -2.37779,0.98266 -4.92475,1.474 -7.64087,1.474 -6.33123,0 -11.77121,-2.27437 -16.31994,-6.82312 -4.54875,-4.54874 -6.82312,-9.98872 -6.82312,-16.31995 0,-6.35511 2.28035,-11.80107 6.84106,-16.33789 4.5607,-4.53674 10.04311,-6.80513 16.44727,-6.80517 2.25583,4e-5 4.26901,0.30367 6.03955,0.91088 1.57679,0.53325 3.39629,1.49142 5.45849,2.87452 l 0,-3.09327 9.35157,0 0,14.99121 -12.33545,0 c -0.75199,-0.96953 -1.89188,-1.86674 -3.41968,-2.69165 -1.84345,-0.99459 -3.63845,-1.49191 -5.38501,-1.49194 -3.20266,3e-5 -5.93788,1.12198 -8.20569,3.36585 -2.26783,2.24392 -3.40174,4.95465 -3.40173,8.1322 -1e-5,3.15366 1.13988,5.85841 3.41968,8.11426 2.27976,2.25587 5.00901,3.3838 8.18774,3.38378 2.08607,2e-5 3.88108,-0.37596 5.38501,-1.12792 1.50387,-0.75195 2.87448,-1.95279 4.11182,-3.60254 l -12.44483,0 0,-9.60621 25.14429,0 z"
-           style="font-size:56px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Lubalin Graph;-inkscape-font-specification:Lubalin Graph Bold"
-           id="path3026" />
-        <path
-           d="m 301.4256,228.1557 -21.25122,0 0,-9.35156 3.38379,0 -10.26075,-10.15137 0,10.15137 4.04004,0 0,9.35156 -19.75927,0 0,-9.75146 4.22119,0 0,-25.28955 -4.22119,0 0,-9.60621 19.35766,0 0,9.60621 -3.63843,0 0,9.31567 10.00611,-9.31567 -3.12915,0 0,-9.60621 20.15918,0 0,9.60621 -2.54639,0 -13.93677,12.29956 13.7898,12.98999 3.7854,0 z"
-           style="font-size:56px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Lubalin Graph;-inkscape-font-specification:Lubalin Graph Bold"
-           id="path3028" />
-        <path
-           d="m 366.83356,193.11469 -4.43994,0 -9.35157,35.04101 -9.86084,0 -7.0581,-24.37866 -6.91455,24.37866 -10.11548,0 -10.04199,-35.04101 -3.7854,0 0,-9.60621 19.97631,0 0,9.60621 -4.5476,0 3.89306,15.06469 6.65821,-24.6709 9.38916,0 7.31274,24.52564 3.42139,-14.91943 -4.22119,0 0,-9.60621 19.6499,0 z"
-           style="font-size:56px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Lubalin Graph;-inkscape-font-specification:Lubalin Graph Bold"
-           id="path3030" />
-        <path
-           d="m 405.81549,228.1557 -20.55908,0 0,-9.75146 4.43823,0 0,-25.28955 -4.43823,0 0,-9.60621 20.55908,0 0,9.60621 -4.5852,0 0,25.28955 4.5852,0 z"
-           style="font-size:56px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Lubalin Graph;-inkscape-font-specification:Lubalin Graph Bold"
-           id="path3032" />
-      </g>
     </g>
   </g>
 </svg>

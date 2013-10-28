@@ -134,8 +134,8 @@ STUDIP.Lagekarte = {
                 iconAnchor: [30, 54],
                 popupAnchor: [0, -36],
                 shadowUrl: shadow_url,
-                shadowSize: [80, 30],
-                shadowAnchor: [40, 30]
+                shadowSize: [60, 14],
+                shadowAnchor: [30, 14]
             });
         } else {
             return new L.Icon.Default();
@@ -341,9 +341,9 @@ STUDIP.Lagekarte = {
                     var icon = STUDIP.Lagekarte.pois[poi_id].options.icon;
                     console.log(icon.options);
                     icon.options.iconSize = [value, value * 0.66];
-                    icon.options.iconAnchor = [value/2, value * 0.66 + 20];
-                    icon.options.shadowSize = [value + 20, 30];
-                    icon.options.shadowAnchor = [value/2 + 10, 30];
+                    icon.options.iconAnchor = [value/2, value * 0.66 + 14];
+                    icon.options.shadowSize = [value, 14];
+                    icon.options.shadowAnchor = [value/2, 14];
                     icon.options.popupAnchor = [0, value * (-0.66) - 10];
                     STUDIP.Lagekarte.pois[poi_id].setIcon(icon);
                     STUDIP.Lagekarte.pois[poi_id].iconWidth = value;
@@ -605,10 +605,14 @@ jQuery(function () {
         'revert': 200,
         'connectWith': ".pois"
     });
-    jQuery(".pois > li").droppable({
+    /*jQuery(".pois").droppable({
         'accept': ".poi_batch",
         'hoverClass': "drophere"
-    });
+    });*/
+    /*jQuery(".pois > li").droppable({
+        'accept': ".poi_batch",
+        'hoverClass': "drophere"
+    });*/
     jQuery("#select_schadenskonto > option").droppable({
         'accept': ".poi_batch",
         'hoverClass': "drophere",

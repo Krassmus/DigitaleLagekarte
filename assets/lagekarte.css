@@ -21,6 +21,11 @@
     list-style-type: none;
     min-width: 100px;
     min-height: 100px;
+    overflow: scroll;
+    white-space: nowrap;
+}
+.pois.drophere {
+    background-color: yellow;
 }
 .pois > li {
     display: inline-block;

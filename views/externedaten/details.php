@@ -55,10 +55,62 @@ function display_json_representation($arr, $url, $index) {
 <h1><?= htmlReady($url['name']) ?></h1>
 <input type="hidden" id="Seminar_id" value="<?= htmlReady($_SESSION['SessionSeminar']) ?>">
 <input type="hidden" id="url" value="<?= htmlReady($url['url']) ?>">
-<div class="json_object_list">
-<?= display_json_representation($url['last_object'], $url, "") ?>
-</div>
 
+<div class="accordion" style="width: 100%;">
+    <h2 style="width: calc(100% - 30px);"><?= _("Eigenschaften") ?></h2>
+    <div>
+        <form action="<?= URLHelper::getLink("?", array('url' => $url['url'])) ?>" method="post">
+        <table width="95%">
+            <tbody>
+                <tr>
+                    <td>
+                        <label for="name"><?= _("Name") ?></label>
+                    </td>
+                    <td>
+                        <input type="text" name="name" id="name" value="<?= htmlReady($url['name']) ?>" style="width: 100%;">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="new_url"><?= _("URL") ?></label>
+                    </td>
+                    <td>
+                        <input type="text" name="new_url" id="new_url" value="<?= htmlReady($url['url']) ?>" style="width: 100%;">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="interval"><?= _("Aktualisieren alle x Minuten") ?></label>
+                    </td>
+                    <td>
+                        <input type="number" name="interval" id="interval" value="<?= htmlReady($url['interval']) ?>">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+            <div style="text-align: center;"><?= \Studip\Button::create(_("speichern"))?></div>
+        </form>
+    </div>
+    <h2 style="width: calc(100% - 30px);"><?= _("Datenmapping") ?></h2>
+    <div class="json_object_list">
+        <?= display_json_representation($url['last_object'], $url, "") ?>
+    </div>
+    <h2 style="width: calc(100% - 30px);"><?= _("Löschen") ?></h2>
+    <div>
+        <form action="<?= URLHelper::getLink("?", array('url' => $url['url'])) ?>" method="post">
+            <div style="text-align: center;">
+                <?= \Studip\Button::create(_("Wirklich löschen?"), "delete")?>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    jQuery(function () { jQuery(".accordion").accordion({
+        'active': 1,
+        'heightStyle': "content",
+        'collapsible': true
+    }); });
+</script>
 
 <div style="display: none" id="mapping_window_title"><?= _("Verknüpfung zu Zeichen") ?></div>
 

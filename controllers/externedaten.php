@@ -19,6 +19,20 @@ class ExternedatenController extends ApplicationController {
 
     public function details_action() {
         $this->url = new ExternalDataURL(array($_SESSION['SessionSeminar'], Request::get("url")));
+        if (Request::isPost()) {
+            if (Request::submitted("delete")) {
+                $this->url->delete();
+                PageLayout::postMessage(MessageBox::success(_("URL gelöscht.")));
+                $this->redirect(PluginEngine::getURL($this->plugin, array('cid' => $_SESSION['SessionSeminar']), "externedaten/overview"));
+            } else {
+                $this->url['name'] = Request::get("name");
+                $this->url['url'] = Request::get("new_url");
+                $this->url['interval'] = Request::get("interval");
+                $this->url->store();
+                PageLayout::postMessage(MessageBox::success(_("Daten gespeichert.")));
+                $this->redirect(PluginEngine::getURL($this->plugin, array('url' => Request::get("new_url"), 'cid' => $_SESSION['SessionSeminar']), "externedaten/details"));
+            }
+        }
         $this->url->fetch();
         Navigation::activateItem("/course/lagekarte/externedaten");
     }

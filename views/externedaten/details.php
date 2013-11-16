@@ -22,7 +22,7 @@ function display_json_representation($arr, $url, $index) {
             $output .= "<tr data-key=\"".htmlReady($key)."\">";
             $output .= '<td class="key">'.htmlReady($key).'</td>';
             if (is_array($value)) {
-                $output .= '<td>'.display_json_representation($value, $url, $index." ".$key).'</td>';
+                $output .= '<td class="structure">'.display_json_representation($value, $url, $index." ".$key).'</td>';
             } else {
                 $output .= '<td class="value">'.htmlReady($value).'</td>';
                 $output .= '<td class="match '.(isset($url['mapping'][trim($index." ".$key)]) ? " matched" : "").'">';

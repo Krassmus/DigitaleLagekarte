@@ -531,6 +531,26 @@ STUDIP.Lagekarte = {
             'dataType': "json",
             'success': function (json) {
                 jQuery("#mapping_window").dialog('close');
+                var path = jQuery("#mapping_path").val().split(" ");
+                var node = jQuery(".json_object_list").first();
+                jQuery.each(path, function (index, key) {
+                    console.log(key);
+                    if (jQuery.isNumeric(key)) {
+                        node = jQuery(node.children("ol").children("li")[key]);
+                    } else {
+                        node = node.children("table").children("tbody").children('tr[data-key="' + key + '"]');
+                        if (node.children("td.structure").length) {
+                            node = node.children("td.structure");
+                        } else {
+                            node = node.children("td.match");
+                        }
+                    }
+                });
+                if (!jQuery("#poi_id").val() || !jQuery("#poi_attribute").val()) {
+                    node.removeClass("matched");
+                } else {
+                    node.addClass("matched");
+                }
             }
         });
     }

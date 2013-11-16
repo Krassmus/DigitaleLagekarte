@@ -25,11 +25,11 @@ function display_json_representation($arr, $url, $index) {
                 $output .= '<td>'.display_json_representation($value, $url, $index." ".$key).'</td>';
             } else {
                 $output .= '<td class="value">'.htmlReady($value).'</td>';
-                $output .= '<td class="match">';
-                $output .= '<a title="'._("Verknüpfung verwalten").'">'.Assets::img("icons/16/blue/staple", array('class' => "text-bottom")).'</a>';
-                if (isset($url['mapping'][trim($index." ".$key)])) {
-                    $output .= Assets::img("icons/16/red/star", array('class' => "text-bottom", 'title' => _("verknüpft")));
-                }
+                $output .= '<td class="match '.(isset($url['mapping'][trim($index." ".$key)]) ? " matched" : "").'">';
+                $output .= '<a title="'._("Verknüpfung verwalten").'">';
+                $output .= Assets::img("icons/20/red/staple", array('class' => "text-bottom active"));
+                $output .= Assets::img("icons/20/grey/staple", array('class' => "text-bottom inactive"));
+                $output .= '</a>';
                 $output .= '</td>';
             }
             $output .= "</tr>";
@@ -68,8 +68,8 @@ $infobox = array(
           "eintrag"   =>
         array(
             array(
-                "icon" => "icons/16/black/tools",
-                "text" => _("Verknüpfen Sie einzelne Datensätze mit Attributen von Markern auf der Lagekarte. Sie werden dann regelmäßig automatisch aktualisiert.")
+                "icon" => "icons/16/black/staple",
+                "text" => _("Verknüpfen Sie einzelne Datensätze mit Attributen von Markern auf der Lagekarte, indem Sie auf die Heftklammer klicken. Sie werden dann regelmäßig automatisch aktualisiert.")
             )
         )
     )

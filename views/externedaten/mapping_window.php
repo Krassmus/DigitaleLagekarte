@@ -27,6 +27,10 @@
                 </td>
             </tr>
             <tr>
+                <td><?= _("Eigenschaft") ?></td>
+                <td style="font-weight: bold;"><?= htmlReady(end(Request::getArray("path"))) ?></td>
+            </tr>
+            <tr>
                 <td><?= _("Aktueller Wert") ?></td>
                 <td><span class="value"><?= htmlReady($value) ?></span></td>
             </tr>

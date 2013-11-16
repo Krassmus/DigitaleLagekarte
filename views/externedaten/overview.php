@@ -30,7 +30,7 @@
             <td><a href="#" class="checkbox"><?= $url['active']
                     ? Assets::img("icons/16/blue/checkbox-checked", array("class" => "text-bottom"))
                     : Assets::img("icons/16/blue/checkbox-unchecked", array("class" => "text-bottom")) ?></a></td>
-            <td><?= count($url['mapping']) ? Assets::img("icons/16/red/star") : "" ?></td>
+            <td><?= count($url['mapping']) ? Assets::img("icons/16/black/staple") : "" ?></td>
             <td><a href="<?= PluginEngine::getLink($plugin, array('url' => $url['url']), "externedaten/details") ?>"><?= Assets::img("icons/16/blue/edit", array("class" => "text-bottom")) ?></a></td>
         </tr>
         <? endforeach ?>

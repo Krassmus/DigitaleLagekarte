@@ -33,6 +33,9 @@ class ExternalDataURL extends SimpleORMap {
     }
 
     public function fetch() {
+        if (($url['interval'] * 60) + $url['last_update'] > time()) {
+            return;
+        }
         // cURL-Request:
         $c = curl_init();
         curl_setopt($c, CURLOPT_HTTPHEADER, array("Accept" => "application/json"));

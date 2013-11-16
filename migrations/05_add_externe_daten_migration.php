@@ -7,7 +7,7 @@ class AddExterneDatenMigration extends DBMigration
             'filename'    => 'public/plugins_packages/THW/DigitaleLagekarte/fetch_external_data.class.php',
             'class'       => 'FetchExternalDataJob',
             'priority'    => 'normal',
-            'minute'      => '-5'
+            'minute'      => '-1'
         );
 
         $query = "INSERT IGNORE INTO `cronjobs_tasks`

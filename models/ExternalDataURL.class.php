@@ -33,7 +33,7 @@ class ExternalDataURL extends SimpleORMap {
     }
 
     public function fetch() {
-        if ($this['last_update'] <= time() - ($this['interval'] * 60)) {
+        if ($this['last_update'] + ($this['interval'] * 60) > time()) {
             return;
         }
         // cURL-Request:

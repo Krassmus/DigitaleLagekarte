@@ -58,7 +58,7 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
         }
         
         /* pseudo-cronjob after 10 minutes */
-        $urls = ExternalDataURL::findBySQL("active = 1 AND last_update < UNIX_TIMESTAMP() - (60 + 30)");
+        $urls = ExternalDataURL::findBySQL("active = 1 AND last_update >= UNIX_TIMESTAMP() - (60 + 30)");
         foreach ($urls as $url) {
             @$url->fetch();
         }

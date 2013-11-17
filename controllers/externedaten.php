@@ -28,6 +28,8 @@ class ExternedatenController extends ApplicationController {
                 $this->url['name'] = Request::get("name");
                 $this->url['url'] = Request::get("new_url");
                 $this->url['interval'] = Request::get("interval");
+                $this->url['auth_user'] = Request::get("auth_user");
+                $this->url['auth_pw'] = Request::get("auth_pw");
                 $this->url->store();
                 PageLayout::postMessage(MessageBox::success(_("Daten gespeichert.")));
                 $this->redirect(PluginEngine::getURL($this->plugin, array('url' => Request::get("new_url"), 'cid' => $_SESSION['SessionSeminar']), "externedaten/details"));

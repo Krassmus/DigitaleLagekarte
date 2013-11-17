@@ -60,7 +60,7 @@ function display_json_representation($arr, $url, $index) {
     <h2 style="width: calc(100% - 30px);"><?= _("Eigenschaften") ?></h2>
     <div>
         <form action="<?= URLHelper::getLink("?", array('url' => $url['url'])) ?>" method="post">
-        <table width="95%">
+        <table width="95%" class="default">
             <tbody>
                 <tr>
                     <td>
@@ -84,6 +84,25 @@ function display_json_representation($arr, $url, $index) {
                     </td>
                     <td>
                         <input type="number" name="interval" id="interval" value="<?= htmlReady($url['interval']) ?>">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="auth_user"><?= _("HTTP-Auth (otional)") ?></label>
+                    </td>
+                    <td>
+                        <label>
+                            <?= _("Nutzername") ?>
+                            <br>
+                            <input type="text" name="auth_user" id="auth_user" value="<?= htmlReady($url['auth_user']) ?>">
+                        </label>
+                        <br>
+                        <br>
+                        <label>
+                            <?= _("Passwort") ?>
+                            <br>
+                            <input type="password" name="auth_pw" id="auth_pw" value="<?= htmlReady($url['auth_pw']) ?>">
+                        </label>
                     </td>
                 </tr>
             </tbody>

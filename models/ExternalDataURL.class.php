@@ -9,6 +9,8 @@
  *  the License, or (at your option) any later version.
  */
 
+require_once dirname(__file__)."/PointOfInterest.class.php";
+
 class ExternalDataURL extends SimpleORMap {
 
     static public function findBySeminar($course_id) {

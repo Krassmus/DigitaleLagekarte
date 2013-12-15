@@ -24,6 +24,7 @@ class FetchExternalDataJob extends CronJob
      */
     public function setUp()
     {
+        require_once dirname(__file__)."/models/ExternalDataURL.class.php";
     }
 
     /**

@@ -70,18 +70,5 @@
 </div>
 
 <?
-$infobox = array(
-    array("kategorie" => _("Information"),
-          "eintrag"   =>
-        array(
-            array(
-                "icon" => "icons/16/black/activity",
-                "text" => _("Rufen Sie Daten aus dem Internet per URL ab (sie müssen ein JSON-Format haben) und verknüpfen Sie diese mit Markern in der Lagekarte. Die Lagekarte aktualisiert sich dann alle fünf Minuten von alleine.")
-            )
-        )
-    )
-);
-$infobox = array(
-    'picture' => $assets_url."pegelstaende.jpg",
-    'content' => $infobox
-);
+$sidebar = Sidebar::get();
+$sidebar->setImage($plugin->getPluginURL()."/assets/sidebar.png");

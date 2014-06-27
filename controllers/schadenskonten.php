@@ -7,9 +7,9 @@ class SchadenskontenController extends ApplicationController {
     public function before_filter($action, $args) {
         parent::before_filter($action, $args);
         if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
-            Navigation::getItem("/course/lagekarte")->setImage($this->assets_url."40_black_world.png");
+            Navigation::getItem("/course/lagekarte")->setImage($this->plugin->getPluginURL()."/assets/40_black_world.png");
         } else {
-            Navigation::getItem("/course/lagekarte")->setImage($this->assets_url."20_black_world.png");
+            Navigation::getItem("/course/lagekarte")->setImage($this->plugin->getPluginURL()."/assets/20_black_world.png");
         }
     }
     

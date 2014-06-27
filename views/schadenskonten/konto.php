@@ -92,3 +92,6 @@ $infobox = array(
     'picture' => $assets_url."Lagekarte-4.jpg",
     'content' => $infobox
 );
+
+$sidebar = Sidebar::get();
+$sidebar->setImage($plugin->getPluginURL()."/assets/sidebar.png");

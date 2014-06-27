@@ -80,7 +80,7 @@ window.setInterval(function () {
 </div>
 
 <? 
-$infobox = array(
+$infoboxx = array(
     array("kategorie" => _("Informationen"),
           "eintrag"   =>
         array(
@@ -108,7 +108,13 @@ $infobox = array(
         )
         : null
 );
-$infobox = array(
-    'picture' => $assets_url."Lagekarte-4.jpg",
-    'content' => $infobox
-);
+
+$sidebar = Sidebar::get();
+$sidebar->setImage($plugin->getPluginURL()."/assets/sidebar.png");
+
+if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
+    $actions = new ActionsWidget();
+    $actions->addLink(_("Bildsausschnitt speichern."), "#");
+    $actions->addLink(_("Snapshot der Karte anlegen."), "#");
+    $sidebar->addWidget($actions);
+}

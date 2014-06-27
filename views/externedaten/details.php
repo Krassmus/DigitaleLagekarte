@@ -134,18 +134,5 @@ function display_json_representation($arr, $url, $index) {
 <div style="display: none" id="mapping_window_title"><?= _("Verknüpfung zu Zeichen") ?></div>
 
 <?
-$infobox = array(
-    array("kategorie" => _("Information"),
-          "eintrag"   =>
-        array(
-            array(
-                "icon" => "icons/16/black/staple",
-                "text" => _("Verknüpfen Sie einzelne Datensätze mit Attributen von Markern auf der Lagekarte, indem Sie auf die Heftklammer klicken. Sie werden dann regelmäßig automatisch aktualisiert.")
-            )
-        )
-    )
-);
-$infobox = array(
-    'picture' => $assets_url."pegelstaende.jpg",
-    'content' => $infobox
-);
+$sidebar = Sidebar::get();
+$sidebar->setImage($plugin->getPluginURL()."/assets/sidebar.png");

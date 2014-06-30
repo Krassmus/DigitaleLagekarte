@@ -14,15 +14,16 @@ STUDIP.Lagekarte = {
         if (mapdata['map_id'] !== jQuery("#map_id").val()) {
             jQuery("#map_id").val(mapdata['map_id']);
         }
-        if (mapdata['longitude'] !== jQuery("#original_lon").val() 
+        if (mapdata['map_id']&&
+            (mapdata['longitude'] !== jQuery("#original_lon").val()
                 || mapdata['latitude'] !== jQuery("#original_lat").val()
-                || mapdata['zoom'] !== jQuery("#original_zoom").val()) {
-            STUDIP.Lagekarte.map.setZoom(mapdata['zoom'], {
-                'animate': false
-            });
+                || mapdata['zoom'] !== jQuery("#original_zoom").val())) {
             STUDIP.Lagekarte.map.panTo({lon: mapdata['longitude'], lat: mapdata['latitude']}, {
                 'animate': true,
                 'duration': 1
+            });
+            STUDIP.Lagekarte.map.setZoom(mapdata['zoom'], {
+                'animate': true
             });
             jQuery("#original_zoom").val(mapdata['zoom']);
             jQuery("#original_lon").val(mapdata['longitude']);
@@ -50,7 +51,7 @@ STUDIP.Lagekarte = {
     },
     draw_map: function (latitude, longitude, zoom) {
         STUDIP.Lagekarte.map = L.map('map', { 'attributionControl': false }).setView([latitude, longitude], zoom);
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(STUDIP.Lagekarte.map);
+        L.tileLayer(jQuery("#tile_server").val(), {}).addTo(STUDIP.Lagekarte.map);
         L.control.scale().addTo(STUDIP.Lagekarte.map);
         STUDIP.Lagekarte.map.addControl(new L.Control.FullScreen());
         STUDIP.Lagekarte.featureGROUP = new L.FeatureGroup();

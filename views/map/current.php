@@ -18,6 +18,7 @@
 <input type="hidden" id="original_lat" value="<?= $map['latitude'] ?>">
 <input type="hidden" id="original_lon" value="<?= $map['longitude'] ?>">
 <input type="hidden" id="original_zoom" value="<?= $map['zoom'] ?>">
+<input type="hidden" id="tile_server" value="<?= htmlReady(get_config("KATIP_TILE_SERVER")) ?>">
 
 <script>
 jQuery(function () {

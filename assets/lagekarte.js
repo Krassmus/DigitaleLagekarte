@@ -33,7 +33,7 @@ STUDIP.Lagekarte = {
         var layer;
         if (mapdata.poi) {
             jQuery.each(mapdata.poi, function (index, poi) {
-                layer = STUDIP.Lagekarte.draw_poi(poi.poi_id, poi.type, poi.coordinates, poi.radius, poi.color, poi.image, poi.popup);
+                layer = STUDIP.Lagekarte.draw_poi(poi.poi_id, poi.type, poi.coordinates, poi.radius, poi.color, poi.size, poi.image, poi.popup);
                 if (typeof STUDIP.Lagekarte.pois[poi.poi_id] === "undefined") {
                     STUDIP.Lagekarte.fadeInLayer(layer);
                 }
@@ -57,14 +57,14 @@ STUDIP.Lagekarte = {
         STUDIP.Lagekarte.featureGROUP = new L.FeatureGroup();
         STUDIP.Lagekarte.map.addLayer(STUDIP.Lagekarte.featureGROUP);
     },
-    draw_poi: function (id, type, coordinates, radius, color, image, popup) {
+    draw_poi: function (id, type, coordinates, radius, color, size, image, popup) {
         if (typeof STUDIP.Lagekarte.pois[id] === "undefined") {
             var new_object = null;
             
             if (type === "marker") {
                 coordinates = new L.LatLng(coordinates[1], coordinates[0]);
                 new_object = new L.Marker(coordinates, {});
-                new_object.setIcon(STUDIP.Lagekarte.get_icon(image));
+                new_object.setIcon(STUDIP.Lagekarte.get_icon(image, size));
             }
             if (type === "circle") {
                 coordinates = new L.LatLng(coordinates[1], coordinates[0]);
@@ -99,7 +99,7 @@ STUDIP.Lagekarte = {
             if (type === "marker") {
                 coordinates = new L.LatLng(coordinates[1], coordinates[0]);
                 STUDIP.Lagekarte.moveMarker(STUDIP.Lagekarte.pois[id], coordinates);
-                STUDIP.Lagekarte.pois[id].setIcon(STUDIP.Lagekarte.get_icon(image));
+                STUDIP.Lagekarte.pois[id].setIcon(STUDIP.Lagekarte.get_icon(image, size));
             }
             if (type === "circle") {
                 coordinates = new L.LatLng(coordinates[1], coordinates[0]);
@@ -125,18 +125,21 @@ STUDIP.Lagekarte = {
             STUDIP.Lagekarte.pois[id].bindPopup(popup);
         }
     },
-    get_icon: function (image) {
+    get_icon: function (image, size) {
         var image_url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins_packages/THW/DigitaleLagekarte/assets/markers" + image;
         var shadow_url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins_packages/THW/DigitaleLagekarte/assets/symbol_shadow.svg";
+        if (!size) {
+            size = 40;
+        }
         if (image) {
             return new L.Icon({
                 iconUrl: image_url,
-                iconSize: [60, 40],
-                iconAnchor: [30, 54],
-                popupAnchor: [0, -36],
+                iconSize: [size, size * 0.66],
+                iconAnchor: [size / 2, size * 0.66 + 14],
+                popupAnchor: [0, size * (-0.66) - 10],
                 shadowUrl: shadow_url,
-                shadowSize: [60, 14],
-                shadowAnchor: [30, 14]
+                shadowSize: [size, 14],
+                shadowAnchor: [size / 2, 14]
             });
         } else {
             return new L.Icon.Default();
@@ -340,7 +343,6 @@ STUDIP.Lagekarte = {
                 slide: function (event, ui) {
                     var value = Math.floor(ui.value);
                     var icon = STUDIP.Lagekarte.pois[poi_id].options.icon;
-                    console.log(icon.options);
                     icon.options.iconSize = [value, value * 0.66];
                     icon.options.iconAnchor = [value/2, value * 0.66 + 14];
                     icon.options.shadowSize = [value, 14];
@@ -348,6 +350,19 @@ STUDIP.Lagekarte = {
                     icon.options.popupAnchor = [0, value * (-0.66) - 10];
                     STUDIP.Lagekarte.pois[poi_id].setIcon(icon);
                     STUDIP.Lagekarte.pois[poi_id].iconWidth = value;
+                },
+                change: function (event, ui) {
+                    var value = Math.floor(ui.value);
+                    console.log(value);
+                    jQuery.ajax({
+                        'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/edit_poi_attribute",
+                        'type': "POST",
+                        'data': {
+                            'cid': jQuery("#Seminar_id").val(),
+                            'poi_id': poi_id,
+                            'size': value
+                        }
+                    });
                 }
             });
         });

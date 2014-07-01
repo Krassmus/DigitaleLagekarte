@@ -32,6 +32,7 @@ jQuery(function () {
                 <?= json_encode($poi['coordinates']) ?>,
                 <?= (int) $poi['radius'] ?>,
                 '<?= htmlReady($poi['color'] ? $poi['color'] : "blue") ?>',
+                '<?= $poi['size'] ? (int) $poi['size'] : 40 ?>',
                 '<?= htmlReady($poi['image']) ?>',
                 "<?= addslashes(str_replace("\n", "", $this->render_partial("map/_poi_popup.php", array('poi' => $poi, 'images' => $images)))) ?>"
             );

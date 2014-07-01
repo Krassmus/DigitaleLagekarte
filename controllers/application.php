@@ -30,7 +30,7 @@ class ApplicationController extends PluginController {
             $version = $manifest['version'];
         }
         $version = $version ? '?version='.urlencode($version) : "";
-        PageLayout::addStylesheet($this->assets_url."lagekarte.css");
+        PageLayout::addStylesheet($this->plugin->getPluginURL()."/assets/lagekarte.css".$version);
         PageLayout::addHeadElement("script", array('src' => $this->plugin->getPluginURL()."/assets/Leaflet/leaflet.js".$version), "");
         PageLayout::addHeadElement("script", array('src' => $this->plugin->getPluginURL()."/assets/Leaflet/leaflet.draw.js".$version), "");
         PageLayout::addHeadElement("link", array('href' => $this->plugin->getPluginURL()."/assets/Leaflet/leaflet.css".$version, 'rel' => "stylesheet"));
@@ -38,7 +38,6 @@ class ApplicationController extends PluginController {
         PageLayout::addHeadElement("link", array('href' => $this->plugin->getPluginURL()."/assets/Leaflet/Control.FullScreen.css".$version, 'rel' => "stylesheet"));
         PageLayout::addHeadElement("script", array('src' => $this->plugin->getPluginURL()."/assets/Leaflet/Control.FullScreen.js".$version), "");
         PageLayout::addHeadElement("script", array('src' => $this->plugin->getPluginURL()."/assets/lagekarte.js".$version), "");
-        PageLayout::addHeadElement("link", array('href' => $this->plugin->getPluginURL()."/assets/lagekarte.css".$version, 'rel' => "stylesheet"));
     }
 
 }

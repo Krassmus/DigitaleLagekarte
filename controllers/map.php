@@ -141,6 +141,9 @@ class MapController extends ApplicationController {
             if (Request::submitted("image")) {
                 $poi['image'] = Request::get("image");
             }
+            if (Request::submitted("size")) {
+                $poi['size'] = Request::int("size");
+            }
             $poi->store();
         }
         $this->render_nothing();

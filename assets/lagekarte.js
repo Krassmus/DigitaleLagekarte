@@ -53,7 +53,6 @@ STUDIP.Lagekarte = {
         STUDIP.Lagekarte.map = L.map('map', { 'attributionControl': false }).setView([latitude, longitude], zoom);
         L.tileLayer(jQuery("#tile_server").val(), {}).addTo(STUDIP.Lagekarte.map);
         L.control.scale().addTo(STUDIP.Lagekarte.map);
-        STUDIP.Lagekarte.map.addControl(new L.Control.FullScreen());
         STUDIP.Lagekarte.featureGROUP = new L.FeatureGroup();
         STUDIP.Lagekarte.map.addLayer(STUDIP.Lagekarte.featureGROUP);
     },
@@ -449,6 +448,36 @@ STUDIP.Lagekarte = {
         }
         moveCircle(layer, position, radius, 1000);
     },
+    activateFullscreen: function () {
+        var i = document.getElementById("map_container");
+        var adjustHeight = function () {
+            if (document.fullscreenElement ||
+                document.webkitFullscreenElement ||
+                document.mozFullScreenElement ||
+                document.msFullscreenElement) {
+                jQuery("#map").css("height", jQuery("#map_container").height() + "px");
+            } else {
+                jQuery("#map").css("height", jQuery("#map").css("min-height"));
+            }
+        };
+
+        document.addEventListener("fullscreenchange", adjustHeight);
+        document.addEventListener("webkitfullscreenchange", adjustHeight);
+        document.addEventListener("mozfullscreenchange", adjustHeight);
+        document.addEventListener("MSFullscreenChange", adjustHeight);
+
+        // go full-screen
+        if (i.requestFullscreen) {
+            i.requestFullscreen();
+        } else if (i.webkitRequestFullscreen) {
+            i.webkitRequestFullscreen();
+        } else if (i.mozRequestFullScreen) {
+            i.mozRequestFullScreen();
+        } else if (i.msRequestFullscreen) {
+            i.msRequestFullscreen();
+        }
+    },
+
     // external data urls:
     new_external_data_url: function () {
         jQuery("#new_external_data_url_window").dialog({

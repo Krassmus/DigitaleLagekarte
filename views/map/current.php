@@ -9,7 +9,14 @@
     }
 </style>
 
-<div id="map" style="width: 100%; height: 500px; margin-left: 5px; margin-right: 5px;"></div>
+<div id="map_container" style="width: 100%; min-height: 500px; margin-left: 5px; margin-right: 5px;">
+    <div style="position:absolute; z-index: 1001; margin-left: 50px; background-color: #F4EE87; box-shadow: 0px 0px 15px rgba(0,0,0,0.3);">
+        Feuer!!!
+    </div>
+    <div id="map" style="width: 100%; min-height: 500px;">
+
+    </div>
+</div>
 
 <input type="hidden" id="current_map" value="true">
 <input type="hidden" id="map_id" value="<?= $map->getId() ?>">
@@ -118,5 +125,6 @@ if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
     $actions = new ActionsWidget();
     $actions->addLink(_("Bildsausschnitt speichern."), "#");
     $actions->addLink(_("Snapshot der Karte anlegen."), "#");
+    $actions->addLink(_("Vollbild aktivieren"), '#', null, array('onClick' => "STUDIP.Lagekarte.activateFullscreen(); return false;"));
     $sidebar->addWidget($actions);
 }

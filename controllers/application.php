@@ -35,8 +35,6 @@ class ApplicationController extends PluginController {
         PageLayout::addHeadElement("script", array('src' => $this->plugin->getPluginURL()."/assets/Leaflet/leaflet.draw.js".$version), "");
         PageLayout::addHeadElement("link", array('href' => $this->plugin->getPluginURL()."/assets/Leaflet/leaflet.css".$version, 'rel' => "stylesheet"));
         PageLayout::addHeadElement("link", array('href' => $this->plugin->getPluginURL()."/assets/Leaflet/leaflet.draw.css".$version, 'rel' => "stylesheet"));
-        PageLayout::addHeadElement("link", array('href' => $this->plugin->getPluginURL()."/assets/Leaflet/Control.FullScreen.css".$version, 'rel' => "stylesheet"));
-        PageLayout::addHeadElement("script", array('src' => $this->plugin->getPluginURL()."/assets/Leaflet/Control.FullScreen.js".$version), "");
         PageLayout::addHeadElement("script", array('src' => $this->plugin->getPluginURL()."/assets/lagekarte.js".$version), "");
     }
 

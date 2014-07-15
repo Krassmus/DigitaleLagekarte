@@ -11,6 +11,13 @@ class MapController extends ApplicationController {
             Navigation::getItem("/course/lagekarte")->setImage($this->plugin->getPluginURL()."/assets/20_black_world.png");
         }
         $this->map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        if (Request::isPost()) {
+            if (Request::submitted("alert_window_text")) {
+                $this->map['alert_window_text'] = trim(Request::get("alert_window_text"));
+                $this->map->store();
+                PageLayout::postMessage(MessageBox::success(_("Hinweismeldung wurde aktualisiert.")));
+            }
+        }
         if ($this->map->isNew()) {
             $this->schadenskonten = array();
         } else {
@@ -147,6 +154,20 @@ class MapController extends ApplicationController {
             $poi->store();
         }
         $this->render_nothing();
+    }
+
+    public function edit_alert_window_action()
+    {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
+            throw new AccessDeniedException("Kein Zugriff");
+        }
+        $this->map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+
+        if (Request::isXhr()) {
+            $this->set_layout(null);
+            $this->set_content_type('text/html;Charset=windows-1252');
+            $this->response->add_header('X-Title', _("Meldung bearbeiten"));
+        }
     }
     
     

@@ -10,8 +10,8 @@
 </style>
 
 <div id="map_container" style="width: 100%; min-height: 500px; margin-left: 5px; margin-right: 5px;">
-    <div style="position:absolute; z-index: 1001; margin-left: 50px; background-color: #F4EE87; box-shadow: 0px 0px 15px rgba(0,0,0,0.3);">
-        Feuer!!!
+    <div style="position:absolute; z-index: 1001; margin-left: 50px; background-color: lightyellow; box-shadow: 0px 0px 15px rgba(0,0,0,0.3); padding: 3px;">
+        <?= formatReady($map['alert_window_text']) ?>
     </div>
     <div id="map" style="width: 100%; min-height: 500px;">
 
@@ -28,6 +28,7 @@
 <input type="hidden" id="tile_server" value="<?= htmlReady(get_config("KATIP_TILE_SERVER")) ?>">
 
 <script>
+STUDIP.WYSIWYG = true;
 jQuery(function () {
     STUDIP.Lagekarte.draw_map(<?= (double) $map['latitude'] ?>, <?= (double) $map['longitude'] ?>, <?= (int) $map['zoom'] ?>);
     <? foreach ($schadenskonten as $schadenskonto) : ?>
@@ -126,5 +127,6 @@ if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
     $actions->addLink(_("Bildsausschnitt speichern."), "#");
     $actions->addLink(_("Snapshot der Karte anlegen."), "#");
     $actions->addLink(_("Vollbild aktivieren"), '#', null, array('onClick' => "STUDIP.Lagekarte.activateFullscreen(); return false;"));
+    $actions->addLink(_("Meldung bearbeiten"), PluginEngine::getURL($plugin, array(), "map/edit_alert_window"), null, array('data-dialog' => "button"));
     $sidebar->addWidget($actions);
 }

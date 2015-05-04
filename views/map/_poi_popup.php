@@ -1,6 +1,6 @@
 <form>
 <input type="hidden" name="poi_id" value="<?= $poi->getId() ?>">
-<table class="default poi_popup" style="margin: 0px;">
+<table class="default poi_popup nohover" style="margin: 0px;">
     <caption><?= htmlReady($poi['title']) ?></caption>
     <tr>
         <td><strong><?= _("Schadenskonto") ?></strong></td>
@@ -61,6 +61,13 @@
             <strong><?= _("Größe") ?></strong>
             <div id="poi_<?= $poi->getId() ?>_slider" class="poi_slider"></div>
             <div></div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <a href="#">
+                <?= Assets::img("icons/16/blue/add") ?>
+            </a>
         </td>
     </tr>
     <? endif ?>

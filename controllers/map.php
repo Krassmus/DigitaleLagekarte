@@ -56,6 +56,7 @@ class MapController extends ApplicationController {
         }
         $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
         if ($map->isNew()) {
+            $map['user_id'] = $GLOBALS['user']->id;
             $map->store();
         }
         

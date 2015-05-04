@@ -598,6 +598,11 @@ STUDIP.Lagekarte = {
                 }
             }
         });
+    },
+    add_poi_datafield: function () {
+        console.log(jQuery(this).closest("tr").siblings(".poi_datafield_template"));
+        var template = jQuery(this).closest("tr").siblings(".poi_datafield_template").clone();
+        template.show().removeClass("poi_datafield_template").appendTo(jQuery(this).closest("table").find("tbody.datafields")).fadeIn();
     }
     
 };

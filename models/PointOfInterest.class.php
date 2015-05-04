@@ -9,7 +9,17 @@
  */
 
 class PointOfInterest extends SimpleORMap {
-    protected $db_table = "katip_poi";
+
+    protected static function configure($config = array())
+    {
+        $config['db_table'] = 'katip_poi';
+        $config['has_many']['datafields'] = array(
+            'class_name' => 'PoiDatafield',
+            'on_delete' => 'delete',
+            'on_store' => 'store'
+        );
+        parent::configure($config);
+    }
     
     static public function findCurrentByPoiID($poi_id) {
         $pois = self::findBySQL("first_predecessor = :poi_id OR poi_id = :poi_id ORDER BY mkdate DESC LIMIT 1", array('poi_id' => $poi_id));

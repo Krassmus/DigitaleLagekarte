@@ -11,6 +11,7 @@
 require_once(dirname(__file__)."/models/Lagekarte.class.php");
 require_once(dirname(__file__)."/models/Schadenskonto.class.php");
 require_once(dirname(__file__)."/models/PointOfInterest.class.php");
+require_once(dirname(__file__)."/models/PoiDatafield.class.php");
 require_once(dirname(__file__)."/models/ExternalDataURL.class.php");
 
 class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {

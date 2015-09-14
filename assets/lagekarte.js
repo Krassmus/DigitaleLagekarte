@@ -635,7 +635,7 @@ jQuery(function () {
     jQuery("#select_schadenskonto").bind("change", function () {
         location.href = STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/schadenskonten/konto/" + this.value + "?cid=" + jQuery("#seminar_id").val()
     });
-    jQuery("select[name=poi_color]").live("change", function () {
+    jQuery(document).on("change", "select[name=poi_color]", function () {
         var poi_id = jQuery(this).closest("form").find("input[name=poi_id]").val();
         var color = this.value;
         STUDIP.Lagekarte.pois[poi_id].setStyle({'color': color, 'fillColor': color});
@@ -650,10 +650,10 @@ jQuery(function () {
         });
     });
     //Edit schadenskonto:
-    jQuery(".editable .edit-icon").live('click', function () {
+    jQuery(document).on('click', ".editable .edit-icon", function () {
         jQuery(this).closest(".editable").addClass("edit").find(".input input").focus();
     });
-    jQuery(".editable .input").live("blur", function () {
+    jQuery(document).on("blur", ".editable .input", function () {
         var that = this;
         jQuery.ajax({
             'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/schadenskonten/edit",
@@ -711,6 +711,6 @@ jQuery(function () {
     });
     
     jQuery(".json_object_list tr > td.match a").bind('click', STUDIP.Lagekarte.show_matching_dialog);
-    jQuery("#url_overview .checkbox").live("click", STUDIP.Lagekarte.toggle_external_data_url_activation);
-    jQuery(".poi_popup select[name=poi_image]").live("change", STUDIP.Lagekarte.change_marker_image);
+    jQuery(document).on("click", "#url_overview .checkbox", STUDIP.Lagekarte.toggle_external_data_url_activation);
+    jQuery(document).on("change", ".poi_popup select[name=poi_image]", STUDIP.Lagekarte.change_marker_image);
 });

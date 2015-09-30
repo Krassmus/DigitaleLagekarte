@@ -42,17 +42,20 @@
     </tbody>
     <tbody class="datafields">
         <? foreach ($poi->datafields as $datafield) : ?>
-        <tr>
+        <tr data-datafield_id="<?= $datafield->getId() ?>">
             <td>
                 <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) : ?>
-                    <input type="text" name="datafield[<?= $datafield->getId() ?>][name]" value="<?= htmlReady($datafield['content']) ?>">
+                    <input type="text" class="datafield_name" name="datafield[<?= $datafield->getId() ?>][name]" value="<?= htmlReady($datafield['name']) ?>">
                 <? else : ?>
                     <strong><?= htmlReady($datafield['name']) ?></strong>
                 <? endif ?>
             </td>
             <td>
                 <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) : ?>
-                    <input type="text" name="datafield[<?= $datafield->getId() ?>][content]" value="<?= htmlReady($datafield['content']) ?>">
+                    <input type="text" class="datafield_content" name="datafield[<?= $datafield->getId() ?>][content]" value="<?= htmlReady($datafield['content']) ?>">
+                    <a href="#" onClick="return false;">
+                        <?= Assets::img("icons/20/blue/trash", array('class' => "text-bottom")) ?>
+                    </a>
                 <? else : ?>
                     <?= htmlReady($datafield['content']) ?>
                 <? endif ?>
@@ -88,12 +91,12 @@
         </tr>
         <tr style="display: none" class="poi_datafield_template">
             <td>
-                <input type="text" name="datafield[new][name]" class="datafield_attribute_name" value="" placeholder="<?= _("Attribut") ?>">
+                <input type="text" name="datafield[new][name]" class="datafield_name" value="" placeholder="<?= _("Attribut") ?>">
             </td>
             <td>
-                <input type="text" name="datafield[new][content]" class="datafield_attribute_value" value="<?= htmlReady($datafield['content']) ?>">
+                <input type="text" name="datafield[new][content]" class="datafield_content" value="<?= htmlReady($datafield['content']) ?>">
                 <a href="#" onClick="return false;">
-                    <?= Assets::img("icons/20/blue/trash") ?>
+                    <?= Assets::img("icons/20/blue/trash", array('class' => "text-bottom")) ?>
                 </a>
             </td>
         </tr>

@@ -600,9 +600,31 @@ STUDIP.Lagekarte = {
         });
     },
     add_poi_datafield: function () {
-        console.log(jQuery(this).closest("tr").siblings(".poi_datafield_template"));
         var template = jQuery(this).closest("tr").siblings(".poi_datafield_template").clone();
         template.show().removeClass("poi_datafield_template").appendTo(jQuery(this).closest("table").find("tbody.datafields")).fadeIn();
+    },
+    save_poi_datafield: function () {
+        var datafield_row = jQuery(this).closest("tr");
+        var datafield_id = datafield_row.data("datafield_id");
+        var name = datafield_row.find(".datafield_name").val();
+        var content = datafield_row.find(".datafield_content").val();
+        var poi_id = datafield_row.closest("form").find("input[name=poi_id]").val();
+        if (name && poi_id) {
+            jQuery.ajax({
+                "url": STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/save_poi_datafield",
+                "data": {
+                    "datafield_id": datafield_id,
+                    "name": name,
+                    "content": content,
+                    "poi_id": poi_id
+                },
+                "dataType": "json",
+                "type": "post",
+                "success": function (output) {
+                    datafield_row.data("datafield_id", output.datafield_id);
+                }
+            });
+        }
     }
     
 };
@@ -713,4 +735,5 @@ jQuery(function () {
     jQuery(".json_object_list tr > td.match a").bind('click', STUDIP.Lagekarte.show_matching_dialog);
     jQuery(document).on("click", "#url_overview .checkbox", STUDIP.Lagekarte.toggle_external_data_url_activation);
     jQuery(document).on("change", ".poi_popup select[name=poi_image]", STUDIP.Lagekarte.change_marker_image);
+    jQuery(document).on("change", ".poi_popup .datafields .datafield_name, .poi_popup .datafields .datafield_content", STUDIP.Lagekarte.save_poi_datafield);
 });

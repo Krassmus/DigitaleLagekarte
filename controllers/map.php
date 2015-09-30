@@ -157,6 +157,26 @@ class MapController extends ApplicationController {
         $this->render_nothing();
     }
 
+    public function save_poi_datafield_action() {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar']) || !Request::isPost()) {
+            throw new AccessDeniedException("Kein Zugriff");
+        }
+        if (Request::get("name") && Request::option("poi_id")) {
+            $poi_datafield = new PoiDatafield(Request::option("datafield_id"));
+            if ($poi_datafield->isNew()) {
+                $poi_datafield['poi_id'] = Request::option("poi_id");
+            }
+            $poi_datafield['name'] = Request::get("name");
+            $poi_datafield['content'] = Request::get("content", "");
+            $poi_datafield->store();
+        }
+
+        $output = array(
+            'datafield_id' => $poi_datafield->getId()
+        );
+        $this->render_json($output);
+    }
+
     public function edit_alert_window_action()
     {
         if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {

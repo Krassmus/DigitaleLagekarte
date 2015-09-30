@@ -135,3 +135,7 @@ span.value {
     background-color: rgba(0,0,60,0.1);
     padding: 3px;
 }
+
+.datafields tr > td:nth-child(2) input {
+    width: calc(100% - 32px);
+}

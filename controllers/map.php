@@ -169,6 +169,9 @@ class MapController extends ApplicationController {
             $poi_datafield['name'] = studip_utf8decode(Request::get("name"));
             $poi_datafield['content'] = studip_utf8decode(Request::get("content", ""));
             $poi_datafield->store();
+        } elseif (Request::option("datafield_id")) {
+            $poi_datafield = new PoiDatafield(Request::option("datafield_id"));
+            $poi_datafield->delete();
         }
 
         $output = array(

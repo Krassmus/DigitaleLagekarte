@@ -53,7 +53,7 @@
             <td>
                 <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) : ?>
                     <input type="text" class="datafield_content" name="datafield[<?= $datafield->getId() ?>][content]" value="<?= htmlReady($datafield['content']) ?>">
-                    <a href="#" onClick="return false;">
+                    <a href="#" class="delete">
                         <?= Assets::img("icons/20/blue/trash", array('class' => "text-bottom")) ?>
                     </a>
                 <? else : ?>
@@ -95,7 +95,7 @@
             </td>
             <td>
                 <input type="text" name="datafield[new][content]" class="datafield_content" value="<?= htmlReady($datafield['content']) ?>">
-                <a href="#" onClick="return false;">
+                <a href="#" class="delete">
                     <?= Assets::img("icons/20/blue/trash", array('class' => "text-bottom")) ?>
                 </a>
             </td>

@@ -609,7 +609,7 @@ STUDIP.Lagekarte = {
         var name = datafield_row.find(".datafield_name").val();
         var content = datafield_row.find(".datafield_content").val();
         var poi_id = datafield_row.closest("form").find("input[name=poi_id]").val();
-        if (name && poi_id) {
+        if ((name && poi_id) || datafield_id) {
             jQuery.ajax({
                 "url": STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/save_poi_datafield",
                 "data": {
@@ -621,10 +621,31 @@ STUDIP.Lagekarte = {
                 "dataType": "json",
                 "type": "post",
                 "success": function (output) {
-                    datafield_row.data("datafield_id", output.datafield_id);
+                    if (name) {
+                        datafield_row.data("datafield_id", output.datafield_id);
+                    } else {
+                        datafield_row.remove();
+                    }
                 }
             });
         }
+    },
+    delete_poi_datafield: function () {
+        var datafield_row = jQuery(this).closest("tr");
+        var datafield_id = datafield_row.data("datafield_id");
+        jQuery.ajax({
+            "url": STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/save_poi_datafield",
+            "data": {
+                "datafield_id": datafield_id,
+                "name": ""
+            },
+            "dataType": "json",
+            "type": "post",
+            "success": function (output) {
+                datafield_row.remove();
+            }
+        });
+        return false;
     }
     
 };
@@ -736,4 +757,5 @@ jQuery(function () {
     jQuery(document).on("click", "#url_overview .checkbox", STUDIP.Lagekarte.toggle_external_data_url_activation);
     jQuery(document).on("change", ".poi_popup select[name=poi_image]", STUDIP.Lagekarte.change_marker_image);
     jQuery(document).on("change", ".poi_popup .datafields .datafield_name, .poi_popup .datafields .datafield_content", STUDIP.Lagekarte.save_poi_datafield);
+    jQuery(document).on("click", ".poi_popup .datafields .delete", STUDIP.Lagekarte.delete_poi_datafield);
 });

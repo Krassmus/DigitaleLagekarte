@@ -90,43 +90,31 @@ window.setInterval(function () {
 </div>
 
 <? 
-$infoboxx = array(
-    array("kategorie" => _("Informationen"),
-          "eintrag"   =>
-        array(
-            array(
-                "icon" => "icons/16/black/info",
-                "text" => _("Hier sehen Sie die aktuelle Lagekarte")
-            )
-        )
-    ),
-    $GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])
-        ? array("kategorie" => _("Aktionen"),
-            "eintrag"   =>
-            array(
-                array(
-                    "icon" => "icons/16/black/edit",
-                    "text" => '<a href="#" onClick="STUDIP.Lagekarte.save_map_viewport(); return false;">'._("Bildsausschnitt speichern.").'</a>' 
-                                .'<span style="display: none;" id="save_map_viewport_spinner">'.Assets::img("ajax_indicator_small.gif", array('class' => "text-bottom")).'</span>'
-                ),
-                array(
-                    "icon" => "icons/16/black/date",
-                    "text" => '<a href="#" onClick="STUDIP.Lagekarte.create_snapshot(); return false;">'._("Snapshot der Karte anlegen.").'</a>' 
-                                .'<span style="display: none;" id="create_snapshot_spinner">'.Assets::img("ajax_indicator_small.gif", array('class' => "text-bottom")).'</span>'
-                )
-            )
-        )
-        : null
-);
-
-$sidebar = Sidebar::get();
-$sidebar->setImage($plugin->getPluginURL()."/assets/sidebar.png");
+Sidebar::Get()->setImage($plugin->getPluginURL()."/assets/sidebar.png");
 
 if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
     $actions = new ActionsWidget();
-    $actions->addLink(_("Bildsausschnitt speichern."), "#");
-    $actions->addLink(_("Snapshot der Karte anlegen."), "#");
-    $actions->addLink(_("Vollbild aktivieren"), '#', null, array('onClick' => "STUDIP.Lagekarte.activateFullscreen(); return false;"));
-    $actions->addLink(_("Meldung bearbeiten"), PluginEngine::getURL($plugin, array(), "map/edit_alert_window"), null, array('data-dialog' => "button"));
-    $sidebar->addWidget($actions);
+    $actions->addLink(
+        _("Bildsausschnitt speichern."),
+        "#1",
+        Icon::create("visibility-checked", "clickable"),
+        array('onClick' => "STUDIP.Lagekarte.save_map_viewport(); return false;")
+    );
+    $actions->addLink(
+        _("Snapshot der Karte anlegen."),
+        "#2",
+        Icon::create("archive2", "clickable"),
+        array('onClick' => "STUDIP.Lagekarte.create_snapshot(); return false;")
+    );
+    $actions->addLink(_("Vollbild aktivieren"),
+        '#3',
+        Icon::create("tan3", "clickable"),
+        array('onClick' => "STUDIP.Lagekarte.activateFullscreen(); return false;")
+    );
+    $actions->addLink(_("Meldung bearbeiten"),
+        PluginEngine::getURL($plugin, array(), "map/edit_alert_window"),
+        Icon::create("edit", "clickable"),
+        array('data-dialog' => "button")
+    );
+    Sidebar::Get()->addWidget($actions);
 }

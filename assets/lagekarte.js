@@ -289,7 +289,7 @@ STUDIP.Lagekarte = {
         var center = STUDIP.Lagekarte.map.getCenter();
         var longitude = center.lng;
         var latitude = center.lat;
-        jQuery("#save_map_viewport_spinner").show('swing');
+        //jQuery("#save_map_viewport_spinner").show('swing');
         jQuery.ajax({
             'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/save_viewport",
             'data': {
@@ -300,12 +300,12 @@ STUDIP.Lagekarte = {
             },
             'type': "post",
             'success': function () {
-                jQuery("#save_map_viewport_spinner").hide('swing');
+                //jQuery("#save_map_viewport_spinner").hide('swing');
             }
         });
     },
     create_snapshot: function () {
-        jQuery("#create_snapshot_spinner").show('swing');
+        //jQuery("#create_snapshot_spinner").show('swing');
         jQuery.ajax({
             'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/create_snapshot",
             'data': {
@@ -313,7 +313,7 @@ STUDIP.Lagekarte = {
             },
             'type': "post",
             'success': function () {
-                jQuery("#create_snapshot_spinner").hide('swing');
+                //jQuery("#create_snapshot_spinner").hide('swing');
             }
         });
     },

@@ -1,8 +1,8 @@
 pluginname=DigitaleLagekarte
 pluginclassname=DigitaleLagekarte
 origin=THW
-version=0.2.1
-studipMinVersion=2.4
+version=0.3
+studipMinVersion=3.2
 summary=Lagekarte für den Katastrophenschutz
 description=Im Katastrophenschutz wie beim THW ist es immer wichtig, den Überblick zu behalten. Diese digitale Lagekarte soll dabei helfen, Einheiten und Schadensgebiete zu visualisieren und zu verwalten, dabei wird regelmäßig ein Stand der Karte archiviert.
 icon=assets/1374059754_world.svg

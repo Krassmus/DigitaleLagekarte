@@ -7,7 +7,7 @@
             <td><strong><?= _("Schadenskonto") ?></strong></td>
             <td>
                 <a href="<?= PluginEngine::getLink($plugin, array(), "schadenskonten/konto/".$poi['schadenskonto_id']) ?>">
-                    <?= Assets::img("icons/16/blue/link-intern", array('class' => "text-bottom")) ?>
+                    <?= Icon::create("link-intern", "clickable")->asImg(16, array('class' => "text-bottom")) ?>
                     <?= htmlReady(Schadenskonto::find($poi['schadenskonto_id'])->title) ?>
                 </a>
             </td>
@@ -82,7 +82,7 @@
                 <? if ($GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)) : ?>
                     <input type="text" class="datafield_content" name="datafield[<?= $datafield->getId() ?>][content]" value="<?= htmlReady($datafield['content']) ?>">
                     <a href="#" class="delete">
-                        <?= Assets::img("icons/20/blue/trash", array('class' => "text-bottom")) ?>
+                        <?= Icon::create("trash", "clickable")->asImg(20, array('class' => "text-bottom")) ?>
                     </a>
                 <? else : ?>
                     <?= htmlReady($datafield['content']) ?>
@@ -100,14 +100,14 @@
             <td>
                 <input type="text" name="datafield[new][content]" class="datafield_content" value="<?= htmlReady($datafield['content']) ?>">
                 <a href="#" class="delete">
-                    <?= Assets::img("icons/20/blue/trash", array('class' => "text-bottom")) ?>
+                    <?= Icon::create("trash", "clickable")->asImg(20, array('class' => "text-bottom")) ?>
                 </a>
             </td>
         </tr>
         <tr>
             <td colspan="2">
                 <a href="#" onClick="STUDIP.Lagekarte.add_poi_datafield.call(this); return false;" title="<?= _("Weiteres Attribut hinzufügen") ?>">
-                    <?= Assets::img("icons/16/blue/add") ?>
+                    <?= Icon::create("add", "clickable") ?>
                 </a>
             </td>
         </tr>

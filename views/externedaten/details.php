@@ -27,8 +27,8 @@ function display_json_representation($arr, $url, $index) {
                 $output .= '<td class="value">'.htmlReady($value).'</td>';
                 $output .= '<td class="match '.(isset($url['mapping'][trim($index." ".$key)]) ? " matched" : "").'">';
                 $output .= '<a title="'._("Verknüpfung verwalten").'">';
-                $output .= Assets::img("icons/20/red/staple", array('class' => "text-bottom active"));
-                $output .= Assets::img("icons/20/grey/staple", array('class' => "text-bottom inactive"));
+                $output .= Icon::create("staple", "attention")->asImg(20, array('class' => "text-bottom active"));
+                $output .= Icon::create("staple", "inactive")->asImg(20, array('class' => "text-bottom inactive"));
                 $output .= '</a>';
                 $output .= '</td>';
             }

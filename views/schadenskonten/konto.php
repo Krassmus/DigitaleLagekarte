@@ -3,7 +3,9 @@
 
 
 <h1 class="editable">
-    <div class="edit-icon"><?= Assets::img("icons/16/blue/edit") ?></div>
+    <div class="edit-icon">
+        <?= Icon::create("edit", "clickable") ?>
+    </div>
     <div class="value"><?= htmlReady($schadenskonto['title']) ?></div>
     <div class="input"><input type="text" name="title" value="<?= htmlReady($schadenskonto['title']) ?>"></div>
 </h1>

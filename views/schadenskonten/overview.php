@@ -3,14 +3,18 @@
     <thead>
         <tr>
             <th><?= _("Name des Schadenskontos") ?></th>
-            <th></th>
+            <th class="actions"><?= _("Aktion") ?></th>
         </tr>
     </thead>
     <tbody>
         <? foreach ($schadenskonten as $schadenskonto) : ?>
         <tr id="<?= htmlReady($schadenskonto->getId()) ?>">
             <td><?= htmlReady($schadenskonto['title']) ?></td>
-            <td><a href="<?= PluginEngine::getLink($plugin, array(), "schadenskonten/konto/".$schadenskonto->getId()) ?>"><?= Assets::img("icons/16/blue/link-intern", array('class' => "text-bottom")) ?></a></td>
+            <td class="actions">
+                <a href="<?= PluginEngine::getLink($plugin, array(), "schadenskonten/konto/".$schadenskonto->getId()) ?>">
+                    <?= Icon::create("link-intern", "clickable")->asImg(20, array('class' => "text-bottom")) ?>
+                </a>
+            </td>
         </tr>
         <? endforeach ?>
     </tbody>
@@ -18,7 +22,7 @@
         <tr>
             <td colspan="2">
                 <? if ($GLOBALS['perm']->have_studip_perm('tutor', Context::get()->id)) : ?>
-                <?= Assets::img("icons/16/blue/add") ?>
+                <?= Icon::create("add", "clickable")->asImg(20) ?>
                 <? endif ?>
             </td>
         </tr>

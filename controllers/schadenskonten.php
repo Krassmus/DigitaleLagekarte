@@ -4,35 +4,25 @@ require_once dirname(__file__)."/application.php";
 
 class SchadenskontenController extends ApplicationController
 {
-    
-    public function before_filter($action, $args)
-    {
-        parent::before_filter($action, $args);
-        if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
-            Navigation::getItem("/course/lagekarte")->setImage($this->plugin->getPluginURL()."/assets/40_black_world.png");
-        } else {
-            Navigation::getItem("/course/lagekarte")->setImage($this->plugin->getPluginURL()."/assets/20_black_world.png");
-        }
-    }
-    
+
     public function overview_action() {
         $this->map = Lagekarte::getCurrent(Context::get()->id);
         $this->schadenskonten = $this->map->getSchadenskonten();
     }
-    
+
     public function konto_action($id)
     {
         $this->schadenskonto = new Schadenskonto($id);
         $this->map = new Lagekarte($this->schadenskonto['map_id']);
         $this->schadenskonten = $this->map->getSchadenskonten();
-        if ($this->schadenskonto->isNew() 
-                || $this->map->isNew() 
+        if ($this->schadenskonto->isNew()
+                || $this->map->isNew()
                 || !$GLOBALS['perm']->have_studip_perm("autor", $this->map['seminar_id'])) {
             throw new AccessDeniedException("Kein Zugriff");
         }
         Navigation::activateItem("/course/lagekarte/schadenskonten");
     }
-    
+
     public function move_poi_to_schadenskonto_action()
     {
         $schadenskonto = new Schadenskonto(Request::option("schadenskonto_id"));
@@ -50,7 +40,7 @@ class SchadenskontenController extends ApplicationController
         $poi->store();
         $this->render_nothing();
     }
-    
+
     public function edit_action()
     {
         $schadenskonto = new Schadenskonto(Request::option("schadenskonto_id"));
@@ -58,5 +48,5 @@ class SchadenskontenController extends ApplicationController
         $schadenskonto->store();
         $this->render_text(formatReady($schadenskonto[Request::get("attribute")]));
     }
-    
+
 }

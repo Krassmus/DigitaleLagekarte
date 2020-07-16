@@ -28,10 +28,14 @@
             <td><?= htmlReady($url['name']) ?></td>
             <td><?= date("G:i j.n.Y", $url['last_update']) ?></td>
             <td><a href="#" class="checkbox"><?= $url['active']
-                    ? Assets::img("icons/16/blue/checkbox-checked", array("class" => "text-bottom"))
-                    : Assets::img("icons/16/blue/checkbox-unchecked", array("class" => "text-bottom")) ?></a></td>
-            <td><?= count($url['mapping']) ? Assets::img("icons/16/black/staple") : "" ?></td>
-            <td><a href="<?= PluginEngine::getLink($plugin, array('url' => $url['url']), "externedaten/details") ?>"><?= Assets::img("icons/16/blue/edit", array("class" => "text-bottom")) ?></a></td>
+                    ? Icon::create("checkbox-checked", "clickable")->asImg(20, array("class" => "text-bottom"))
+                    : Icon::create("checkbox-unchecked", "clickable")->asImg(20, array("class" => "text-bottom")) ?></a></td>
+            <td><?= count($url['mapping']) ? Icon::create("staple", "info")->asImg(20, ['class' => "text-bottom"]) : "" ?></td>
+            <td>
+                <a href="<?= PluginEngine::getLink($plugin, array('url' => $url['url']), "externedaten/details") ?>">
+                    <?= Icon::create("edit", "clickable")->asImg(20, array("class" => "text-bottom")) ?>
+                </a>
+            </td>
         </tr>
         <? endforeach ?>
         <? else : ?>
@@ -42,7 +46,9 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="5"><a href="" onClick="STUDIP.Lagekarte.new_external_data_url(); return false;"><?= Assets::img("icons/16/blue/add") ?></td>
+            <td colspan="5"><a href="" onClick="STUDIP.Lagekarte.new_external_data_url(); return false;">
+                <?= Icon::create("add", "clickable")->asImg("20") ?>
+            </td>
         </tr>
     </tfoot>
 </table>

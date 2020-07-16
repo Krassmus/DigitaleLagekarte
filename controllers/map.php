@@ -3,7 +3,7 @@
 require_once dirname(__file__)."/application.php";
 
 class MapController extends ApplicationController {
-    
+
     public function current_action() {
         $this->map = Lagekarte::getCurrent(Context::get()->id);
         if (Request::isPost()) {
@@ -20,7 +20,7 @@ class MapController extends ApplicationController {
         }
         $this->images = PointOfInterest::getImages(Context::get()->id);
     }
-    
+
     public function save_viewport_action() {
         if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)) {
             throw new AccessDeniedException("Kein Zugriff");
@@ -32,10 +32,10 @@ class MapController extends ApplicationController {
         $map['zoom'] = Request::int("zoom");
         $map['user_id'] = $GLOBALS['user']->id;
         $map->store();
-        
+
         $this->render_nothing();
     }
-    
+
     public function create_snapshot_action() {
         if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)) {
             throw new AccessDeniedException("Kein Zugriff");
@@ -44,7 +44,7 @@ class MapController extends ApplicationController {
         $new_map = $map->createCopy();
         $this->render_nothing();
     }
-    
+
     public function save_new_layer_action() {
         if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)) {
             throw new AccessDeniedException("Kein Zugriff");
@@ -55,7 +55,7 @@ class MapController extends ApplicationController {
             $map['user_id'] = $GLOBALS['user']->id;
             $map->store();
         }
-        
+
         $output = array();
         if (Request::get("schadenskonto_id") !== "neu") {
             $schadenskonto = Schadenskonto::find(Request::get("schadenskonto_id"));
@@ -88,7 +88,7 @@ class MapController extends ApplicationController {
         }
         $this->render_json($output);
     }
-    
+
     public function delete_poi_action() {
         if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)) {
             throw new AccessDeniedException("Kein Zugriff");
@@ -102,7 +102,7 @@ class MapController extends ApplicationController {
         }
         $this->render_nothing();
     }
-    
+
     public function edit_poi_action() {
         if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id) || !Request::isPost()) {
             throw new AccessDeniedException("Kein Zugriff");
@@ -118,7 +118,7 @@ class MapController extends ApplicationController {
         }
         $this->render_nothing();
     }
-    
+
     public function edit_poi_color_action() {
         if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id) || !Request::isPost()) {
             throw new AccessDeniedException("Kein Zugriff");
@@ -131,7 +131,7 @@ class MapController extends ApplicationController {
         }
         $this->render_nothing();
     }
-    
+
     public function edit_poi_attribute_action() {
         if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id) || !Request::isPost()) {
             throw new AccessDeniedException("Kein Zugriff");
@@ -162,8 +162,8 @@ class MapController extends ApplicationController {
             if ($poi_datafield->isNew()) {
                 $poi_datafield['poi_id'] = Request::option("poi_id");
             }
-            $poi_datafield['name'] = studip_utf8decode(Request::get("name"));
-            $poi_datafield['content'] = studip_utf8decode(Request::get("content", ""));
+            $poi_datafield['name'] = Request::get("name");
+            $poi_datafield['content'] = Request::get("content", "");
             $poi_datafield->store();
         } elseif (Request::option("datafield_id")) {
             $poi_datafield = new PoiDatafield(Request::option("datafield_id"));
@@ -188,7 +188,7 @@ class MapController extends ApplicationController {
             $this->response->add_header('X-Title', _("Meldung bearbeiten"));
         }
     }
-    
-    
-    
+
+
+
 }

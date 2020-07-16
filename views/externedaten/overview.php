@@ -2,14 +2,14 @@
 
 /*
  *  Copyright (c) 2013  Rasmus Fuhse <fuhse@data-quest.de>
- * 
+ *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
  *  published by the Free Software Foundation; either version 2 of
  *  the License, or (at your option) any later version.
  */
 ?>
-<input type="hidden" id="Seminar_id" value="<?= $_SESSION['SessionSeminar'] ?>">
+<input type="hidden" id="Seminar_id" value="<?= htmlReady(Context::get()->id) ?>">
 <table class="default" id="url_overview">
     <caption><?= _("Externe Daten") ?></caption>
     <thead>

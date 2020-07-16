@@ -21,7 +21,7 @@ class ApplicationController extends PluginController {
      * @param type $action
      * @param type $args
      */
-    function before_filter($action, $args) {
+    function before_filter(&$action, &$args) {
         parent::before_filter($action, $args);
         $version = shell_exec("cd ".__DIR__." && git log -1 --pretty=format:'%h' --abbrev-commit");
         if (!$version) {

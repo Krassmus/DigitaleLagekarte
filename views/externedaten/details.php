@@ -2,7 +2,7 @@
 
 /*
  *  Copyright (c) 2013  Rasmus Fuhse <fuhse@data-quest.de>
- * 
+ *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
  *  published by the Free Software Foundation; either version 2 of
@@ -53,7 +53,7 @@ function display_json_representation($arr, $url, $index) {
 
 ?>
 <h1><?= htmlReady($url['name']) ?></h1>
-<input type="hidden" id="Seminar_id" value="<?= htmlReady($_SESSION['SessionSeminar']) ?>">
+<input type="hidden" id="Seminar_id" value="<?= htmlReady(Context::get()->id) ?>">
 <input type="hidden" id="url" value="<?= htmlReady($url['url']) ?>">
 
 <div class="accordion" style="width: 100%;">

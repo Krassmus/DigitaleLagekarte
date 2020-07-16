@@ -1,4 +1,4 @@
-<input type="hidden" id="seminar_id" value="<?= $_SESSION['SessionSeminar'] ?>">
+<input type="hidden" id="seminar_id" value="<?= htmlReady(Context::get()->id) ?>">
 <input type="hidden" id="schadenskonto_id" value="<?= htmlReady($schadenskonto->getId()) ?>">
 
 
@@ -70,8 +70,8 @@
 <br>
 <br>
 
-<? 
-$select = '<select name="schadenkonto_id" id="select_schadenskonto" size="10">';
+<?
+/*$select = '<select name="schadenkonto_id" id="select_schadenskonto" size="10">';
 foreach ($schadenskonten as $sch) {
     $select .= '<option value="'.htmlReady($sch->getId()).'"'.($schadenskonto->getId() === $sch->getId() ? " selected" : "").'>'.htmlReady($sch['title']).'</option>';
 }
@@ -91,7 +91,6 @@ $infobox = array(
 $infobox = array(
     'picture' => $assets_url."Lagekarte-4.jpg",
     'content' => $infobox
-);
+);*/
 
 $sidebar = Sidebar::get();
-$sidebar->setImage($plugin->getPluginURL()."/assets/sidebar.png");

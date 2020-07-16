@@ -2,7 +2,7 @@
 
 /*
  *  Copyright (c) 2013  Rasmus Fuhse <fuhse@data-quest.de>
- * 
+ *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
  *  published by the Free Software Foundation; either version 2 of
@@ -18,7 +18,7 @@ class ExternalDataURL extends SimpleORMap
     {
         return self::findBySQL("Seminar_id = ? ORDER BY name ASC", array($course_id));
     }
-    
+
     protected static function configure($config = array())
     {
         $config['db_table'] = 'katip_external_data_urls';
@@ -55,7 +55,7 @@ class ExternalDataURL extends SimpleORMap
             curl_errno($c);
             curl_error($c);
         } else {
-            $object = studip_utf8decode(json_decode($result));
+            $object = json_decode($result);
             if ($object) {
                 $this['last_object'] = $object;
                 $this['last_update'] = time();
@@ -64,7 +64,7 @@ class ExternalDataURL extends SimpleORMap
             }
         }
     }
-    
+
     public function apply_mapping()
     {
         if (!$this['active']) {

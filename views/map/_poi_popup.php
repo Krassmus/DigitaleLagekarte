@@ -24,7 +24,7 @@
             <td><?= $poi['coordinates'][1].", ".$poi['coordinates'][0] ?></td>
         </tr>
         <? endif ?>
-        <? if ($poi['shape'] !== "marker" && $GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) : ?>
+        <? if ($poi['shape'] !== "marker" && $GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)) : ?>
         <tr>
             <td><strong><label for="poi_<?= $poi->getId() ?>_color"><?= _("Farbe") ?></label></strong></td>
             <td>
@@ -40,7 +40,7 @@
         </tr>
         <? endif ?>
     </tbody>
-    <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar']) && $poi['shape'] === "marker") : ?>
+    <? if ($GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id) && $poi['shape'] === "marker") : ?>
     <tbody>
         <tr>
             <td><strong><label for="poi_<?= $poi->getId() ?>_image"><?= _("Zeichen") ?></label></strong></td>
@@ -72,14 +72,14 @@
     <? foreach ($poi->datafields as $datafield) : ?>
         <tr data-datafield_id="<?= $datafield->getId() ?>">
             <td>
-                <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) : ?>
+                <? if ($GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)) : ?>
                     <input type="text" class="datafield_name" name="datafield[<?= $datafield->getId() ?>][name]" value="<?= htmlReady($datafield['name']) ?>">
                 <? else : ?>
                     <strong><?= htmlReady($datafield['name']) ?></strong>
                 <? endif ?>
             </td>
             <td>
-                <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) : ?>
+                <? if ($GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)) : ?>
                     <input type="text" class="datafield_content" name="datafield[<?= $datafield->getId() ?>][content]" value="<?= htmlReady($datafield['content']) ?>">
                     <a href="#" class="delete">
                         <?= Assets::img("icons/20/blue/trash", array('class' => "text-bottom")) ?>
@@ -91,7 +91,7 @@
         </tr>
     <? endforeach ?>
     </tbody>
-    <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar']) && $poi['shape'] === "marker") : ?>
+    <? if ($GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id) && $poi['shape'] === "marker") : ?>
         <tfoot>
         <tr style="display: none" class="poi_datafield_template">
             <td>

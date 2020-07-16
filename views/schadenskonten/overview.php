@@ -17,14 +17,10 @@
     <tfoot>
         <tr>
             <td colspan="2">
-                <? if ($GLOBALS['perm']->have_studip_perm('tutor', $_SESSION['SessionSeminar'])) : ?>
+                <? if ($GLOBALS['perm']->have_studip_perm('tutor', Context::get()->id)) : ?>
                 <?= Assets::img("icons/16/blue/add") ?>
                 <? endif ?>
             </td>
         </tr>
     </tfoot>
 </table>
-
-<? 
-$sidebar = Sidebar::get();
-$sidebar->setImage($plugin->getPluginURL()."/assets/sidebar.png");

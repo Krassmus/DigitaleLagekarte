@@ -7,7 +7,7 @@ class FetchExternalDataJob extends CronJob
      */
     public static function getName()
     {
-        return _('Externe JSON-Daten für die digitale Lagekarte (Plugin).');
+        return _('Externe JSON-Daten fÃ¼r die digitale Lagekarte (Plugin).');
     }
 
     /**
@@ -15,7 +15,7 @@ class FetchExternalDataJob extends CronJob
      */
     public static function getDescription()
     {
-        return _('Ruft alle externen Ressourcen-URL auf und prozessiert die zurückbekommenen JSON-Objekte in den jeweiligen Veranstaltungen.');
+        return _('Ruft alle externen Ressourcen-URL auf und prozessiert die zurÃ¼ckbekommenen JSON-Objekte in den jeweiligen Veranstaltungen.');
     }
 
     /**

@@ -1,5 +1,5 @@
 <?php
-class AddExterneDatenMigration extends DBMigration
+class AddExterneDatenMigration extends Migration
 {
     function up() 
     {

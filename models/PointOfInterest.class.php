@@ -18,6 +18,8 @@ class PointOfInterest extends SimpleORMap {
             'on_delete' => 'delete',
             'on_store' => 'store'
         );
+        $config['serialized_fields']['coordinates'] = "JSONArrayObject";
+
         parent::configure($config);
     }
     
@@ -77,20 +79,7 @@ class PointOfInterest extends SimpleORMap {
         return self::getLocalFiles(dirname(__file__)."/../assets/markers", "");
     }
     
-    public function __construct($id = null) {
-        $this->registerCallback('before_store', 'serializeCoordinates');
-        $this->registerCallback('after_store after_initialize', 'unserializeCoordinates');
-        parent::__construct($id);
-    }
-    
-    protected function serializeCoordinates() {
-        $this->coordinates = json_encode(studip_utf8encode($this->coordinates));
-    }
-    
-    protected function unserializeCoordinates() {
-        $this->coordinates = studip_utf8decode(json_decode($this->coordinates));
-    }
-    
+
     public function setId($id) {
         $old_id = $this->getId();
         $success = parent::setId($id);

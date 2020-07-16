@@ -18,7 +18,7 @@
             </td>
         </tr>
         <tr>
-            <td><?= _("Stärkemeldung") ?></td>
+            <td><?= _("StÃ¤rkemeldung") ?></td>
             <td>
                 <input type="text" class="troopstrength" id="fuehrer" value="0">
                 <input type="text" class="troopstrength" id="unterfuehrer" value="0">
@@ -27,7 +27,7 @@
             </td>
         </tr>
         <tr>
-            <td><label for="lage"><?= _("Ausführliche Lage") ?></label></td>
+            <td><label for="lage"><?= _("AusfÃ¼hrliche Lage") ?></label></td>
             <td>
                 <textarea name="lage" id="lage" style="width: 100%; height: 100px;"></textarea>
             </td>
@@ -39,11 +39,11 @@
     <table class="default nohover">
         <tbody>
             <tr>
-                <th><?= _("Schäden") ?></th>
+                <th><?= _("SchÃ¤den") ?></th>
                 <th><?= _("Gefahren") ?></th>
                 <th><?= _("Memo") ?></th>
-                <th><?= _("Maßnahmen") ?></th>
-                <th><?= _("Kräfte") ?></th>
+                <th><?= _("MaÃŸnahmen") ?></th>
+                <th><?= _("KrÃ¤fte") ?></th>
             </tr>
             <tr>
                 <td>
@@ -59,7 +59,7 @@
             </tr>
         </tbody>
     </table>
-    <h3><?= _("Allgemeine Kräfte") ?></h3>
+    <h3><?= _("Allgemeine KrÃ¤fte") ?></h3>
     <ul class="pois">
         <? foreach ($schadenskonto->getPOIs() as $poi) {
             echo $this->render_partial("schadenskonten/_poi_batch.php", compact('poi', 'assets_url'));

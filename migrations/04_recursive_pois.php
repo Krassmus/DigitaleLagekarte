@@ -1,5 +1,5 @@
 <?php
-class RecursivePois extends DBMigration
+class RecursivePois extends Migration
 {
     function up() 
     {

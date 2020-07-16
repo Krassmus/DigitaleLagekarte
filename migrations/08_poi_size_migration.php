@@ -1,5 +1,5 @@
 <?php
-class PoiSizeMigration extends DBMigration
+class PoiSizeMigration extends Migration
 {
     function up()
     {

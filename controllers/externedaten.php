@@ -4,7 +4,8 @@ require_once dirname(__file__)."/application.php";
 
 class ExternedatenController extends ApplicationController {
     
-    public function before_filter($action, $args) {
+    public function before_filter($action, $args)
+    {
         parent::before_filter($action, $args);
         if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
             Navigation::getItem("/course/lagekarte")->setImage($this->plugin->getPluginURL()."/assets/40_black_world.png");
@@ -13,16 +14,18 @@ class ExternedatenController extends ApplicationController {
         }
     }
     
-    public function overview_action() {
+    public function overview_action()
+    {
         $this->urls = ExternalDataURL::findBySeminar($_SESSION['SessionSeminar']);
     }
 
-    public function details_action() {
+    public function details_action()
+    {
         $this->url = new ExternalDataURL(array($_SESSION['SessionSeminar'], Request::get("url")));
         if (Request::isPost()) {
             if (Request::submitted("delete")) {
                 $this->url->delete();
-                PageLayout::postMessage(MessageBox::success(_("URL gelöscht.")));
+                PageLayout::postMessage(MessageBox::success(_("URL gelÃ¶scht.")));
                 $this->redirect(PluginEngine::getURL($this->plugin, array('cid' => $_SESSION['SessionSeminar']), "externedaten/overview"));
             } else {
                 $this->url['name'] = Request::get("name");
@@ -39,7 +42,8 @@ class ExternedatenController extends ApplicationController {
         Navigation::activateItem("/course/lagekarte/externedaten");
     }
     
-    public function create_external_data_url_action() {
+    public function create_external_data_url_action()
+    {
         if (!Request::isPost()) {
             throw new Exception("Nichtakzeptierte HTTP-Methode");
         }
@@ -53,7 +57,8 @@ class ExternedatenController extends ApplicationController {
         ));
     }
     
-    public function toggle_external_data_url_activation_action() {
+    public function toggle_external_data_url_activation_action()
+    {
         if (!Request::isPost()) {
             throw new Exception("Nichtakzeptierte HTTP-Methode");
         }
@@ -64,7 +69,8 @@ class ExternedatenController extends ApplicationController {
         $this->render_json($output);
     }
     
-    public function mapping_window_action() {
+    public function mapping_window_action()
+    {
         $output = array();
         $template = $this->get_template_factory()->open("externedaten/mapping_window.php");
         $url = new ExternalDataURL(array($_SESSION['SessionSeminar'], Request::get('url')));
@@ -79,9 +85,10 @@ class ExternedatenController extends ApplicationController {
         $this->render_json($output);
     }
     
-    public function edit_mapping_action() {
+    public function edit_mapping_action()
+    {
         $output = array();
-        $url = new ExternalDataURL(array($_SESSION['SessionSeminar'], Request::get('url')));
+        $url = new ExternalDataURL(array(Context::get()->id, Request::get('url')));
         $mapping = $url['mapping'];
         if (Request::get('poi_id')) {
             $mapping[Request::get("path")] = array(

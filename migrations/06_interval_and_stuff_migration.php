@@ -1,5 +1,5 @@
 <?php
-class IntervalAndStuffMigration extends DBMigration
+class IntervalAndStuffMigration extends Migration
 {
     function up()
     {

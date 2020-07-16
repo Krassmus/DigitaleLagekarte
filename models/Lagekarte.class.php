@@ -9,7 +9,12 @@
  */
 
 class Lagekarte extends SimpleORMap {
-    protected $db_table = "katip_lagekarte";
+
+    protected static function configure($config = array())
+    {
+        $config['db_table'] = 'katip_lagekarte';
+        parent::configure($config);
+    }
     
     static public function getCurrent($seminar_id) {
         $db = DBManager::get();
@@ -21,7 +26,7 @@ class Lagekarte extends SimpleORMap {
         "")->fetch(PDO::FETCH_COLUMN, 0);
         $map = new Lagekarte($map_id ? $map_id : null);
         if ($map->isNew()) {
-            $map['seminar_id'] = $_SESSION['SessionSeminar'];
+            $map['seminar_id'] = $seminar_id;
             $map['latitude'] = 53.152692;
             $map['longitude'] = 8.187937;
             $map['zoom'] = 17;

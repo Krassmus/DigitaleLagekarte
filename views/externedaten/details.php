@@ -26,7 +26,7 @@ function display_json_representation($arr, $url, $index) {
             } else {
                 $output .= '<td class="value">'.htmlReady($value).'</td>';
                 $output .= '<td class="match '.(isset($url['mapping'][trim($index." ".$key)]) ? " matched" : "").'">';
-                $output .= '<a title="'._("Verknüpfung verwalten").'">';
+                $output .= '<a title="'._("VerknÃ¼pfung verwalten").'">';
                 $output .= Assets::img("icons/20/red/staple", array('class' => "text-bottom active"));
                 $output .= Assets::img("icons/20/grey/staple", array('class' => "text-bottom inactive"));
                 $output .= '</a>';
@@ -114,11 +114,11 @@ function display_json_representation($arr, $url, $index) {
     <div class="json_object_list">
         <?= display_json_representation($url['last_object'], $url, "") ?>
     </div>
-    <h2 style="width: calc(100% - 30px);"><?= _("Löschen") ?></h2>
+    <h2 style="width: calc(100% - 30px);"><?= _("LÃ¶schen") ?></h2>
     <div>
         <form action="<?= URLHelper::getLink("?", array('url' => $url['url'])) ?>" method="post">
             <div style="text-align: center;">
-                <?= \Studip\Button::create(_("Wirklich löschen?"), "delete")?>
+                <?= \Studip\Button::create(_("Wirklich lÃ¶schen?"), "delete")?>
             </div>
         </form>
     </div>
@@ -131,7 +131,7 @@ function display_json_representation($arr, $url, $index) {
     }); });
 </script>
 
-<div style="display: none" id="mapping_window_title"><?= _("Verknüpfung zu Zeichen") ?></div>
+<div style="display: none" id="mapping_window_title"><?= _("VerknÃ¼pfung zu Zeichen") ?></div>
 
 <?
 $sidebar = Sidebar::get();

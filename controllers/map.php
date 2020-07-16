@@ -5,12 +5,7 @@ require_once dirname(__file__)."/application.php";
 class MapController extends ApplicationController {
     
     public function current_action() {
-        if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
-            Navigation::getItem("/course/lagekarte")->setImage($this->plugin->getPluginURL()."/assets/40_black_world.png");
-        } else {
-            Navigation::getItem("/course/lagekarte")->setImage($this->plugin->getPluginURL()."/assets/20_black_world.png");
-        }
-        $this->map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        $this->map = Lagekarte::getCurrent(Context::get()->id);
         if (Request::isPost()) {
             if (Request::submitted("alert_window_text")) {
                 $this->map['alert_window_text'] = trim(Request::get("alert_window_text"));
@@ -23,15 +18,15 @@ class MapController extends ApplicationController {
         } else {
             $this->schadenskonten =  $this->map->getSchadenskonten();
         }
-        $this->images = PointOfInterest::getImages($_SESSION['SessionSeminar']);
+        $this->images = PointOfInterest::getImages(Context::get()->id);
     }
     
     public function save_viewport_action() {
-        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)) {
             throw new AccessDeniedException("Kein Zugriff");
         }
-        $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
-        $map['seminar_id'] = $_SESSION['SessionSeminar'];
+        $map = Lagekarte::getCurrent(Context::get()->id);
+        $map['seminar_id'] = Context::get()->id;
         $map['longitude'] = Request::float("longitude");
         $map['latitude'] = Request::float("latitude");
         $map['zoom'] = Request::int("zoom");
@@ -42,19 +37,20 @@ class MapController extends ApplicationController {
     }
     
     public function create_snapshot_action() {
-        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)) {
             throw new AccessDeniedException("Kein Zugriff");
         }
-        $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        $map = Lagekarte::getCurrent(Context::get()->id);
         $new_map = $map->createCopy();
         $this->render_nothing();
     }
     
     public function save_new_layer_action() {
-        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)) {
             throw new AccessDeniedException("Kein Zugriff");
         }
-        $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+
+        $map = Lagekarte::getCurrent(Context::get()->id);
         if ($map->isNew()) {
             $map['user_id'] = $GLOBALS['user']->id;
             $map->store();
@@ -65,7 +61,7 @@ class MapController extends ApplicationController {
             $schadenskonto = Schadenskonto::find(Request::get("schadenskonto_id"));
         } elseif(Request::get("schadenskonto_title")) {
             $schadenskonto = new Schadenskonto();
-            $schadenskonto['title'] = studip_utf8decode(Request::get("schadenskonto_title"));
+            $schadenskonto['title'] = Request::get("schadenskonto_title");
             $schadenskonto['map_id'] = $map->getId();
             $success = $schadenskonto->store();
             if ($success) {
@@ -79,7 +75,7 @@ class MapController extends ApplicationController {
         $object['shape'] = Request::get("shape");
         $object['image'] = Request::get("image");
         $object['visible'] = 1;
-        $object['title'] = studip_utf8decode(Request::get("title"));
+        $object['title'] = Request::get("title");
         $success = $object->store();
         if ($success) {
             $popup_template = $this->get_template_factory()->open("map/_poi_popup.php");
@@ -94,10 +90,10 @@ class MapController extends ApplicationController {
     }
     
     public function delete_poi_action() {
-        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)) {
             throw new AccessDeniedException("Kein Zugriff");
         }
-        $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        $map = Lagekarte::getCurrent(Context::get()->id);
         foreach (Request::optionArray("poi_ids") as $poi_id) {
             $poi = new PointOfInterest($poi_id);
             if (Schadenskonto::find($poi['schadenskonto_id'])->map_id === $map->getId()) {
@@ -108,10 +104,10 @@ class MapController extends ApplicationController {
     }
     
     public function edit_poi_action() {
-        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar']) || !Request::isPost()) {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id) || !Request::isPost()) {
             throw new AccessDeniedException("Kein Zugriff");
         }
-        $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        $map = Lagekarte::getCurrent(Context::get()->id);
         foreach (Request::optionArray("poi") as $poi_id => $attributes) {
             $poi = new PointOfInterest($poi_id);
             if (Schadenskonto::find($poi['schadenskonto_id'])->map_id === $map->getId()) {
@@ -124,10 +120,10 @@ class MapController extends ApplicationController {
     }
     
     public function edit_poi_color_action() {
-        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar']) || !Request::isPost()) {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id) || !Request::isPost()) {
             throw new AccessDeniedException("Kein Zugriff");
         }
-        $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        $map = Lagekarte::getCurrent(Context::get()->id);
         $poi = new PointOfInterest(Request::option("poi_id"));
         if (Schadenskonto::find($poi['schadenskonto_id'])->map_id === $map->getId()) {
             $poi['color'] = Request::get("color");
@@ -137,10 +133,10 @@ class MapController extends ApplicationController {
     }
     
     public function edit_poi_attribute_action() {
-        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar']) || !Request::isPost()) {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id) || !Request::isPost()) {
             throw new AccessDeniedException("Kein Zugriff");
         }
-        $map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        $map = Lagekarte::getCurrent(Context::get()->id);
         $poi = new PointOfInterest(Request::option("poi_id"));
         if (Schadenskonto::find($poi['schadenskonto_id'])->map_id === $map->getId()) {
             if (Request::submitted("color")) {
@@ -158,7 +154,7 @@ class MapController extends ApplicationController {
     }
 
     public function save_poi_datafield_action() {
-        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar']) || !Request::isPost()) {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id) || !Request::isPost()) {
             throw new AccessDeniedException("Kein Zugriff");
         }
         if (Request::get("name") && Request::option("poi_id")) {
@@ -182,14 +178,13 @@ class MapController extends ApplicationController {
 
     public function edit_alert_window_action()
     {
-        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) {
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)) {
             throw new AccessDeniedException("Kein Zugriff");
         }
-        $this->map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        $this->map = Lagekarte::getCurrent(Context::get()->id);
 
         if (Request::isXhr()) {
             $this->set_layout(null);
-            $this->set_content_type('text/html;Charset=windows-1252');
             $this->response->add_header('X-Title', _("Meldung bearbeiten"));
         }
     }

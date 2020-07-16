@@ -17,7 +17,7 @@
             <th><?= _("Name") ?></th>
             <th><?= _("Letztes Update") ?></th>
             <th><?= _("Aktiv") ?></th>
-            <th><?= _("Verknüpft") ?></th>
+            <th><?= _("VerknÃ¼pft") ?></th>
             <th></th>
         </tr>
     </thead>

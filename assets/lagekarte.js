@@ -40,7 +40,7 @@ STUDIP.Lagekarte = {
                 existing_ids.push(poi.poi_id);
             });
         }
-        //noch die gelöschten POIs löschen:
+        //noch die gelÃ¶schten POIs lÃ¶schen:
         jQuery.each(STUDIP.Lagekarte.pois, function (poi_id, layer) {
             if (_.indexOf(mapdata.poi_ids, poi_id) === -1) {
                 STUDIP.Lagekarte.fadeOutLayer(layer);
@@ -218,7 +218,7 @@ STUDIP.Lagekarte = {
                 }
             });
             jQuery.ajax({
-                'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/edit_poi",
+                'url': STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/edit_poi"),
                 'type': "post",
                 'data': {
                     'poi': geometries,
@@ -241,7 +241,7 @@ STUDIP.Lagekarte = {
     },
     delete_poi: function (poi_ids) {
         jQuery.ajax({
-            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/delete_poi",
+            'url': STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/delete_poi"),
             'type': "post",
             'data': {
                 'poi_ids': poi_ids,
@@ -254,7 +254,7 @@ STUDIP.Lagekarte = {
     },
     save_new_layer: function () {
         jQuery.ajax({
-            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/save_new_layer",
+            'url': STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/save_new_layer"),
             'data': {
                 'shape': jQuery("#create_poi_window input[name=type]").val(),
                 'coordinates': JSON.parse(jQuery("#create_poi_window input[name=coordinates]").val()),
@@ -291,7 +291,7 @@ STUDIP.Lagekarte = {
         var latitude = center.lat;
         jQuery("#save_map_viewport_spinner").show('swing');
         jQuery.ajax({
-            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/save_viewport",
+            'url': STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/save_viewport"),
             'data': {
                 'zoom': zoom,
                 'longitude': longitude,
@@ -307,7 +307,7 @@ STUDIP.Lagekarte = {
     create_snapshot: function () {
         jQuery("#create_snapshot_spinner").show('swing');
         jQuery.ajax({
-            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/create_snapshot",
+            'url': STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/create_snapshot"),
             'data': {
                 'cid': $("#seminar_id").val()
             },
@@ -323,7 +323,7 @@ STUDIP.Lagekarte = {
         STUDIP.Lagekarte.pois[poi_id].setIcon(STUDIP.Lagekarte.get_icon(value));
         
         jQuery.ajax({
-            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/edit_poi_attribute",
+            'url': STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/edit_poi_attribute"),
             'type': "POST",
             'data': {
                 'cid': jQuery("#Seminar_id").val(),
@@ -354,7 +354,7 @@ STUDIP.Lagekarte = {
                     var value = Math.floor(ui.value);
                     console.log(value);
                     jQuery.ajax({
-                        'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/edit_poi_attribute",
+                        'url': STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/edit_poi_attribute"),
                         'type': "POST",
                         'data': {
                             'cid': jQuery("#Seminar_id").val(),
@@ -489,7 +489,7 @@ STUDIP.Lagekarte = {
     },
     create_external_data_url: function () {
         jQuery.ajax({
-            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/externedaten/create_external_data_url",
+            'url': STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/externedaten/create_external_data_url"),
             'data': {
                 'cid': jQuery("#Seminar_id").val(),
                 'name': jQuery("#new_external_data_url_window input[name=name]").val(),
@@ -512,7 +512,7 @@ STUDIP.Lagekarte = {
             icon.attr('src', icon.attr('src').replace("checkbox-checked", "checkbox-unchecked"));
         }
         jQuery.ajax({
-            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/externedaten/toggle_external_data_url_activation",
+            'url': STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/externedaten/toggle_external_data_url_activation"),
             'data': {
                 'url': url,
                 'active': activated ? 0 : 1,
@@ -540,7 +540,7 @@ STUDIP.Lagekarte = {
             i++;
         }
         jQuery.ajax({
-            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/externedaten/mapping_window",
+            'url': STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/externedaten/mapping_window"),
             'data': {
                 'url': jQuery("#url").val(),
                 'path': index.reverse(),
@@ -564,7 +564,7 @@ STUDIP.Lagekarte = {
     },
     map_external_data: function () {
         jQuery.ajax({
-            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/externedaten/edit_mapping",
+            'url': STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/externedaten/edit_mapping"),
             'data': {
                 'url': jQuery("#url").val(),
                 'path': jQuery("#mapping_path").val(),
@@ -611,7 +611,7 @@ STUDIP.Lagekarte = {
         var poi_id = datafield_row.closest("form").find("input[name=poi_id]").val();
         if ((name && poi_id) || datafield_id) {
             jQuery.ajax({
-                "url": STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/save_poi_datafield",
+                "url": STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/save_poi_datafield"),
                 "data": {
                     "datafield_id": datafield_id,
                     "name": name,
@@ -634,7 +634,7 @@ STUDIP.Lagekarte = {
         var datafield_row = jQuery(this).closest("tr");
         var datafield_id = datafield_row.data("datafield_id");
         jQuery.ajax({
-            "url": STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/save_poi_datafield",
+            "url": STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/save_poi_datafield"),
             "data": {
                 "datafield_id": datafield_id,
                 "name": ""
@@ -683,7 +683,7 @@ jQuery(function () {
         var color = this.value;
         STUDIP.Lagekarte.pois[poi_id].setStyle({'color': color, 'fillColor': color});
         jQuery.ajax({
-            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/edit_poi_color",
+            'url': STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/map/edit_poi_color"),
             'type': "post",
             'data': {
                 'poi_id': poi_id,
@@ -699,7 +699,7 @@ jQuery(function () {
     jQuery(document).on("blur", ".editable .input", function () {
         var that = this;
         jQuery.ajax({
-            'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/schadenskonten/edit",
+            'url': STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/schadenskonten/edit"),
             'data': {
                 'cid': jQuery("#seminar_id").val(),
                 'schadenskonto_id': jQuery("#schadenskonto_id").val(),
@@ -733,7 +733,7 @@ jQuery(function () {
             var poi_id = ui.draggable.attr('id').substr(ui.draggable.attr('id').lastIndexOf("_") + 1);
             var schadenskonto_id = this.value;
             jQuery.ajax({
-                'url': STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/schadenskonten/move_poi_to_schadenskonto",
+                'url': STUDIP.URLHelper.getURL(STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/digitalelagekarte/schadenskonten/move_poi_to_schadenskonto"),
                 'data': {
                     'poi_id': poi_id,
                     'schadenskonto_id': schadenskonto_id,

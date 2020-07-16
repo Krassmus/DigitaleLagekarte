@@ -1,5 +1,5 @@
 <?php
-class AddAlertWindowMigration extends DBMigration
+class AddAlertWindowMigration extends Migration
 {
     function up()
     {

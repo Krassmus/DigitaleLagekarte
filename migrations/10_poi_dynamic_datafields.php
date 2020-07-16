@@ -1,5 +1,5 @@
 <?php
-class PoiDynamicDatafields extends DBMigration
+class PoiDynamicDatafields extends Migration
 {
     function up()
     {

@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td><?= \Studip\Button::create(_("verknüpfen")) ?></td>
+                <td><?= \Studip\Button::create(_("verknÃ¼pfen")) ?></td>
             </tr>
         </tbody>
     </table>

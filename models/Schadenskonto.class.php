@@ -8,10 +8,16 @@
  *  the License, or (at your option) any later version.
  */
 
-class Schadenskonto extends SimpleORMap {
-    protected $db_table = "katip_schadenskonten";
+class Schadenskonto extends SimpleORMap
+{
+    protected static function configure($config = array())
+    {
+        $config['db_table'] = 'katip_schadenskonten';
+        parent::configure($config);
+    }
     
-    public function setId($id) {
+    public function setId($id)
+    {
         $old_id = $this->getId();
         $success = parent::setId($id);
         if ($success && (($this['first_predecessor'] === $old_id) || !$this['first_predecessor'])) {
@@ -20,7 +26,8 @@ class Schadenskonto extends SimpleORMap {
         return $success;
     }
     
-    public function getPOIs() {
+    public function getPOIs()
+    {
         return PointOfInterest::findBySQL("schadenskonto_id = ? ORDER BY title ASC", array($this->getId()));
     }
 }

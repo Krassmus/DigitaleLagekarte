@@ -8,11 +8,11 @@
  *  the License, or (at your option) any later version.
  */
 
-require_once(dirname(__file__)."/models/Lagekarte.class.php");
-require_once(dirname(__file__)."/models/Schadenskonto.class.php");
-require_once(dirname(__file__)."/models/PointOfInterest.class.php");
-require_once(dirname(__file__)."/models/PoiDatafield.class.php");
-require_once(dirname(__file__)."/models/ExternalDataURL.class.php");
+require_once(__DIR__."/models/Lagekarte.class.php");
+require_once(__DIR__."/models/Schadenskonto.class.php");
+require_once(__DIR__."/models/PointOfInterest.class.php");
+require_once(__DIR__."/models/PoiDatafield.class.php");
+require_once(__DIR__."/models/ExternalDataURL.class.php");
 
 class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
     
@@ -87,12 +87,8 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
             $nav->addSubNavigation('externedaten', $schadenskonten);
         }
         
-        if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
-            $nav->setImage($this->getPluginURL()."/assets/40_white_world.png");
-        } else {
-            $nav->setImage($this->getPluginURL()."/assets/20_white_world.png");
-        }
-        
+        $nav->setImage(Icon::create("globe", "info"));
+
         return array('lagekarte' => $nav);
     }
     
@@ -103,9 +99,9 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
     public function getIconNavigation($course_id, $last_visit, $user_id) {
         $nav = new AutoNavigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "map/current"));
         if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
-            $nav->setImage($this->getPluginURL()."/assets/40_grey_world.png", array('title' => _("Lagekarte"), 'width' => "20px"));
+            $nav->setImage(Icon::create($this->getPluginURL()."/assets/40_grey_world.png"));
         } else {
-            $nav->setImage($this->getPluginURL()."/assets/20_grey_world.png", array('title' => _("Lagekarte")));
+            $nav->setImage(Icon::create($this->getPluginURL()."/assets/20_grey_world.png"));
         }
         return $nav;
     }

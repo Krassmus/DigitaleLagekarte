@@ -11,30 +11,24 @@
 
 require_once dirname(__file__)."/PointOfInterest.class.php";
 
-class ExternalDataURL extends SimpleORMap {
+class ExternalDataURL extends SimpleORMap
+{
 
-    static public function findBySeminar($course_id) {
+    static public function findBySeminar($course_id)
+    {
         return self::findBySQL("Seminar_id = ? ORDER BY name ASC", array($course_id));
     }
     
-    public function __construct($id = null) {
-        $this->registerCallback('before_store', 'serializeDataAndMapping');
-        $this->registerCallback('after_store after_initialize', 'unserializeDataAndMapping');
-        $this->db_table = "katip_external_data_urls";
-        parent::__construct($id);
+    protected static function configure($config = array())
+    {
+        $config['db_table'] = 'katip_external_data_urls';
+        $config['serialized_fields']['mapping'] = "JSONArrayObject";
+        $config['serialized_fields']['last_object'] = "JSONArrayObject";
+        parent::configure($config);
     }
 
-    protected function serializeDataAndMapping() {
-        $this->last_object = json_encode(studip_utf8encode($this->last_object));
-        $this->mapping = json_encode(studip_utf8encode($this->mapping));
-    }
-
-    protected function unserializeDataAndMapping() {
-        $this->last_object = (array) studip_utf8decode(json_decode($this->last_object, true));
-        $this->mapping = (array) studip_utf8decode(json_decode($this->mapping, true));
-    }
-
-    public function fetch() {
+    public function fetch()
+    {
         if ($this['last_update'] + ($this['interval'] * 60) > time()) {
             return;
         }
@@ -71,7 +65,8 @@ class ExternalDataURL extends SimpleORMap {
         }
     }
     
-    public function apply_mapping() {
+    public function apply_mapping()
+    {
         if (!$this['active']) {
             return;
         }

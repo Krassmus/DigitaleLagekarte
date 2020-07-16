@@ -2,9 +2,11 @@
 
 require_once dirname(__file__)."/application.php";
 
-class SchadenskontenController extends ApplicationController {
+class SchadenskontenController extends ApplicationController
+{
     
-    public function before_filter($action, $args) {
+    public function before_filter($action, $args)
+    {
         parent::before_filter($action, $args);
         if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
             Navigation::getItem("/course/lagekarte")->setImage($this->plugin->getPluginURL()."/assets/40_black_world.png");
@@ -14,11 +16,12 @@ class SchadenskontenController extends ApplicationController {
     }
     
     public function overview_action() {
-        $this->map = Lagekarte::getCurrent($_SESSION['SessionSeminar']);
+        $this->map = Lagekarte::getCurrent(Context::get()->id);
         $this->schadenskonten = $this->map->getSchadenskonten();
     }
     
-    public function konto_action($id) {
+    public function konto_action($id)
+    {
         $this->schadenskonto = new Schadenskonto($id);
         $this->map = new Lagekarte($this->schadenskonto['map_id']);
         $this->schadenskonten = $this->map->getSchadenskonten();
@@ -30,16 +33,17 @@ class SchadenskontenController extends ApplicationController {
         Navigation::activateItem("/course/lagekarte/schadenskonten");
     }
     
-    public function move_poi_to_schadenskonto_action() {
+    public function move_poi_to_schadenskonto_action()
+    {
         $schadenskonto = new Schadenskonto(Request::option("schadenskonto_id"));
         $poi = new PointOfInterest(Request::option("poi_id"));
         $old_schadenskonto = new Schadenskonto($poi['schadenskonto_id']);
         $new_map = new Lagekarte($schadenskonto['map_id']);
         $old_map = new Lagekarte($old_schadenskonto['map_id']);
-        if (!$GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar']) 
+        if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)
                 || !Request::isPost()
-                || $new_map['Seminar_id'] !== $_SESSION['SessionSeminar']
-                || $old_map['Seminar_id'] !== $_SESSION['SessionSeminar']) {
+                || $new_map['Seminar_id'] !== Context::get()->id
+                || $old_map['Seminar_id'] !== Context::get()->id) {
             throw new AccessDeniedException("kein Zugriff");
         }
         $poi['schadenskonto_id'] = $schadenskonto->getId();
@@ -47,7 +51,8 @@ class SchadenskontenController extends ApplicationController {
         $this->render_nothing();
     }
     
-    public function edit_action() {
+    public function edit_action()
+    {
         $schadenskonto = new Schadenskonto(Request::option("schadenskonto_id"));
         $schadenskonto[Request::get("attribute")] = Request::get("value");
         $schadenskonto->store();

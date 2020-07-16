@@ -1,6 +1,6 @@
 <?
 /*
- *  Copyright (c) 2010 AndrÈ Noack <noack@data-quest.de>
+ *  Copyright (c) 2010 Andr√© Noack <noack@data-quest.de>
  *  Copyright (c) 2012 Rasmus Fuhse <fuhse@data-quest.de>
  *
  *  This program is free software; you can redistribute it and/or

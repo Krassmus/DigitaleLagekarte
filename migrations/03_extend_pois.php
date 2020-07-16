@@ -1,5 +1,5 @@
 <?php
-class ExtendPois extends DBMigration
+class ExtendPois extends Migration
 {
     function up() 
     {

@@ -1,5 +1,5 @@
 <?php
-class CreateSchadenskonten extends DBMigration
+class CreateSchadenskonten extends Migration
 {
     function up() 
     {

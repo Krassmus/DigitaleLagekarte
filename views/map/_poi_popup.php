@@ -14,7 +14,7 @@
         </tr>
         <? if ($poi['shape'] === "polyline") : ?>
         <tr>
-            <td><strong><?= _("Länge") ?></strong></td>
+            <td><strong><?= _("LÃ¤nge") ?></strong></td>
             <td><?= $poi->getLength() ?> km</td>
         </tr>
         <? endif ?>
@@ -30,38 +30,15 @@
             <td>
                 <select name="poi_color" id="poi_<?= $poi->getId() ?>_color">
                     <option value="blue"<?= $poi['color'] === "blue" ? " selected" : "" ?>><?= _("blau") ?></option>
-                    <option value="darkgreen"<?= $poi['color'] === "darkgreen" ? " selected" : "" ?>><?= _("grün") ?></option>
+                    <option value="darkgreen"<?= $poi['color'] === "darkgreen" ? " selected" : "" ?>><?= _("grÃ¼n") ?></option>
                     <option value="red"<?= $poi['color'] === "red" ? " selected" : "" ?>><?= _("rot") ?></option>
                     <option value="yellow"<?= $poi['color'] === "yellow" ? " selected" : "" ?>><?= _("gelb") ?></option>
                     <option value="black"<?= $poi['color'] === "black" ? " selected" : "" ?>><?= _("schwarz") ?></option>
-                    <option value="white"<?= $poi['color'] === "white" ? " selected" : "" ?>><?= _("weiß") ?></option>
+                    <option value="white"<?= $poi['color'] === "white" ? " selected" : "" ?>><?= _("weiÃŸ") ?></option>
                 </select>
             </td>
         </tr>
         <? endif ?>
-    </tbody>
-    <tbody class="datafields">
-        <? foreach ($poi->datafields as $datafield) : ?>
-        <tr data-datafield_id="<?= $datafield->getId() ?>">
-            <td>
-                <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) : ?>
-                    <input type="text" class="datafield_name" name="datafield[<?= $datafield->getId() ?>][name]" value="<?= htmlReady($datafield['name']) ?>">
-                <? else : ?>
-                    <strong><?= htmlReady($datafield['name']) ?></strong>
-                <? endif ?>
-            </td>
-            <td>
-                <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) : ?>
-                    <input type="text" class="datafield_content" name="datafield[<?= $datafield->getId() ?>][content]" value="<?= htmlReady($datafield['content']) ?>">
-                    <a href="#" class="delete">
-                        <?= Assets::img("icons/20/blue/trash", array('class' => "text-bottom")) ?>
-                    </a>
-                <? else : ?>
-                    <?= htmlReady($datafield['content']) ?>
-                <? endif ?>
-            </td>
-        </tr>
-        <? endforeach ?>
     </tbody>
     <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar']) && $poi['shape'] === "marker") : ?>
     <tbody>
@@ -84,11 +61,38 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong><?= _("Größe") ?></strong>
+                <strong><?= _("GrÃ¶ÃŸe") ?></strong>
                 <div id="poi_<?= $poi->getId() ?>_slider" class="poi_slider"></div>
                 <div></div>
             </td>
         </tr>
+    </tbody>
+    <? endif ?>
+    <tbody class="datafields">
+    <? foreach ($poi->datafields as $datafield) : ?>
+        <tr data-datafield_id="<?= $datafield->getId() ?>">
+            <td>
+                <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) : ?>
+                    <input type="text" class="datafield_name" name="datafield[<?= $datafield->getId() ?>][name]" value="<?= htmlReady($datafield['name']) ?>">
+                <? else : ?>
+                    <strong><?= htmlReady($datafield['name']) ?></strong>
+                <? endif ?>
+            </td>
+            <td>
+                <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar'])) : ?>
+                    <input type="text" class="datafield_content" name="datafield[<?= $datafield->getId() ?>][content]" value="<?= htmlReady($datafield['content']) ?>">
+                    <a href="#" class="delete">
+                        <?= Assets::img("icons/20/blue/trash", array('class' => "text-bottom")) ?>
+                    </a>
+                <? else : ?>
+                    <?= htmlReady($datafield['content']) ?>
+                <? endif ?>
+            </td>
+        </tr>
+    <? endforeach ?>
+    </tbody>
+    <? if ($GLOBALS['perm']->have_studip_perm("tutor", $_SESSION['SessionSeminar']) && $poi['shape'] === "marker") : ?>
+        <tfoot>
         <tr style="display: none" class="poi_datafield_template">
             <td>
                 <input type="text" name="datafield[new][name]" class="datafield_name" value="" placeholder="<?= _("Attribut") ?>">
@@ -102,12 +106,12 @@
         </tr>
         <tr>
             <td colspan="2">
-                <a href="#" onClick="STUDIP.Lagekarte.add_poi_datafield.call(this); return false;">
+                <a href="#" onClick="STUDIP.Lagekarte.add_poi_datafield.call(this); return false;" title="<?= _("Weiteres Attribut hinzufÃ¼gen") ?>">
                     <?= Assets::img("icons/16/blue/add") ?>
                 </a>
             </td>
         </tr>
-    </tbody>
+        </tfoot>
     <? endif ?>
 </table>
 </form>

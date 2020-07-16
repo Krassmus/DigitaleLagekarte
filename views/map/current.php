@@ -5,11 +5,11 @@
     }
 </style>
 
-<div id="map_container" style="width: 100%; min-height: 500px; margin-left: 5px; margin-right: 5px;">
+<div id="map_container">
     <div style="position:absolute; z-index: 1001; margin-left: 50px; background-color: lightyellow; box-shadow: 0px 0px 15px rgba(0,0,0,0.3); padding: 3px;">
         <?= formatReady($map['alert_window_text']) ?>
     </div>
-    <div id="map" style="width: 100%; min-height: 500px;">
+    <div id="map">
 
     </div>
 </div>
@@ -96,7 +96,7 @@ if ($GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)) {
     );
     $actions->addLink(_("Vollbild aktivieren"),
         '#3',
-        Icon::create("tan3", "clickable"),
+        Icon::create("zoom-in", "clickable"),
         array('onClick' => "STUDIP.Lagekarte.activateFullscreen(); return false;")
     );
     $actions->addLink(_("Meldung bearbeiten"),

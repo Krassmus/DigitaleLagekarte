@@ -6,12 +6,3 @@
         </div>
     </div>
 </form>
-
-
-<script>
-    jQuery(function () {
-        if (jQuery("#alert_window_text").length > 0) {
-            STUDIP.addWysiwyg(jQuery("#alert_window_text"));
-        }
-    });
-</script>

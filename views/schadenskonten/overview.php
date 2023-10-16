@@ -2,7 +2,7 @@
     <caption><?= _("Schadenskonten") ?></caption>
     <thead>
         <tr>
-            <th><?= _("Name des Schadenskontos") ?></th>
+            <th><?= _("Name des Kontos") ?></th>
             <th class="actions"><?= _("Aktion") ?></th>
         </tr>
     </thead>

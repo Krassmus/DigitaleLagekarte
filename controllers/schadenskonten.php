@@ -5,7 +5,9 @@ require_once dirname(__file__)."/application.php";
 class SchadenskontenController extends ApplicationController
 {
 
-    public function overview_action() {
+    public function overview_action()
+    {
+        Navigation::activateItem('/course/lagekarte/konten');
         $this->map = Lagekarte::getCurrent(Context::get()->id);
         $this->schadenskonten = $this->map->getSchadenskonten();
     }

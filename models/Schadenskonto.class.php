@@ -13,19 +13,25 @@ class Schadenskonto extends SimpleORMap
     protected static function configure($config = array())
     {
         $config['db_table'] = 'katip_schadenskonten';
+        $config['registered_callbacks']['before_create'][] = 'cbInitFirstPredecessor';
         parent::configure($config);
     }
-    
-    public function setId($id)
+
+    public function cbInitFirstPredecessor()
     {
-        $old_id = $this->getId();
-        $success = parent::setId($id);
-        if ($success && (($this['first_predecessor'] === $old_id) || !$this['first_predecessor'])) {
-            $this['first_predecessor'] = $id;
+        if (!$this['first_predecessor']) {
+            if ($this['predecessor']) {
+                $predecessor = static::find($this['predecessor']);
+                $this['first_predecessor'] = $predecessor ?? $predecessor['first_predecessor'];
+            } else {
+                if (!$this->getId()) {
+                    $this->setId(md5(uniqid()));
+                }
+                $this['first_predecessor'] = $this->getId();
+            }
         }
-        return $success;
     }
-    
+
     public function getPOIs()
     {
         return PointOfInterest::findBySQL("schadenskonto_id = ? ORDER BY title ASC", array($this->getId()));

@@ -33,7 +33,7 @@ jQuery(function () {
             STUDIP.Lagekarte.draw_poi(
                 '<?= $poi->getId() ?>',
                 '<?= htmlReady($poi['shape']) ?>',
-                <?= json_encode($poi['coordinates']) ?>,
+                <?= json_encode($poi['coordinates']->getArrayCopy()) ?>,
                 <?= (int) $poi['radius'] ?>,
                 '<?= htmlReady($poi['color'] ? $poi['color'] : "blue") ?>',
                 '<?= $poi['size'] ? (int) $poi['size'] : 40 ?>',
@@ -64,9 +64,8 @@ window.setInterval(function () {
             <input type="text" value="" name="title" id="title">
         </label>
         <label>
-            <?= _("Schadenskonto") ?>
+            <?= _("Konto") ?>
             <select name="schadenskonto_id" id="schadenskonto_id" required onChange="this.value==='neu' ? jQuery('#schadenskonto_title').fadeIn() : jQuery('#schadenskonto_title').fadeOut(); ">
-                <option value=""><?= _("---") ?></option>
                 <? foreach ($schadenskonten as $schadenskonto) : ?>
                     <option value="<?= htmlReady($schadenskonto->getId()) ?>"><?= htmlReady($schadenskonto['title']) ?></option>
                 <? endforeach ?>

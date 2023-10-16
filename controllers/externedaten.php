@@ -6,6 +6,7 @@ class ExternedatenController extends ApplicationController {
 
     public function overview_action()
     {
+        Navigation::activateItem('/course/lagekarte/externedaten');
         $this->urls = ExternalDataURL::findBySeminar(Context::get()->id);
     }
 

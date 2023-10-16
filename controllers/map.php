@@ -6,6 +6,7 @@ class MapController extends ApplicationController {
 
     public function current_action() {
         $this->map = Lagekarte::getCurrent(Context::get()->id);
+        Navigation::activateItem('/course/lagekarte');
         if (Request::isPost()) {
             if (Request::submitted("alert_window_text")) {
                 $this->map['alert_window_text'] = trim(Request::get("alert_window_text"));
@@ -21,7 +22,8 @@ class MapController extends ApplicationController {
         $this->images = PointOfInterest::getImages(Context::get()->id);
     }
 
-    public function save_viewport_action() {
+    public function save_viewport_action()
+    {
         if (!$GLOBALS['perm']->have_studip_perm("tutor", Context::get()->id)) {
             throw new AccessDeniedException("Kein Zugriff");
         }

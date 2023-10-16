@@ -4,7 +4,7 @@
     <caption><?= htmlReady($poi['title']) ?></caption>
     <tbody>
         <tr>
-            <td><strong><?= _("Schadenskonto") ?></strong></td>
+            <td><strong><?= _("Konto") ?></strong></td>
             <td>
                 <a href="<?= PluginEngine::getLink($plugin, array(), "schadenskonten/konto/".$poi['schadenskonto_id']) ?>">
                     <?= Icon::create("link-intern", "clickable")->asImg(16, array('class' => "text-bottom")) ?>

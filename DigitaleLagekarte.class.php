@@ -15,15 +15,15 @@ require_once(__DIR__."/models/PoiDatafield.class.php");
 require_once(__DIR__."/models/ExternalDataURL.class.php");
 
 class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
-    
+
     public function __construct() {
         parent::__construct();
         if (UpdateInformation::isCollecting()) {
             $data = Request::getArray("page_info");
-            if ((stripos(Request::get("page"), "plugins.php/digitalelagekarte") !== false) 
+            if ((stripos(Request::get("page"), "plugins.php/digitalelagekarte") !== false)
                     && $data['Lagekarte']['current_map']) {
                 $output = array();
-                
+
                 $old_map = new Lagekarte($data['Lagekarte']['map_id']);
                 $new_map = Lagekarte::getCurrent($old_map['seminar_id']);
                 $output['map_id'] = $new_map->getId();
@@ -58,7 +58,7 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
                 UpdateInformation::setInformation("Lagekarte.updateMap", $output);
             }
         }
-        
+
         /* pseudo-cronjob after 10 minutes */
         /*
         $urls = ExternalDataURL::findBySQL("active = 1 AND last_update <= UNIX_TIMESTAMP() - (60 + 30)");
@@ -67,35 +67,35 @@ class DigitaleLagekarte extends StudIPPlugin implements StandardPlugin {
         }
         */
     }
-    
+
     protected function getDisplayName() {
         return _("Lagekarte");
     }
-    
+
     public function getNotificationObjects($course_id, $since, $user_id) {
         return null;
     }
-    
+
     public function getTabNavigation($course_id) {
         $nav = new Navigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "map/current"));
-        $show = new AutoNavigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "map/current"));
+        $show = new Navigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "map/current"));
         $nav->addSubNavigation('show', $show);
-        $schadenskonten = new AutoNavigation(_("Schadenskonten"), PluginEngine::getURL($this, array(), "schadenskonten/overview"));
-        $nav->addSubNavigation('schadenskonten', $schadenskonten);
+        $schadenskonten = new Navigation(_("Konten"), PluginEngine::getURL($this, array(), "schadenskonten/overview"));
+        $nav->addSubNavigation('konten', $schadenskonten);
         if ($GLOBALS['perm']->have_studip_perm("tutor", $course_id)) {
-            $schadenskonten = new AutoNavigation(_("Externe Daten"), PluginEngine::getURL($this, array(), "externedaten/overview"));
+            $schadenskonten = new Navigation(_("Externe Daten"), PluginEngine::getURL($this, array(), "externedaten/overview"));
             $nav->addSubNavigation('externedaten', $schadenskonten);
         }
-        
+
         $nav->setImage(Icon::create("globe", "info"));
 
         return array('lagekarte' => $nav);
     }
-    
+
     public function getInfoTemplate($course_id) {
         return null;
     }
-    
+
     public function getIconNavigation($course_id, $last_visit, $user_id) {
         $nav = new AutoNavigation(_("Lagekarte"), PluginEngine::getURL($this, array(), "map/current"));
         if ($GLOBALS['auth']->auth['devicePixelRatio'] > 1.2) {
